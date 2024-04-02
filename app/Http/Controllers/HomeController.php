@@ -22,10 +22,7 @@ class HomeController extends Controller
             }
         }
 
-        $whatsNew_tagId = 2;
-        $whatNew_Response = $this->getFeaturedProductsByEachTag($whatsNew_tagId);
-
-        $whatsNew_section = $this->whatsNew_section($whatNew_Response);
+        $whatsNew_section = $this->whatsNew_section();
 
         return view('index', compact('categoryTreeView'));
     }
@@ -535,10 +532,15 @@ class HomeController extends Controller
         die();
     }
 
-    public function whatsNew_section($whatsNewProducts)
+    public function whatsNew_section()
     {
-        if($whatsNewProducts['status'] == 200){
+        $whatsNew_tagId = 2;
+        $whatNew_Response = $this->getFeaturedProductsByEachTag($whatsNew_tagId);
 
+        if($whatNew_Response['status'] == 200){
+            foreach ($whatNew_Response['result']['content'] as $newProduct) {
+
+            }
         }
     }
 
