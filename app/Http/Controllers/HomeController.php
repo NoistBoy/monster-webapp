@@ -23,8 +23,8 @@ class HomeController extends Controller
         }
 
         $whatsNew_section = $this->whatsNew_section();
-
-        return view('index', compact('categoryTreeView'));
+        // var_dump($whatsNew_section);die;
+        return view('index', compact('categoryTreeView', 'whatsNew_section'));
     }
 
     public function getCategoryTreeView($categories)
@@ -495,15 +495,7 @@ class HomeController extends Controller
 
         $response = curl_exec($ch);
 
-        if($response === false) {
-            echo 'cURL Error: ' . curl_error($ch);
-        } else {
-            echo $response;
-        }
-
         curl_close($ch);
-
-
 
         $response = curl_exec($ch);
 
@@ -536,12 +528,34 @@ class HomeController extends Controller
     {
         $whatsNew_tagId = 2;
         $whatNew_Response = $this->getFeaturedProductsByEachTag($whatsNew_tagId);
-
+        $NewProducts = "";
         if($whatNew_Response['status'] == 200){
             foreach ($whatNew_Response['result']['content'] as $newProduct) {
 
+                $productPrice = Session::has('user.accessToken') ? "$ " . $newProduct['standardPrice'] : "Login to view price";
+                $href = Session::has('user.accessToken') ? '' : url('/sing-in');
+                $NewProducts .= '<div class="item">
+                                    <div class="product-card">
+                                    <div class="d-flex justify-content-center align-items-center mb-3">
+                                        <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
+                                    </div>
+                                    <div class="d-flex justify-content-center same-height-images ">
+                                        <img src="' . $newProduct['imageUrl'] . '" alt="image" srcset="" class="img-fluid w-100">
+                                    </div>
+                                    <div>
+                                        <span class="d-block fw-bold product-card-stock-detail monster-primary ">In Stock: '.$newProduct['availableQuantity'].'</span>
+                                        <p class="fs-6  text product-card-title fw-bold">'.$newProduct['productName'].'</p>
+                                        <a class="btn product-card-btn fw-bold" href="'.$href.'">
+                                            '.$productPrice.'
+                                        </a>
+                                    </div>
+                                    </div>
+                                </div>';
+
             }
         }
+
+        return $NewProducts;
     }
 
 }

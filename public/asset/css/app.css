@@ -837,8 +837,34 @@ ul,
     width: 100% !important;
     background: var(--monster-primary) !important;
 }
+
 .custom-sweetAlert-btn-confirm:hover {
     background: var(--monster-primary-hover-2) !important;
+}
+
+/* CSS for responsive size images with same height */
+.same-height-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* Optional: Center the images horizontally */
+}
+
+.same-height-images img {
+    height: 200px;
+    /* Set a fixed height for all images */
+    width: auto;
+    /* Let the width adjust to maintain aspect ratio */
+    margin: 5px;
+    /* Add margin between images */
+}
+
+/* set limit 25 character for product title  */
+.product-card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(24ch + 2em);
 }
 
 @media screen and (max-width: 425px) {
