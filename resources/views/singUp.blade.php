@@ -132,7 +132,7 @@
                     </div>
 
                     <button class="btn mb-2 auth-form-btn" id="apply-for-account">Apply for account</button>
-                    <p class="signin">Already have an acount ? <a href="{{ Url('/sing-in') }}">Sign in</a> </p>
+                    <p class="signin">Already have an acount ? <a href="{{ Url('/sign-in') }}">Sign in</a> </p>
 
                 </form>
             </div>

@@ -57,6 +57,11 @@
                         <ul class="dropdown" style="right: 20px;">
                             <li><a href="{{ Url('/log-out') }}" class="d-flex justify-content-center align-items-center" >Log Out &nbsp;&nbsp;<i class="lni lni-exit"></i></a></li>
                         </ul>
+                    @else
+                        <ul class="dropdown" style="right: 20px;">
+                            <li><a href="{{ Url('/sign-in') }}" class="d-flex justify-content-center align-items-center" >Sign In</a></li>
+                            <li><a href="{{ Url('/sign-up') }}" class="d-flex justify-content-center align-items-center" >Create an Account</a></li>
+                        </ul>
                     @endif
                 </li>
             </ul>

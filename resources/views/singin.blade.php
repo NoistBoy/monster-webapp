@@ -7,7 +7,7 @@
             <div class="col-12 d-flex justify-content-center align-items-center">
                 <form class="form d-flex flex-column my-4 py-5 px-3 w-100 singup-form" id="singIn-form">
                     <div class="mb-3">
-                        <h1 class="fw-bold monster-primary" >Sing in to your account</h1>
+                        <h1 class="fw-bold monster-primary" >Sign in to your account</h1>
                         <p class="text-secondary">Enter your credentials below to access your account.</p>
                     </div>
 
@@ -29,7 +29,7 @@
                     </div>
 
                     <button class="btn mb-2 auth-form-btn " id="singin-account">Sing in</button>
-                    <p class="signin">Don't have an account? <a href="{{ Url('/sing-up') }}">Sign up</a> </p>
+                    <p class="signin">Don't have an account? <a href="{{ Url('/sign-up') }}">Sign up</a> </p>
 
                 </form>
             </div>

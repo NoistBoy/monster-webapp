@@ -21,29 +21,52 @@ class HomeController extends Controller
                 $categoryTreeView = $this->getCategoryTreeView($categories);
             }
         }
+        $newProductTag_id = 2;
+        $whatsNew_section = $this->getFeautureProducts_sections($newProductTag_id);
 
-        $whatsNew_section = $this->whatsNew_section();
-        // var_dump($whatsNew_section);die;
-        return view('index', compact('categoryTreeView', 'whatsNew_section'));
+        $ShopNowSection = $this->getShopNow_Section();
+
+        // $FeaturedAndDisposableTagId = 5;
+        // $FeaturedAndDisposable_section = $this->getFeautureProducts_sections($FeaturedAndDisposableTagId);
+
+        // $FeaturedProductsTagId = 3;
+        // $FeaturedProducts_section = $this->getFeautureProducts_sections($FeaturedProductsTagId);
+
+        // $BestSellersTagId = 4;
+        // $BestSellers_section = $this->getFeautureProducts_sections($BestSellersTagId);
+
+        // $TimelimitedTagId = 6;
+        // $Timelimited_section = $this->getFeautureProducts_sections($TimelimitedTagId);
+
+        return view('index', compact(
+            'categoryTreeView',
+            'ShopNowSection',
+            'whatsNew_section',
+            // 'FeaturedAndDisposable_section',
+            // 'FeaturedProducts_section',
+            // 'BestSellers_section',
+            // 'Timelimited_section',
+        ));
     }
 
     public function getCategoryTreeView($categories)
     {
-        $categoryLabels = '<ul id="category-list">';
+        $categoryLabels = '';
         $categorylists = '';
 
         foreach ($categories as $category) {
             $categoryName = str_replace(' ', '', $category['name']);
+            $categoryID =  $category['id'];
 
-            $categoryLabels .= '<li class="mb-2 label d-flex justify-content-between align-items-center" id="'.$categoryName.'">
+            $categoryLabels .= '<li class="mb-2 label d-flex justify-content-between align-items-center" id="'. $categoryID .'">
                                     <span class="">'.$categoryName.'</span><i class="lni lni-chevron-right"></i>
                                 </li>';
-            $categorylists .= '<div class="list-values" id="'.$categoryName.'-list">
+            $categorylists .= '<div class="list-values" id="'. $categoryID .'-list">
                                     <span class="d-flex align-items-center back-to-category"><i class="lni lni-chevron-left"></i>&nbsp;&nbsp;&nbsp;<a href="#"> Back to Home</a></span>';
 
             if(!empty($category['subCategories'])){
                 foreach ($category['subCategories'] as $subCategory) {
-                    $categorylists .= '<span class="d-flex align-items-center"><a href="#">'.$subCategory['name'].'</a></span>';
+                    $categorylists .= '<span class="d-flex align-items-center"><a href="'.url('/each-category-products/'.strtolower(str_replace(' ', '-', $categoryName)).'/'.strtolower(str_replace(' ', '-', str_replace('/', '-', $subCategory['name']))).'/'.$subCategory['id']).'" id="'.$subCategory['id'].'" data-parent_id="'.$categoryID.'"  >'.$subCategory['name'].'</a></span>';
                 }
             }
 
@@ -56,6 +79,28 @@ class HomeController extends Controller
         return $categoryTreeView;
     }
 
+    public function getShopNow_Section()
+    {
+        $productSection = "";
+        if (($response = $this->getFeaturedProductsTags()) && !$response['hasError'] && $response['status'] == 200) {
+            foreach ($response['result'] as $productTag) {
+
+                if(!empty($productTag['id'])){
+                    $products = $this->getFeautureProducts_sections($productTag['id']) ;
+                    if(!empty($products)) {
+                        $productSection .= '<div class="container mb-5">
+                        <h2 class=" fw-bold fs-1 my-4">'.$productTag['name'].'</h2>
+                        <!-- owl-carousel start --><div class="owl-carousel owl-theme ">';
+                        $productSection .= $products;
+                        $productSection .= '</div><!-- owl-carousel END --></div>';
+                    }
+                }
+
+            }
+        }
+
+        return  $productSection;
+    }
     public function getCountries()
     {
         $ch = curl_init();
@@ -471,10 +516,7 @@ class HomeController extends Controller
 
     public function getFeaturedProductsByEachTag($tagId)
     {
-
-
         $url = 'https://erp.monstersmokewholesale.com/api/home/product/tagId/'.$tagId.'?page=0&size=10&businessTypeId=1&storeId=2';
-
         $headers = array(
             'Accept: application/json, text/plain, */*',
             'Accept-Language: en-GB,en;q=0.6',
@@ -524,23 +566,22 @@ class HomeController extends Controller
         die();
     }
 
-    public function whatsNew_section()
+    public function getFeautureProducts_sections($tagId)
     {
-        $whatsNew_tagId = 2;
-        $whatNew_Response = $this->getFeaturedProductsByEachTag($whatsNew_tagId);
+        $Response = $this->getFeaturedProductsByEachTag($tagId);
         $NewProducts = "";
-        if($whatNew_Response['status'] == 200){
-            foreach ($whatNew_Response['result']['content'] as $newProduct) {
-
+        if(!empty($Response) && $Response['status'] == 200){
+            foreach ($Response['result']['content'] as $newProduct) {
+                $productImage = empty($newProduct['imageUrl']) ? asset('asset/img/place-holder.jpeg') : $newProduct['imageUrl'];
                 $productPrice = Session::has('user.accessToken') ? "$ " . $newProduct['standardPrice'] : "Login to view price";
-                $href = Session::has('user.accessToken') ? '' : url('/sing-in');
+                $href = Session::has('user.accessToken') ? '' : url('/sign-in');
                 $NewProducts .= '<div class="item">
                                     <div class="product-card">
                                     <div class="d-flex justify-content-center align-items-center mb-3">
                                         <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
                                     </div>
                                     <div class="d-flex justify-content-center same-height-images ">
-                                        <img src="' . $newProduct['imageUrl'] . '" alt="image" srcset="" class="img-fluid w-100">
+                                        <img src="' . $productImage . '" alt="image" srcset="" class="img-fluid w-100">
                                     </div>
                                     <div>
                                         <span class="d-block fw-bold product-card-stock-detail monster-primary ">In Stock: '.$newProduct['availableQuantity'].'</span>
@@ -556,6 +597,83 @@ class HomeController extends Controller
         }
 
         return $NewProducts;
+    }
+    public function getEachCategoryProducts_sections($Response)
+    {
+        $Products = "";
+        if(!empty($Response) && $Response['status'] == 200){
+            foreach ($Response['result']['content'] as $newProduct) {
+                $productImage = empty($newProduct['imageUrl']) ? asset('asset/img/place-holder.jpeg') : $newProduct['imageUrl'];
+                $productPrice = Session::has('user.accessToken') ? "$ " . $newProduct['standardPrice'] : "Login to view price";
+                $href = Session::has('user.accessToken') ? '' : url('/sign-in');
+                $Products .= '<div class="product-card">
+                                    <div class="d-flex justify-content-center align-items-center mb-3">
+                                        <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
+                                    </div>
+                                    <div class="d-flex justify-content-center same-height-images ">
+                                        <img src="' . $productImage . '" alt="image" srcset="" class="img-fluid w-100">
+                                    </div>
+                                    <div>
+                                        <span class="d-block fw-bold product-card-stock-detail monster-primary ">In Stock: '.$newProduct['availableQuantity'].'</span>
+                                        <p class="fs-6  text product-card-title fw-bold">'.$newProduct['productName'].'</p>
+                                        <a class="btn product-card-btn fw-bold" href="'.$href.'">
+                                            '.$productPrice.'
+                                        </a>
+                                    </div>
+                                </div>';
+            }
+        }
+
+        return $Products;
+    }
+
+    public function getProducts($categoryIdList = 25)
+    {
+        $ch = curl_init();
+        $url = 'https://erp.monstersmokewholesale.com/api/ecommerce/product/category?categoryIdList='.$categoryIdList.'&page=0&size=20&sort=date&sortDirection=DESC&storeIds=2';
+        $headers = [
+            'Accept: application/json, text/plain, */*',
+            'Accept-Language: en-GB,en;q=0.6',
+            'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmouaHVudC4xMkBnbWFpbC5jb20iLCJ0aWVyIjo1LCJ1c2VyVHlwZSI6IkN1c3RvbWVyIiwidG9rZW5UeXBlIjoiYWNjZXNzIiwic3RvcmVJZCI6MiwiZXhwIjoxNzEwMTQ2MzE2LCJ1c2VySWQiOjMyOSwiaWF0IjoxNzEwMDI2MzE2LCJyZXNldFBhc3N3b3JkUmVxdWlyZWQiOmZhbHNlfQ.FgnMJU4JGOquL5vLvPQ_WNEnxw_My2iGq1-sJNhu1lU',
+            'Connection: keep-alive',
+            'Origin: https://www.monstersmokewholesale.com',
+            'Referer: https://www.monstersmokewholesale.com/',
+            'Sec-Fetch-Dest: empty',
+            'Sec-Fetch-Mode: cors',
+            'Sec-Fetch-Site: same-site',
+            'Sec-GPC: 1',
+            'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+            'sec-ch-ua: "Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"',
+            'sec-ch-ua-mobile: ?0',
+            'sec-ch-ua-platform: "macOS"',
+        ];
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($response, true);
+    }
+
+    public function getEachCategoryProducts($category, $subcategory, $categoryId)
+    {
+        $products = $this->getProducts($categoryId);
+        $products = $this->getEachCategoryProducts_sections($products);
+
+        $category_Response = $this->getCategories();
+        $categoryTreeView = null;
+        if($category_Response){
+            if($category_Response['status'] == 200){
+
+                $categories = $category_Response['result'];
+                $categoryTreeView = $this->getCategoryTreeView($categories);
+            }
+        }
+        $subcategory = ucwords(str_replace('-', ' ', $subcategory));
+        return view('each-category-products',compact('categoryTreeView','products','category','subcategory', 'categoryId'));
     }
 
 }

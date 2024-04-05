@@ -6,14 +6,67 @@
     --monster-primary-hover: #D9FFD9;
     --monster-primary-hover-2: #438f11;
     --monster-footer-bg: #17230e;
+    --bread-crum-color: #babdbb;
 }
 
+::selection {
+    background-color: var(--monster-primary);
+    color: #ffffff;
+}
+
+/* =========================================
+                Owl Carousel Styles
+   ========================================= */
+.owl-prev,
+.owl-next {
+    position: absolute;
+    top: 44%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: var(--tag-btn) !important;
+    color: #FFFFFF !important;
+    font-weight: bold !important;
+    font-size: 24px !important;
+    text-align: center !important;
+    line-height: 30px !important;
+    cursor: pointer !important;
+    border-radius: 20px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.owl-prev:hover,
+.owl-next:hover {
+    background-color: #666 !important;
+}
+.owl-prev {
+    left: -40px !important;
+}
+
+.owl-next {
+    right: -40px !important;
+}
+
+/* =========================================
+                Owl Carousel Styles END
+   ========================================= */
 html {
     scroll-behavior: smooth;
 }
 
 .monster-primary {
     color: var(--monster-primary);
+}
+
+.bg-monster-primary {
+    background: var(--monster-primary) !important;
+    color: #ffff !important;
+}
+
+.bg-monster-primary:hover {
+    background: var(--monster-primary-hover-2) !important;
+    color: #ffff !important;
 }
 
 /* =======================================================
@@ -189,6 +242,10 @@ html {
 
 .list-values span:hover {
     background: var(--monster-primary-hover);
+}
+
+.active-category {
+    background: var(--monster-primary-hover) !important;
 }
 
 div.content {
@@ -620,6 +677,42 @@ ul,
     color: #76C043;
 }
 
+/* --------------------------------------------------------------
+                    Bread Crums
+-----------------------------------------------------------------*/
+/* Breadcrumbs CSS */
+.breadcrumbs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--bread-crum-color);
+}
+
+.breadcrumbs li {
+    display: inline;
+}
+
+.breadcrumbs li:not(:last-child):after {
+    content: '/';
+    margin: 0 5px;
+    color: var(--bread-crum-color);
+}
+
+.breadcrumbs li a {
+    text-decoration: none;
+    /* color: #000; */
+    color: var(--bread-crum-color);
+}
+
+.breadcrumbs li a:hover {
+    text-decoration: underline;
+}
+
+/* --------------------------------------------------------------
+                    Bread Crums
+-----------------------------------------------------------------*/
 
 @media (max-width: 1260px) {
     .toggle-categories {
@@ -925,11 +1018,25 @@ ul,
         font-size: smaller !important;
     }
 
-    .carousel-main-container {
+    /* .carousel-main-container {
         margin-top: 91px !important;
-    }
+    } */
 
     .nav-sochial-icons {
         padding-left: 1rem !important;
+    }
+
+    .same-height-images img {
+        height: 124px !important;
+    }
+
+    .owl-prev {
+        left: -14px !important;
+    }
+    .top-five-product{
+        margin-top: 1rem !important;
+    }
+    .owl-next {
+        right: -14px !important;
     }
 }

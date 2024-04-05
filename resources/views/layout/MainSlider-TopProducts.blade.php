@@ -28,7 +28,7 @@
         </button>
       </div>
       <div>
-        <h2 class="fw-bold mt-5">Top 5 Products</h2>
+        <h2 class="fw-bold mt-5 top-five-product">Top 5 Products</h2>
       </div>
       <div class="row">
         <div class="col-12 my-3 btn-tag-wrapper">

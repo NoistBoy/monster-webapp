@@ -1,427 +1,61 @@
 <div class="row">
     <div class="col-md-12 col-sm-12 px-0 py-5">
-      <div>
-        <img src="{{ asset('asset/img/Asset 1-8.png') }}" alt="image" srcset="" class="w-100 img-fluid">
-      </div>
-      <div class="container">
-        <h2 class=" fw-bold fs-1 my-4">Limited Time Offer</h2>
+        <div>
+            <img src="{{ asset('asset/img/Asset 1-8.png') }}" alt="image" srcset="" class="w-100 img-fluid">
+        </div>
 
-        <!-- owl-carousel start -->
-        <div class="owl-carousel owl-theme ">
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
+        {!! $ShopNowSection !!}
+        <!-- Featured And Disposable Section -->
+        {{-- @if (!empty($FeaturedAndDisposable_section))
+            <div class="container">
+                <h2 class=" fw-bold fs-1 my-4">Featured And Disposable</h2>
+                <!-- owl-carousel start -->
+                <div class="owl-carousel owl-theme ">
+                    {!! $FeaturedAndDisposable_section !!}
+                </div>
+                <!-- owl-carousel END -->
             </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
+        @endif --}}
+        <!-- Featured And Disposable Section END -->
+
+        <!-- Featured Products Section -->
+        {{-- @if (!empty($FeaturedProducts_section))
+            <div class="container">
+                <h2 class=" fw-bold fs-1 my-4">Featured Products</h2>
+                <!-- owl-carousel start -->
+                <div class="owl-carousel owl-theme ">
+                    {!! $FeaturedProducts_section !!}
+                </div>
+                <!-- owl-carousel END -->
             </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
+        @endif --}}
+        <!-- Featured Products Section END -->
+
+        <!-- Best Sellers Section -->
+        {{-- @if (!empty($BestSellers_section))
+            <div class="container">
+                <h2 class=" fw-bold fs-1 my-4">Best Sellers</h2>
+                <!-- owl-carousel start -->
+                <div class="owl-carousel owl-theme ">
+                    {!! $BestSellers_section !!}
+                </div>
+                <!-- owl-carousel END -->
             </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
+        @endif --}}
+        <!-- Best Sellers Section END -->
+
+        <!-- Limited Time Offer Section -->
+        {{-- @if (!empty($Timelimited_section))
+            <div class="container">
+                <h2 class=" fw-bold fs-1 my-4">Limited Time Offer</h2>
+
+                <!-- owl-carousel start -->
+                <div class="owl-carousel owl-theme ">
+                    {!! $Timelimited_section !!}
+                </div>
+                <!-- owl-carousel END -->
             </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- owl-carousel END -->
-        <!-- owl carousel 2 -->
-        <div class="owl-carousel owl-theme ">
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text fw-bold product-card-title">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="product-card">
-              <div class="d-flex justify-content-center align-items-center mb-3">
-                <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-              </div>
-              <div class="d-flex justify-content-center">
-                <img src="{{ asset('asset/img/P-1.png') }}" alt="" srcset="" class="img-fluid w-75">
-              </div>
-              <div>
-                <span class="d-block fw-bold product-card-stock-detail">In Stock: 324</span>
-                <p class="fs-5 text product-card-title fw-bold">Escobar 6K Box Of 10</p>
-                <button class="btn product-card-btn fw-bold">
-                  Login | Register
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- owl carousel 2 END -->
-      </div>
+        @endif --}}
+        <!-- Limited Time Offer Section END -->
     </div>
-  </div>
+</div>
