@@ -7,6 +7,9 @@
     --monster-primary-hover-2: #438f11;
     --monster-footer-bg: #17230e;
     --bread-crum-color: #babdbb;
+    --tag-btn-text: #a2a9a5;
+    --grey-dark: #9ea2a5;
+    --extra-light-grey: #f1f3f4;
 }
 
 ::selection {
@@ -36,10 +39,12 @@
     justify-content: center;
     align-items: center;
 }
+
 .owl-prev:hover,
 .owl-next:hover {
     background-color: #666 !important;
 }
+
 .owl-prev {
     left: -40px !important;
 }
@@ -70,11 +75,33 @@ html {
 }
 
 /* =======================================================
+              Product Image Zoom Efext STYLING START
+========================================================== */
+.img-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-img {
+    transition: transform 0.3s ease;
+}
+
+.product-img.zoom {
+    transform: scale(1.5); /* Adjust the zoom level as needed */
+}
+
+
+/* =======================================================
+              Product Image Zoom Efext STYLING START
+========================================================== */
+
+
+/* =======================================================
               CUSTOM SCROLLBAR STYLING START
 ========================================================== */
 /* Hide the browser's default scrollbar */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 }
 
 /* Track (background) */
@@ -259,7 +286,12 @@ div.content {
     /* Initially hide the toggle button */
 }
 
-
+.rounded-full {
+    border-radius: 9999px;
+}
+.bg-grey-extralight {
+    background-color: var(--extra-light-grey);
+}
 @media screen and (max-width: 1260px) {
     .sidebar {
         width: 0;
@@ -940,18 +972,46 @@ ul,
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* Optional: Center the images horizontally */
 }
 
 .same-height-images img {
     height: 200px;
-    /* Set a fixed height for all images */
     width: auto;
-    /* Let the width adjust to maintain aspect ratio */
     margin: 5px;
-    /* Add margin between images */
 }
 
+.same-height-images .product-img {
+    height: 560px;
+    width: auto;
+    margin: 5px;
+}
+
+.img-wrapper {
+    border: 2px solid var(--tag-btn);
+    border-radius: 41px;
+    padding: 10px;
+    position: relative;
+}
+
+.product-stock-details {
+    position: absolute;
+    right: 45px;
+    top: 32px;
+    border: 2px solid var(--tag-btn);
+    padding: 9px 23px;
+    border-radius: 14px;
+    color: var(--tag-btn-text);
+    font-weight: bold;
+
+}
+.tag-btn-text{
+    color: var(--tag-btn-text);
+}
+.product-variation-container{
+    height: 36rem;
+    overflow-x: hidden;
+    /* overflow-y: scroll; */
+}
 /* set limit 25 character for product title  */
 .product-card-title {
     white-space: nowrap;
@@ -959,6 +1019,44 @@ ul,
     text-overflow: ellipsis;
     max-width: calc(24ch + 2em);
 }
+
+.product-variations {
+    display: flex;
+    gap: .9375rem;
+    justify-content: space-between;
+}
+
+.var-details {
+    display: flex;
+    gap: .9375rem;
+    flex-direction: row;
+    position: relative;
+}
+
+.var-img {
+    display: flex;
+    align-self: flex-start;
+    position: relative;
+
+}
+
+.custom-object-fit {
+    object-fit: contain;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.protected {
+    background: #ffffff03;
+    filter: blur(3.5px);
+}
+
+.text-grey-dark {
+    color: var(--grey-dark);
+}
+
 
 @media screen and (max-width: 425px) {
     .logo img {
@@ -1033,9 +1131,11 @@ ul,
     .owl-prev {
         left: -14px !important;
     }
-    .top-five-product{
+
+    .top-five-product {
         margin-top: 1rem !important;
     }
+
     .owl-next {
         right: -14px !important;
     }

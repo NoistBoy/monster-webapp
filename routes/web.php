@@ -18,14 +18,19 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/auth-user', [HomeController::class, 'authenticateUser']);
 Route::get('/get-categories', [HomeController::class, 'getCategories']);
-Route::get('/sign-up', [HomeController::class, 'singUp']);
-Route::post('/post-sing-up', [HomeController::class, 'singUpCustomer']);
-Route::get('/sign-in', [HomeController::class, 'singIn']);
-Route::post('/post-sing-in', [HomeController::class, 'singInCustomer']);
 Route::get('/get-states', [HomeController::class, 'getStates']);
 Route::get('/get-all-brands', [HomeController::class, 'getallbrands']);
 Route::get('/get-featured-products-tag', [HomeController::class, 'getFeaturedProductsTags']);
 Route::get('/get-featured-products-by-each-tag', [HomeController::class, 'getFeaturedProductsByEachTag']);
 Route::get('/get-products', [HomeController::class, 'getProducts']);
 Route::get('/each-category-products/{category}/{subcategory}/{categoryid}', [HomeController::class, 'getEachCategoryProducts']);
+Route::get('/get-single-product-details', [HomeController::class, 'getSingleProductDetai']);
+Route::get('/product-details', [HomeController::class, 'SingleProductDetails']);
+
+
+// Auth Routes
+Route::get('/sign-up', [HomeController::class, 'singUp']);
+Route::post('/post-sing-up', [HomeController::class, 'singUpCustomer']);
+Route::get('/sign-in', [HomeController::class, 'singIn']);
+Route::post('/post-sing-in', [HomeController::class, 'singInCustomer']);
 Route::get('/log-out', [HomeController::class, 'LogOut']);

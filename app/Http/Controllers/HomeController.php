@@ -21,6 +21,7 @@ class HomeController extends Controller
                 $categoryTreeView = $this->getCategoryTreeView($categories);
             }
         }
+
         $newProductTag_id = 2;
         $whatsNew_section = $this->getFeautureProducts_sections($newProductTag_id);
 
@@ -48,7 +49,24 @@ class HomeController extends Controller
             // 'Timelimited_section',
         ));
     }
+    public function SingleProductDetails()
+    {
+        $category_Response = $this->getCategories();
+        $categoryTreeView = null;
+        if($category_Response){
+            if($category_Response['status'] == 200){
 
+                $categories = $category_Response['result'];
+
+                $categoryTreeView = $this->getCategoryTreeView($categories);
+            }
+        }
+
+        $newProductTag_id = 2;
+        $whatsNew_section = $this->getFeautureProducts_sections($newProductTag_id);
+
+        return view('product-detail',compact('categoryTreeView', 'whatsNew_section'));
+    }
     public function getCategoryTreeView($categories)
     {
         $categoryLabels = '';
@@ -574,7 +592,7 @@ class HomeController extends Controller
             foreach ($Response['result']['content'] as $newProduct) {
                 $productImage = empty($newProduct['imageUrl']) ? asset('asset/img/place-holder.jpeg') : $newProduct['imageUrl'];
                 $productPrice = Session::has('user.accessToken') ? "$ " . $newProduct['standardPrice'] : "Login to view price";
-                $href = Session::has('user.accessToken') ? '' : url('/sign-in');
+                $href = Session::has('user.accessToken') ? ''.$newProduct['productId'].'' : url('/sign-in');
                 $NewProducts .= '<div class="item">
                                     <div class="product-card">
                                     <div class="d-flex justify-content-center align-items-center mb-3">
@@ -674,6 +692,36 @@ class HomeController extends Controller
         }
         $subcategory = ucwords(str_replace('-', ' ', $subcategory));
         return view('each-category-products',compact('categoryTreeView','products','category','subcategory', 'categoryId'));
+    }
+
+    public function getSingleProductDetai()
+    {
+        $headers = [
+            'Accept: application/json, text/plain, /',
+            'Accept-Language: en-US,en;q=0.9',
+            'Cache-Control: no-cache',
+            'Connection: keep-alive',
+            'Origin: https://www.monstersmokewholesale.com',
+            'Pragma: no-cache',
+            'Referer: https://www.monstersmokewholesale.com/',
+            'Sec-Fetch-Dest: empty',
+            'Sec-Fetch-Mode: cors',
+            'Sec-Fetch-Site: same-site',
+            'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+            'sec-ch-ua: "Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+            'sec-ch-ua-mobile: ?0',
+            'sec-ch-ua-platform: "Windows"',
+        ];
+        $url =  'https://erp.monstersmokewholesale.com/api/ecommerce/product/11051?storeIds=2';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        $response = curl_exec($ch);
+
+        curl_close($ch);
+
+        return json_decode($response, true);
     }
 
 }
