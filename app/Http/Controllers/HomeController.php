@@ -49,7 +49,7 @@ class HomeController extends Controller
             // 'Timelimited_section',
         ));
     }
-    public function SingleProductDetails()
+    public function SingleProductDetails(Request $request)
     {
         $category_Response = $this->getCategories();
         $categoryTreeView = null;
@@ -65,8 +65,192 @@ class HomeController extends Controller
         $newProductTag_id = 2;
         $whatsNew_section = $this->getFeautureProducts_sections($newProductTag_id);
 
-        return view('product-detail',compact('categoryTreeView', 'whatsNew_section'));
+        $SingleProductDetailSection = $this->SingleProductDetailSection($request->query('product_id'));
+
+        return view('product-detail',compact('categoryTreeView', 'whatsNew_section', 'SingleProductDetailSection'));
     }
+
+    public function SingleProductDetailSection($productId)
+    {
+        $productsDetails = $this->getSingleProductDetai($productId);
+
+        $masterProduct = "";
+
+        if($productsDetails['hasError'] == false && $productsDetails['status'] == 200 ){
+
+            $masterProductImage = $productsDetails['result']['productImageList'][0];
+
+            $masterProduct .= '<div class="col-md-5 col-sm-12">
+                                    <div class="same-height-images">
+                                        <div class="img-wrapper">
+                                            <img src="'.$masterProductImage.'" class="product-img" alt="image" srcset="">
+                                            <span class="product-stock-details">In Stock: '.$productsDetails['result']['masterProductDetails']['availableQuantity'].'</span>
+                                        </div>
+                                    </div>
+                                    <input type="hidden"  name="product_id" id="product_id" value="'.$productsDetails['result']['masterProductDetails']['productId'].'" />
+                                </div>';
+
+            $masterProduct .= '<div class="col-md-6 col-sm-12">
+                                    <div class="product-title fw-bold mb-5">
+                                        <h1 id="product-title">'.ucwords(strtolower($productsDetails['result']['masterProductDetails']['productName'])).'</h1>
+                                    </div>';
+            $variationProducts = $productsDetails['result']['body']['content'];
+
+            if(!empty($variationProducts)){
+                $masterProduct .= $this->getProductVariationSection($variationProducts);
+            }else{
+                $masterProduct .= $this->getSameProductVariationSection($productsDetails['result']['masterProductDetails'], $masterProductImage);
+            }
+
+            $masterProduct .= '</div>';
+
+        }
+
+        return $masterProduct;
+    }
+
+    public function getProductVariationSection($variationProducts)
+    {
+        $toreturn = "";
+
+        if(!empty($variationProducts)){
+
+            $toreturn .= '<div class="row " style="border-top: 1px solid #D7DADD; padding: 21px 0; ">
+            <div class="col-12 product-variation-container">';
+
+            foreach($variationProducts as $variationProduct){
+
+                $image =  $this->imgUrl($variationProduct['imageUrl']);
+
+                $toreturn .= '<div class="product-variations mb-3">
+
+                                <div class="var-details">
+
+                                    <div class="var-img">
+                                        <div class="d-flex justify-center align-items-center flex-shrink-0 " style="width: 5.5rem; height: 5.5rem; cursor:pointer; overflow:hidden; background:#FFFFFF;">
+                                            <img class="w-auto h-auto mh-100 custom-object-fit" src="'.$image.'" alt="image">
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-column">
+                                        <div class="" style="cursor: pointer; color:#000; font-weight: 500; font-size: 1rem; line-height: 1.125rem;">
+                                            '. ucwords(strtolower($variationProduct['productName'])) .'
+                                        </div>
+                                        <div class="d-flex gap-2 " style="color: gray; line-height: 1.5rem; font-size: 0.8125rem; ">
+                                            <div class="" style="padding-right: .5rem; border-right-width: 1px; border-color: #d7dadd;">
+                                                <span class="uppercase" >Sku: </span>'.$variationProduct['sku'].'
+                                            </div>
+                                        </div>
+                                        <div class="'.($this->isUserLogin() ? '' : 'protected').'">
+                                            <div class=" d-flex gap-1 align-items-center">
+                                                $'.($this->isUserLogin() ? $variationProduct['standardPrice'] : 'XX.XX').' <span data-stock-of-'.$variationProduct['productId'].'="'.$variationProduct['availableQuantity'].'" class=" d-flex gap-1 align-items-center text-grey-dark " style="margin-left: .5625rem;    font-size: .75rem;    line-height: 1.5rem;" >( '.$variationProduct['availableQuantity'].' / stock)</span>
+                                            </div>
+                                            <!-- <div class=" d-flex text-grey-dark "  style="font-size: .75rem; line-height: 1.5rem;" >
+                                                <span class="d-flex">XX.XX</span>
+                                            </div> -->
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="var-quantity d-flex flex-grow-0 gap-2 flex-column">
+                                    <div class="quantity-input d-flex justify-center align-items-center gap-2">
+
+                                        <button data-productID="'.$variationProduct['productId'].'" class="quantity-minus d-flex align-items-center justify-center rounded-full bg-grey-extralight" style="width: 22px; height:22px; border: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="2" viewBox="0 0 10 2" fill="none">
+                                                <path d="M0 2V0H10V2H0Z" fill="#BDC2C7"></path>
+                                            </svg>
+                                        </button>
+
+                                        <input type="number" value="0"  class="quantity-input tag-btn-text" name="" id="" disabled style="width: 71px; height:58px; border-radius: 21px; border-width: 1px; border-style: solid; border-color: #bdc2c7; font-style: normal; font-weight: 500;  font-size: x-large; text-align: center; padding-left: 15px;">
+
+                                        <button data-productID="'.$variationProduct['productId'].'" class="quantity-plus d-flex align-items-center justify-center rounded-full bg-grey-extralight" style="width: 22px; height:22px; border: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6 0H4L4 4H0V6H4L4 10H6V6H10V4H6V0Z" fill="#BDC2C7"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Single variation End -->';
+            }
+
+            $toreturn .= ' </div>
+            </div>';
+        }
+
+        return $toreturn;
+    }
+    public function getSameProductVariationSection($variationProducts, $image)
+    {
+        $toreturn = "";
+            $toreturn .= '<div class="row " style="border-top: 1px solid #D7DADD; padding: 21px 0; ">
+            <div class="col-12 product-variation-container">';
+
+                $image =  $this->imgUrl($image);
+                $sku = (!empty($variationProducts['sku']) && $variationProducts['sku'] !== "null" && $variationProducts['sku'] !== null) ? $variationProducts['sku'] : '--';
+
+
+                $toreturn .= '<div class="product-variations mb-3">
+
+                                <div class="var-details">
+
+                                    <div class="var-img">
+                                        <div class="d-flex justify-center align-items-center flex-shrink-0 " style="width: 5.5rem; height: 5.5rem; cursor:pointer; overflow:hidden; background:#FFFFFF;">
+                                            <img class="w-auto h-auto mh-100 custom-object-fit" src="'.$image.'" alt="image">
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-column">
+                                        <div class="" style="cursor: pointer; color:#000; font-weight: 500; font-size: 1rem; line-height: 1.125rem;">
+                                            '. ucwords(strtolower($variationProducts['productName'])) .'
+                                        </div>
+                                        <div class="d-flex gap-2 " style="color: gray; line-height: 1.5rem; font-size: 0.8125rem; ">
+                                            <div class="" style="padding-right: .5rem; border-right-width: 1px; border-color: #d7dadd;">
+                                                <span class="uppercase" >Sku: </span>'.$sku.'
+                                            </div>
+                                        </div>
+                                        <div class="'.($this->isUserLogin() ? '' : 'protected').'">
+                                            <div class=" d-flex gap-1 align-items-center">
+                                                $'.($this->isUserLogin() ? $variationProducts['standardPrice'] : 'XX.XX').' <span data-stock-of-'.$variationProducts['productId'].'="'.$variationProducts['availableQuantity'].'" class=" d-flex gap-1 align-items-center text-grey-dark " style="margin-left: .5625rem;    font-size: .75rem;    line-height: 1.5rem;" >( '.$variationProducts['availableQuantity'].' / stock)</span>
+                                            </div>
+                                            <!-- <div class=" d-flex text-grey-dark "  style="font-size: .75rem; line-height: 1.5rem;" >
+                                                <span class="d-flex">XX.XX</span>
+                                            </div> -->
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="var-quantity d-flex flex-grow-0 gap-2 flex-column">
+                                    <div class="quantity-input d-flex justify-center align-items-center gap-2">
+
+                                        <button data-productID="'.$variationProducts['productId'].'" class="quantity-minus d-flex align-items-center justify-center rounded-full bg-grey-extralight" style="width: 22px; height:22px; border: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="2" viewBox="0 0 10 2" fill="none">
+                                                <path d="M0 2V0H10V2H0Z" fill="#BDC2C7"></path>
+                                            </svg>
+                                        </button>
+
+                                        <input type="number" value="0"  class="quantity-input tag-btn-text" name="" id="" disabled style="width: 71px; height:58px; border-radius: 21px; border-width: 1px; border-style: solid; border-color: #bdc2c7; font-style: normal; font-weight: 500;  font-size: x-large; text-align: center; padding-left: 15px;">
+
+                                        <button data-productID="'.$variationProducts['productId'].'" class="quantity-plus d-flex align-items-center justify-center rounded-full bg-grey-extralight" style="width: 22px; height:22px; border: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6 0H4L4 4H0V6H4L4 10H6V6H10V4H6V0Z" fill="#BDC2C7"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Single variation End -->';
+
+            $toreturn .= ' </div>
+            </div>';
+
+        return $toreturn;
+    }
+
     public function getCategoryTreeView($categories)
     {
         $categoryLabels = '';
@@ -494,7 +678,7 @@ class HomeController extends Controller
         if(Session::has('user.accessToken')){
             Session::forget('user');
 
-            return redirect('/sing-in');
+            return redirect('/sign-in');
         }else{
             return redirect()->back();
         }
@@ -584,15 +768,30 @@ class HomeController extends Controller
         die();
     }
 
+    public function isUserLogin()
+    {
+        return Session::has('user.accessToken');
+    }
+
+    public function imgUrl($url)
+    {
+        if ($url && !empty($url) && $url !== "null") {
+            return $url;
+        } else {
+            return asset('asset/img/place-holder.jpeg');
+        }
+    }
+
+
     public function getFeautureProducts_sections($tagId)
     {
         $Response = $this->getFeaturedProductsByEachTag($tagId);
         $NewProducts = "";
         if(!empty($Response) && $Response['status'] == 200){
             foreach ($Response['result']['content'] as $newProduct) {
-                $productImage = empty($newProduct['imageUrl']) ? asset('asset/img/place-holder.jpeg') : $newProduct['imageUrl'];
-                $productPrice = Session::has('user.accessToken') ? "$ " . $newProduct['standardPrice'] : "Login to view price";
-                $href = Session::has('user.accessToken') ? ''.$newProduct['productId'].'' : url('/sign-in');
+                $productImage = $this->imgUrl($newProduct['imageUrl']);
+                $productPrice = $this->isUserLogin() ? "$ " . $newProduct['standardPrice'] : "Login to view price";
+                $href = $this->isUserLogin() ? '/product-details?product_id='.$newProduct['productId'].'' : url('/sign-in');
                 $NewProducts .= '<div class="item">
                                     <div class="product-card">
                                     <div class="d-flex justify-content-center align-items-center mb-3">
@@ -621,9 +820,9 @@ class HomeController extends Controller
         $Products = "";
         if(!empty($Response) && $Response['status'] == 200){
             foreach ($Response['result']['content'] as $newProduct) {
-                $productImage = empty($newProduct['imageUrl']) ? asset('asset/img/place-holder.jpeg') : $newProduct['imageUrl'];
-                $productPrice = Session::has('user.accessToken') ? "$ " . $newProduct['standardPrice'] : "Login to view price";
-                $href = Session::has('user.accessToken') ? '' : url('/sign-in');
+                $productImage = $this->imgUrl($newProduct['imageUrl']);
+                $productPrice = $this->isUserLogin() ? "$ " . $newProduct['standardPrice'] : "Login to view price";
+                $href = $this->isUserLogin() ? '/product-details?product_id='.$newProduct['productId'].'' : url('/sign-in');
                 $Products .= '<div class="product-card">
                                     <div class="d-flex justify-content-center align-items-center mb-3">
                                         <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
@@ -694,7 +893,7 @@ class HomeController extends Controller
         return view('each-category-products',compact('categoryTreeView','products','category','subcategory', 'categoryId'));
     }
 
-    public function getSingleProductDetai()
+    public function getSingleProductDetai($productId)
     {
         $headers = [
             'Accept: application/json, text/plain, /',
@@ -712,7 +911,7 @@ class HomeController extends Controller
             'sec-ch-ua-mobile: ?0',
             'sec-ch-ua-platform: "Windows"',
         ];
-        $url =  'https://erp.monstersmokewholesale.com/api/ecommerce/product/11051?storeIds=2';
+        $url =  'https://erp.monstersmokewholesale.com/api/ecommerce/product/'.$productId.'?storeIds=2';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -722,6 +921,54 @@ class HomeController extends Controller
         curl_close($ch);
 
         return json_decode($response, true);
+    }
+
+    public function postCart()
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://erp.monstersmokewholesale.com/api/cartLineItem?storeId=2');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json, text/plain, */*',
+            'Accept-Language: en-GB,en;q=0.6',
+            'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbG9rcGF0ZWw5ODI0MTA3MTUyKzFAZ21haWwuY29tIiwidGllciI6NSwidXNlclR5cGUiOiJDdXN0b21lciIsInRva2VuVHlwZSI6ImFjY2VzcyIsInN0b3JlSWQiOjIsImV4cCI6MTcxMDE0NzEwMCwidXNlcklkIjoxNzk1LCJpYXQiOjE3MTAwMjcxMDAsInJlc2V0UGFzc3dvcmRSZXF1aXJlZCI6ZmFsc2V9.zHnPTiMgn7QJDaBycB7c3IuuP5LR9T_w-hNWCRh56Lo',
+            'Connection: keep-alive',
+            'Content-Type: application/json',
+            'Origin: https://www.monstersmokewholesale.com',
+            'Referer: https://www.monstersmokewholesale.com/',
+            'Sec-Fetch-Dest: empty',
+            'Sec-Fetch-Mode: cors',
+            'Sec-Fetch-Site: same-site',
+            'Sec-GPC: 1',
+            'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+            'sec-ch-ua: "Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"',
+            'sec-ch-ua-mobile: ?0',
+            'sec-ch-ua-platform: "macOS"',
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, '[{"productId":24909,"sku":null,"upc":"734366044551","productName":"Smoke Odor 7oz Gummies Spray","alias":"smoke-odor-7oz-gummies-spray","availableQuantity":39,"eta":"Not Available","imageUrl":"https://d11cxue75f9a69.cloudfront.net/product-images/smoke-odor-exterminator-spray-gummies-1-1708707379821.jpg","masterProductId":null,"masterProductName":null,"taxClassId":null,"standardPrice":4.75,"standardPriceWithoutDiscount":4.75,"sequenceNumber":47,"costPrice":null,"tags":null,"tagName":null,"tagId":null,"tagImageDtoList":null,"minQuantityToSale":1,"maxQuantityToSale":0,"quantityIncrement":0,"hasChildProduct":false,"promotionType":null,"promotionValue":0,"promotionStartdate":null,"promotionEnddate":null,"promotionNotes":null,"weight":null,"height":null,"length":null,"width":null,"quantity":1}]');
+
+        $response = curl_exec($ch);
+
+        curl_close($ch);
+
+        return json_decode($response, true);
+    }
+
+    public function addToCart()
+    {
+        $category_Response = $this->getCategories();
+        $categoryTreeView = null;
+        if($category_Response){
+            if($category_Response['status'] == 200){
+
+                $categories = $category_Response['result'];
+
+                $categoryTreeView = $this->getCategoryTreeView($categories);
+            }
+        }
+
+      return view('add-to-cart',compact('categoryTreeView'));
     }
 
 }

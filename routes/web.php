@@ -34,3 +34,8 @@ Route::post('/post-sing-up', [HomeController::class, 'singUpCustomer']);
 Route::get('/sign-in', [HomeController::class, 'singIn']);
 Route::post('/post-sing-in', [HomeController::class, 'singInCustomer']);
 Route::get('/log-out', [HomeController::class, 'LogOut']);
+
+
+// Cart Routes
+Route::get('/add-to-cart', [HomeController::class, 'addToCart']);
+Route::post('/post-cart', [HomeController::class, 'postCart']);

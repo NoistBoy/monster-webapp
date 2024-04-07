@@ -10,6 +10,7 @@
     --tag-btn-text: #a2a9a5;
     --grey-dark: #9ea2a5;
     --extra-light-grey: #f1f3f4;
+    --light-gray: #f8f9fa;
 }
 
 ::selection {
@@ -981,7 +982,7 @@ ul,
 }
 
 .same-height-images .product-img {
-    height: 560px;
+    height: 560px !important;
     width: auto;
     margin: 5px;
 }
