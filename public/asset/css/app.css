@@ -2,7 +2,8 @@
 
 :root {
     --monster-primary: #76C043;
-    --tag-btn: #EBEDEC;
+    /* --tag-btn: #EBEDEC; */
+    --tag-btn: #f8f9fa;
     --monster-primary-hover: #D9FFD9;
     --monster-primary-hover-2: #438f11;
     --monster-footer-bg: #17230e;
@@ -17,7 +18,15 @@
     background-color: var(--monster-primary);
     color: #ffffff;
 }
+.bg-light-gray{
+    background: var(--light-gray)  !important;
+}
 
+.card-detail-section{
+    outline: none !important;
+    border: none;
+    font-weight: 600;
+}
 /* =========================================
                 Owl Carousel Styles
    ========================================= */
@@ -53,7 +62,19 @@
 .owl-next {
     right: -40px !important;
 }
+.continue-shiping{
+    text-decoration: none;
+    color: var(--monster-primary) !important;
+}
+.continue-shiping:hover{
+    color: var(--monster-primary-hover-2) !important;
+}
 
+.cart-item-wrapper{
+    height: 32rem !important;
+    overflow-x: hidden;
+    padding: 0 10px;
+}
 /* =========================================
                 Owl Carousel Styles END
    ========================================= */
@@ -74,7 +95,20 @@ html {
     background: var(--monster-primary-hover-2) !important;
     color: #ffff !important;
 }
-
+.btn-check-out{
+    background: transparent !important;
+    color: var(--monster-primary) !important;
+    outline: none;
+    border: 2px solid;
+    font-weight: 500;
+    transition: all .2s ease-in-out;
+}
+.btn-check-out:hover{
+    background: var(--monster-primary) !important;
+    color: #FFFFFF !important;
+    outline: none;
+    font-weight: 500;
+}
 /* =======================================================
               Product Image Zoom Efext STYLING START
 ========================================================== */

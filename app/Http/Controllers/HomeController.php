@@ -926,10 +926,8 @@ class HomeController extends Controller
     public function postCart()
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://erp.monstersmokewholesale.com/api/cartLineItem?storeId=2');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        $url = 'https://erp.monstersmokewholesale.com/api/cartLineItem?storeId=2';
+        $headers = [
             'Accept: application/json, text/plain, */*',
             'Accept-Language: en-GB,en;q=0.6',
             'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbG9rcGF0ZWw5ODI0MTA3MTUyKzFAZ21haWwuY29tIiwidGllciI6NSwidXNlclR5cGUiOiJDdXN0b21lciIsInRva2VuVHlwZSI6ImFjY2VzcyIsInN0b3JlSWQiOjIsImV4cCI6MTcxMDE0NzEwMCwidXNlcklkIjoxNzk1LCJpYXQiOjE3MTAwMjcxMDAsInJlc2V0UGFzc3dvcmRSZXF1aXJlZCI6ZmFsc2V9.zHnPTiMgn7QJDaBycB7c3IuuP5LR9T_w-hNWCRh56Lo',
@@ -945,8 +943,49 @@ class HomeController extends Controller
             'sec-ch-ua: "Chromium";v="122", "Not(A:Brand";v="24", "Brave";v="122"',
             'sec-ch-ua-mobile: ?0',
             'sec-ch-ua-platform: "macOS"',
-        ]);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, '[{"productId":24909,"sku":null,"upc":"734366044551","productName":"Smoke Odor 7oz Gummies Spray","alias":"smoke-odor-7oz-gummies-spray","availableQuantity":39,"eta":"Not Available","imageUrl":"https://d11cxue75f9a69.cloudfront.net/product-images/smoke-odor-exterminator-spray-gummies-1-1708707379821.jpg","masterProductId":null,"masterProductName":null,"taxClassId":null,"standardPrice":4.75,"standardPriceWithoutDiscount":4.75,"sequenceNumber":47,"costPrice":null,"tags":null,"tagName":null,"tagId":null,"tagImageDtoList":null,"minQuantityToSale":1,"maxQuantityToSale":0,"quantityIncrement":0,"hasChildProduct":false,"promotionType":null,"promotionValue":0,"promotionStartdate":null,"promotionEnddate":null,"promotionNotes":null,"weight":null,"height":null,"length":null,"width":null,"quantity":1}]');
+        ];
+        $post = '[
+            {
+                "productId": 24909,
+                "sku": null,
+                "upc": "734366044551",
+                "productName": "Smoke Odor 7oz Gummies Spray",
+                "alias": "smoke-odor-7oz-gummies-spray",
+                "availableQuantity": 39,
+                "eta": "Not Available",
+                "imageUrl": "https://d11cxue75f9a69.cloudfront.net/product-images/smoke-odor-exterminator-spray-gummies-1-1708707379821.jpg",
+                "masterProductId": null,
+                "masterProductName": null,
+                "taxClassId": null,
+                "standardPrice": 4.75,
+                "standardPriceWithoutDiscount": 4.75,
+                "sequenceNumber": 47,
+                "costPrice": null,
+                "tags": null,
+                "tagName": null,
+                "tagId": null,
+                "tagImageDtoList": null,
+                "minQuantityToSale": 1,
+                "maxQuantityToSale": 0,
+                "quantityIncrement": 0,
+                "hasChildProduct": false,
+                "promotionType": null,
+                "promotionValue": 0,
+                "promotionStartdate": null,
+                "promotionEnddate": null,
+                "promotionNotes": null,
+                "weight": null,
+                "height": null,
+                "length": null,
+                "width": null,
+                "quantity": 1
+            }
+        ]';
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
         $response = curl_exec($ch);
 
@@ -970,5 +1009,148 @@ class HomeController extends Controller
 
       return view('add-to-cart',compact('categoryTreeView'));
     }
+
+    public function getRelatedProducts()
+    {
+        $headers = [
+            'Accept: application/json, text/plain, /',
+            'Accept-Language: en-US,en;q=0.9',
+            'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaXR5c21va2VzdmFwZUBnbWFpbC5jb20iLCJ0aWVyIjo1LCJ1c2VyVHlwZSI6IkN1c3RvbWVyIiwidG9rZW5UeXBlIjoiYWNjZXNzIiwic3RvcmVJZCI6MiwiZXhwIjoxNzEyNjczOTIyLCJ1c2VySWQiOjE3MjYsImlhdCI6MTcxMjU1MzkyMiwicmVzZXRQYXNzd29yZFJlcXVpcmVkIjpmYWxzZX0.VSsoTulzqUUR-ahaZ6a4Innf3HfY8yFECo2Zm8SLetg',
+            'Cache-Control: no-cache',
+            'Connection: keep-alive',
+            'Origin: https://www.monstersmokewholesale.com',
+            'Pragma: no-cache',
+            'Referer: https://www.monstersmokewholesale.com/',
+            'Sec-Fetch-Dest: empty',
+            'Sec-Fetch-Mode: cors',
+            'Sec-Fetch-Site: same-site',
+            'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+            'sec-ch-ua: "Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+            'sec-ch-ua-mobile: ?0',
+            "sec-ch-ua-platform: \xa0\"Windows\"",
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://erp.monstersmokewholesale.com/api/ecommerce/product/24908/relatedProduct?storeIds=1,2');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+
+        curl_close($ch);
+
+      return  json_decode($response, true);
+    }
+    public function getCustomerDetail()
+    {
+        $curl = curl_init();
+        $url = 'https://erp.monstersmokewholesale.com/api/ecommerce/customer';
+        $accessToken = Session::get('user.accessToken');
+        $headers = array(
+            '-H\'Accept:  application/json, text/plain, /\' \\',
+            '-H\'Accept-Language:  en-US,en;q=0.9\' \\',
+            '-H\'Authorization:  Bearer '.$accessToken.'',
+            '-H\'Cache-Control:  no-cache\' \\',
+            '-H\'Connection:  keep-alive\' \\',
+            '-H\'Origin:  https://www.monstersmokewholesale.com\' \\',
+            '-H\'Pragma:  no-cache\' \\',
+            '-H\'Referer:  https://www.monstersmokewholesale.com/\' \\',
+            '-H\'Sec-Fetch-Dest:  empty\' \\',
+            '-H\'Sec-Fetch-Mode:  cors\' \\',
+            '-H\'Sec-Fetch-Site:  same-site\' \\',
+            '-H\'User-Agent:  Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36\' \\',
+            '-H\'sec-ch-ua:  "Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"\' \\',
+            '-H\'sec-ch-ua-mobile:  ?0\' \\',
+            '-H\'sec-ch-ua-platform:  "Windows"\'',
+            'Authorization: Bearer '.$accessToken.''
+        );
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+          CURLOPT_HTTPHEADER => $headers,
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+
+        return  json_decode($response, true);
+    }
+
+    public function getPaymentMethods()
+    {
+        $ch = curl_init();
+        $headers = [
+            'Accept: application/json, text/plain',
+            'Accept-Language: en-US,en;q=0.9',
+            'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaXR5c21va2VzdmFwZUBnbWFpbC5jb20iLCJ0aWVyIjo1LCJ1c2VyVHlwZSI6IkN1c3RvbWVyIiwidG9rZW5UeXBlIjoiYWNjZXNzIiwic3RvcmVJZCI6MiwiZXhwIjoxNzEyNjczOTIyLCJ1c2VySWQiOjE3MjYsImlhdCI6MTcxMjU1MzkyMiwicmVzZXRQYXNzd29yZFJlcXVpcmVkIjpmYWxzZX0.VSsoTulzqUUR-ahaZ6a4Innf3HfY8yFECo2Zm8SLetg',
+            'Cache-Control: no-cache',
+            'Connection: keep-alive',
+            'Origin: https://www.monstersmokewholesale.com',
+            'Pragma: no-cache',
+            'Referer: https://www.monstersmokewholesale.com/',
+            'Sec-Fetch-Dest: empty',
+            'Sec-Fetch-Mode: cors',
+            'Sec-Fetch-Site: same-site',
+            'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+            'sec-ch-ua: "Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+            'sec-ch-ua-mobile: ?0',
+            'sec-ch-ua-platform: "Windows"',
+        ];
+        $url = 'https://erp.monstersmokewholesale.com/api/store/paymentMode';
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+
+        curl_close($ch);
+
+        return  json_decode($response, true);
+    }
+
+    public function getShipingDetails()
+    {
+        $ch = curl_init();
+        $url = 'https://erp.monstersmokewholesale.com/api/shipping/options';
+        $headers = [
+            'Accept: application/json, text/plain',
+            'Accept-Language: en-US,en;q=0.9',
+            'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjaXR5c21va2VzdmFwZUBnbWFpbC5jb20iLCJ0aWVyIjo1LCJ1c2VyVHlwZSI6IkN1c3RvbWVyIiwidG9rZW5UeXBlIjoiYWNjZXNzIiwic3RvcmVJZCI6MiwiZXhwIjoxNzEyNjczOTIyLCJ1c2VySWQiOjE3MjYsImlhdCI6MTcxMjU1MzkyMiwicmVzZXRQYXNzd29yZFJlcXVpcmVkIjpmYWxzZX0.VSsoTulzqUUR-ahaZ6a4Innf3HfY8yFECo2Zm8SLetg',
+            'Cache-Control: no-cache',
+            'Connection: keep-alive',
+            'Origin: https://www.monstersmokewholesale.com',
+            'Pragma: no-cache',
+            'Referer: https://www.monstersmokewholesale.com/',
+            'Sec-Fetch-Dest: empty',
+            'Sec-Fetch-Mode: cors',
+            'Sec-Fetch-Site: same-site',
+            'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+            'sec-ch-ua: "Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+            'sec-ch-ua-mobile: ?0',
+            'sec-ch-ua-platform: "Windows"',
+        ];
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $response = curl_exec($ch);
+
+        curl_close($ch);
+
+        return  json_decode($response, true);
+    }
+
+
 
 }

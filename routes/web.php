@@ -26,6 +26,10 @@ Route::get('/get-products', [HomeController::class, 'getProducts']);
 Route::get('/each-category-products/{category}/{subcategory}/{categoryid}', [HomeController::class, 'getEachCategoryProducts']);
 Route::get('/get-single-product-details', [HomeController::class, 'getSingleProductDetai']);
 Route::get('/product-details', [HomeController::class, 'SingleProductDetails']);
+Route::get('/get-related-products', [HomeController::class, 'getRelatedProducts']);
+Route::get('/get-customer-details', [HomeController::class, 'getCustomerDetail']);
+Route::get('/get-payment-methods', [HomeController::class, 'getPaymentMethods']);
+Route::get('/get-shiping-details', [HomeController::class, 'getShipingDetails']);
 
 
 // Auth Routes
@@ -38,4 +42,4 @@ Route::get('/log-out', [HomeController::class, 'LogOut']);
 
 // Cart Routes
 Route::get('/add-to-cart', [HomeController::class, 'addToCart']);
-Route::post('/post-cart', [HomeController::class, 'postCart']);
+Route::get('/post-cart', [HomeController::class, 'postCart']);
