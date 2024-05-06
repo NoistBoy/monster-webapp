@@ -174,17 +174,17 @@ body {
 
 .cart-count {
     position: absolute;
-    background: red;
+    background: #e46272;
     color: #FFFFFF;
     font-weight: bold;
     padding: 4px 6px;
     border-radius: 75px;
     font-size: 17px;
-    top: -17px;
+    top: -5px;
     left: -8px;
     font-size: x-small;
-    height: 20px;
-    width: 20px;
+    height: 29px;
+    width: 29px;
     text-align: center;
     display: flex;
     justify-content: center;

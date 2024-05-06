@@ -72,7 +72,13 @@
                     <a class="nav-link " aria-current="page" href="#"><i class="lni lni-phone"></i></a>
                 </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="{{ url('/add-to-cart') }}"><i class="lni lni-cart" style="position: relative;" >
+                    <a class="nav-link " aria-current="page" href="{{ url('/add-to-cart') }}"><i class="lni lni-cart" style="position: relative; position: relative;
+                        padding: 10px;
+                        background: #3c3b6e;
+                        border-radius: 10pc;
+                        color: #FFFFFF;
+                        font-weight: bold;
+                        font-size: 38px;" >
                         <span class="cart-count" >0</span></i>
                     </a>
                 </li>
