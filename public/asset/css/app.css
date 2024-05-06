@@ -11,7 +11,34 @@ body {
     letter-spacing: 0;
 }
 
+:root {
+    --monster-primary-blue: #3C3B6E;
+    --monster-primary: #B22234;
+    --monster-primary-red: #B22234;
+    --monster-primary-white: #FFFFFF;
+    /* --monster-primary: #76C043; */
+    /* --monster-primary: #00eb4e; */
+    /* --tag-btn: #EBEDEC; */
+    --tag-btn: #f8f9fa;
 
+    --monster-primary-hover: #f9919eb0;
+    /* for red  */
+    --monster-primary-hover-red: #f9919eb0;
+    /* for red  */
+    --monster-primary-hover-blue: #6866d996;
+    /* for blue  */
+    --monster-primary-hover-2: #438f11;
+    /* --monster-footer-bg: #17230e; */
+    /* --monster-footer-bg: #000000; */
+    --monster-footer-bg: #202b38;
+    --bread-crum-color: #babdbb;
+    --tag-btn-text: #a2a9a5;
+    --grey-dark: #9ea2a5;
+    --extra-light-grey: #f1f3f4;
+    --light-gray: #f8f9fa;
+    --border-color: #e5e7eb;
+    --bg-3d: linear-gradient(0deg, #76c043 0%, #9bef62 100%) !important;
+}
 
 /* loading screen */
     #loading-screen {
