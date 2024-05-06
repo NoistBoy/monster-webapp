@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('content')
-    <div class="container-fluid" style="margin-top: 90px;">
+    <div class="container-fluid" >
         <!-- MainSlider and TopProducts section -->
         @include('layout.MainSlider-TopProducts')
 

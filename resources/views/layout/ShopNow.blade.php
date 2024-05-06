@@ -1,9 +1,9 @@
 <div class="row">
-    <div class="col-md-12 col-sm-12 px-0 py-5">
-        <div>
-            <img src="{{ asset('asset/img/Asset 1-8.png') }}" alt="image" srcset="" class="w-100 img-fluid">
+    <div class="col-md-12 col-sm-12 py-5">
+        <div class="mb-5">
+            {{-- <img src="{{ asset('asset/img/Asset 1-8.png') }}" alt="image" srcset="" class="w-100 img-fluid custom-object-fit"> --}}
+            <img src="{{ asset('asset/img/VAPE-BANNER.png') }}" alt="image" srcset="" class="w-100 img-fluid custom-object-fit">
         </div>
-
         {!! $ShopNowSection !!}
         <!-- Featured And Disposable Section -->
         {{-- @if (!empty($FeaturedAndDisposable_section))

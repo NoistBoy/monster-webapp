@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12 col-sm-12 px-0 pb-5">
+    <div class="col-md-12 col-sm-12 px-0 ">
       <div class="container-fluid">
         <h2 class=" fw-bold fs-1 mb-3">Featured Brands</h2>
 
@@ -42,11 +42,74 @@
                 class="img-fluid" width="250" alt="brad" srcset="">
             </div>
           </marquee>
-          <div class="d-flex justify-content-center ">
+                      {{--  Return policy --}}
+                      <div class="row my-5">
+                        <div class="col-md-7 col-sm-12" >
+                            <div class="row  py-5 px-3 bg-monster-light monster-primary" style="border-radius: 50px; margin-right: 6px;">
+
+                                <div class="col-md-6 col-sm-12 my-auto" style="padding-left: 3rem;">
+                                    <h2 class="fw-bold fs-1 mb-4">Same Day Services</h2>
+
+                                    <div class="mt-3">
+                                        <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Convenient Pickup</span>
+                                        <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Store Delivery: Your Convenience</span>
+                                        <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Rapid Dispatch</span>
+                                    </div>
+                                    {{-- <ul>
+                                        <li>Convenient Pickup</li>
+                                        <li>Store Delivery: Your Convenience</li>
+                                        <li>Rapid Dispatch</li>
+                                    </ul> --}}
+                                </div>
+
+                                <div class="col-md-6 col-sm-12">
+                                    <img src="{{ asset('asset/img/delivery-boy.jpg') }}" class=" img-fluid custom-object-fit" alt="" srcset="" style="border: 7px solid #FFFFFF; border-radius: 50px;">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-12 py-5 px-3  bg-monster-light monster-primary" style="border-radius: 50px;">
+
+                            <div class=" d-flex flex-md-column gap-5 px-5">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h3 class=" fw-bold fs-1" >180 Days: <br> Your Happiness <br>Guarantee</h3>
+
+                                    <span><i class="fa-solid fa-arrow-rotate-left fw-bold" style="font-size: 4rem;" ></i></span>
+                                </div>
+                                <div class="mt-3">
+                                    <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Authentic: Suppliers' Products Guaranteed!</span>
+                                    <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Return Guarantee: Unsatisfied?<br>
+                                        Send Back!</span>
+                                </div>
+                                <button class="btn-sidebar-footer w-50">Return Policy</button>
+                            </div>
+                        </div>
+                    </div>
+                    {{--  --}}
+          <div class="d-flex justify-content-center d-none ">
             <img src="{{ asset('asset/img/brands/brand-10.png') }}" class="img-fluid" alt="" srcset="">
           </div>
-          <div class="d-flex justify-content-center px-0">
-            <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+
+          <div class="d-flex justify-content-center px-0" style="background:#030303">
+            <marquee behavior="scroll" direction="left" class="fw-bold fs-1" scrollamount="18" loop="infinite">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+                <img src="{{ asset('asset/img/brands/brand-11.png') }}" class="img-fluid w-100" alt="" srcset="">
+            </marquee>
           </div>
         </div>
       </div>

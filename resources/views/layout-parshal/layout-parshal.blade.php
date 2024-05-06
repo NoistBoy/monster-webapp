@@ -6,11 +6,12 @@
 
     <!-- responsive main layout  -->
 
-    <div class="" style="margin-top:90px ">
+    <div class="">
         @yield('content')
     </div>
     <!-- responsive main layout END -->
     @include('layout.footer')
 
     @include( 'layout.scripts' )
+    @yield('custom-scripts')
 

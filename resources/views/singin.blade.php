@@ -2,7 +2,88 @@
 
 
 @section('content')
-    <div class="container">
+    <!-- Section: Design Block -->
+    <section class="text-center text-lg-start py-5">
+        <style>
+            .cascading-right {
+                margin-right: -50px;
+            }
+
+            @media (max-width: 991.98px) {
+                .cascading-right {
+                    margin-right: 0;
+                }
+            }
+        </style>
+
+        <!-- Jumbotron -->
+        <div class="container py-4">
+            <div class="row g-0 align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card cascading-right bg-body-tertiary"  style=" backdrop-filter: blur(30px);">
+                        <div class="card-body p-5 shadow-5 text-center">
+                            <h2 class="fw-bold">Sign in to your account</h2>
+                            <p class="text-secondary  mb-5">Enter your credentials below to access your account.</p>
+                            <form  id="singIn-form" >
+                                <!-- 2 column grid layout with text inputs for the first and last names -->
+
+                                <!-- User Name -->
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                    <label for=""  class="fw-bold" style="float: left;" >User Name <span class="text-danger fw-bold">*</span></label>
+                                    &nbsp;&nbsp;<small id="username_error" style="float: left;"  class="error-message text-danger fw-bold "></small>
+                                        <input type="text" name="username" class="form-control reset form-control-lg" required>
+
+                                </div>
+
+                                <!-- Password input -->
+                                <div data-mdb-input-init class="form-outline mb-1">
+                                    <label for=""  class="fw-bold" style="float: left;" >Password <span class="text-danger fw-bold">*</span></label>
+                                    &nbsp;&nbsp;<small id="password_error" style="float: left;"  class="error-message text-danger fw-bold "></small>
+                                    <input type="password" name="password" class="form-control reset form-control-lg" required>
+
+                                </div>
+                                <p class="signin" style="text-align: left;" >Don't have an account? <a href="{{ Url('/sign-up') }}">Sign up</a> </p>
+
+                                <!-- Submit button -->
+                                <button class="btn mb-2 auth-form-btn w-100" id="singin-account">Sign in</button>
+
+
+                                <!-- Register buttons -->
+                                {{-- <div class="text-center">
+                                    <p>or sign up with:</p>
+                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </button>
+
+                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                                        <i class="fab fa-google"></i>
+                                    </button>
+
+                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                                        <i class="fab fa-twitter"></i>
+                                    </button>
+
+                                    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                                        <i class="fab fa-github"></i>
+                                    </button>
+                                </div> --}}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    {{-- <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" class="w-100 rounded-4 shadow-4"
+                alt="" /> --}}
+                    <img src="{{ asset('asset/img/login.jpeg') }}" class="w-100 rounded-4 shadow-4" alt="" />
+                </div>
+            </div>
+        </div>
+        <!-- Jumbotron -->
+    </section>
+    <!-- Section: Design Block -->
+    {{-- ///////////////////////////// --}}
+    {{-- <div class="container">
         <div class="row">
             <div class="col-12 d-flex justify-content-center align-items-center">
                 <form class="form d-flex flex-column my-4 py-5 px-3 w-100 singup-form" id="singIn-form">
@@ -34,5 +115,5 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection

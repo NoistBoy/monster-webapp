@@ -1,13 +1,13 @@
 <div class="footer container-fluid pt-5 pb-3 ">
     <div class="row px-5 py-4 footer-row">
         <div>
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ asset('asset/img/footer-logo.png') }}" alt="logo" srcset="">
+            <a class="navbar-brand" href="{{ url('/') }}" style="display: block; width:13%;">
+                <img src="{{ asset('asset/img/footer-logo.png') }}" alt="logo" srcset="" class=" img-fluid " style="object-fit: contain;">
             </a>
         </div>
         <div class="col-md-4 col-sm-12">
             <div class="mt-3">
-                <P>Monster Smoke is the cutting-edge hub
+                <P style="color: #FFFFFF;" >Monster Smoke is the cutting-edge hub
                     where retailers delve into a world
                     of premier brands, connecting,<br>
                     exploring, and stocking up on all
@@ -22,20 +22,20 @@
         <div class="col-md-4 col-sm-12">
             <div class="d-flex mb-3">
                 <span><i class="lni lni-map-marker fs-6 text-danger"></i> </span> &nbsp;&nbsp;&nbsp;
-                <p>11100 Harry Hines Blvd,<br>
+                <p style="color: #FFFFFF;" >11100 Harry Hines Blvd,<br>
                     Dallas, TX 75229, United States</p>
             </div>
             <div class="d-flex mb-3">
                 <span><i class="lni lni-phone fs-6 text-primary"></i> </span> &nbsp;&nbsp;&nbsp;
-                <p>(+1) 469-405-4000.</p>
+                <p style="color: #FFFFFF;" >(+1) 469-405-4000.</p>
             </div>
             <div class="d-flex mb-3">
                 <span><i class="lni lni-envelope fs-6 text-warning"></i> </span> &nbsp;&nbsp;&nbsp;
-                <p>Sales@Monstersmokewholesale.Com.</p>
+                <p style="color: #FFFFFF;" >Sales@Monstersmokewholesale.Com.</p>
             </div>
             <div class="d-flex mb-3">
                 <span><i class="lni lni-alarm-clock fs-5 footer-clock-icon"></i> </span> &nbsp;&nbsp;&nbsp;
-                <p>Mon-Fri: 10:00am To 6:00pm.</p>
+                <p style="color: #FFFFFF;" >Mon-Fri: 10:00am To 6:00pm.</p>
             </div>
 
         </div>
@@ -47,7 +47,7 @@
             <div class="input-container">
                 <input required="" placeholder="Enter your email..." type="email">
                 <button class="invite-btn" type="button">
-                    Sing Up
+                    Sign Up
                 </button>
             </div>
             <span class="text-right footer-tag-line my-2 d-block w-100">Get alerted on exclusive deals and new
@@ -75,7 +75,7 @@
     </div>
     <div class="text-center mt-3">
         <b>Copyright © Monster Smoke, Inc. All rights reserved.</b>
-        <p class="m-0 footer-disclamer">FDA Disclaimer: These statements have not been evaluated by the Food and Drug
+        <p class="m-0 footer-disclamer" style="color: #FFFFFF;" >FDA Disclaimer: These statements have not been evaluated by the Food and Drug
             Administration.
             These products are not intended to diagnose, treat, cure or prevent any disease.</p>
     </div>
