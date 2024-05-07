@@ -247,9 +247,9 @@ $(document).ready(function () {
             });
     });
 
-
-    $('#search-product-input').keydown(function (e) {
-
+    //  Search Product Api using js fetch
+     $('#search-product-input').on('input', function(e) {
+        // debugger;
         // e.preventDefault();
         // $('#search-result').show();
         // $('#search-result').html(`<div class="row">
@@ -258,84 +258,158 @@ $(document).ready(function () {
         //                                 </div>
         //                             </div>`);
         if($(this).val().length > 2) {
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'GET',
-                url: '/search-product',
-                async: false,
-                data: {
-                    searchQuery : $(this).val(),
-                },
-                success: function (response) {
-                    console.log( "The response " + response);
-                    var tr = ``;
-                    if(response && response.status == "success"){
-                        if (response.products) {
 
-                            tr += `<div class="row  px-4 pt-3">
-                                        <div class="col-9 fw-bold">
-                                            <h5 class="fw-bold" > Products </h5>
-                                        </div>
-                                    </div>`;
-                            response.products.forEach(element => {
-                                var prdName = element.productName.replace(/\|/g, '')
-                                .replace(/ /g, '-')
-                                .replace(/--/g, '-')
-                                .replace(/\//g, '-');
-                                var url = '/product-details/'+encodeURIComponent(prdName)+'?product_id='+element.productId;
+            searchProduct($(this).val().replace(/ /g, '-')).then(result => {
 
-                                var img = element.imageUrl == "null" ? "/asset/img/place-holder.png" : element.imageUrl;
+                console.log("The result :" + result.status);
+                var tr = ``;
+                if (result.products.length > 0) {
 
-                                tr += `<div class="row  px-4 pt-3"><a href="${url}" class="d-flex justify-content-center align-items-center mb-3" >
-                                            <div class="col-3">
-                                               <img src="${img}" class="img-fluid w-75 shadow rounded" alt="image">
-                                            </div>
-                                            <div class="col-9 fw-bold">
-                                                <p> ${element.productName} </p>
-                                            </div></a>
-                                        </div>`;
-                            });
+                    tr += `<div class="row  px-4 pt-3">
+                        <div class="col-9 fw-bold">
+                            <h5 class="fw-bold" > Products </h5>
+                        </div>
+                    </div>`;
 
-                            if(response.category){
-                                tr += `<div class="row d-flex justify-content-center align-items-center py-3 mt-3 search-result-footer" style="background:#3c3b6e;">
-                                        <a href="/each-category-products/search/${response.category.alias}/${response.category.id}" class="d-flex justify-content-center align-items-center" >
-                                            <div class="col-12 text-center" style=" color:#FFFFFF !important;">
-                                                See All (${response.totalCount}) Resultes
-                                            </div>
-                                        </a>
-                                    </div>`;
-                            }
-                        }
-                        else{
-                            tr += `<div class="row">
-                                        <div class="col-12 text-center">
-                                            <p>No product match with your search</p>
-                                        </div>
-                                    </div>`;
-                        }
-                    }else{
-                        tr = `<div class="row">
+                    result.products.forEach(element => {
+                        var prdName = element.productName.replace(/\|/g, '')
+                        .replace(/ /g, '-')
+                        .replace(/--/g, '-')
+                        .replace(/\//g, '-');
+                        var url = '/product-details/'+encodeURIComponent(prdName)+'?product_id='+element.productId;
+
+                        var img = element.imageUrl == "null" ? "/asset/img/place-holder.png" : element.imageUrl;
+
+                        tr += `<div class="row  px-4 pt-3"><a href="${url}" class="d-flex justify-content-center align-items-center mb-3" >
+                                    <div class="col-3">
+                                        <img src="${img}" class="img-fluid w-75 shadow rounded" alt="image">
+                                    </div>
+                                    <div class="col-9 fw-bold">
+                                        <p> ${element.productName} </p>
+                                    </div></a>
+                                </div>`;
+                    });
+
+                    if(result.category){
+                        tr += `<div class="row d-flex justify-content-center align-items-center py-3 mt-3 search-result-footer" style="background:#3c3b6e;">
+                                <a href="/each-category-products/search/${result.category.alias}/${result.category.id}" class="d-flex justify-content-center align-items-center" >
+                                    <div class="col-12 text-center" style=" color:#FFFFFF !important;">
+                                        See All (${result.totalCount}) Resultes
+                                    </div>
+                                </a>
+                            </div>`;
+                    }
+
+                }else{
+                    tr += `<div class="row">
                                 <div class="col-12 text-center">
                                     <p>No product match with your search</p>
                                 </div>
                             </div>`;
-                    }
-
-                    $('#search-result').html(tr);
-                    $('#search-result').show();
-                    // console.log("The tr" + tr);
-                },
-                error: function (xhr, status, error) {
-                        console.log("The status " + status);
-                        console.log("The Message " + error);
-
                 }
+                $('#search-result').html(tr);
+                $('#search-result').show();
+                console.log("The tr" + tr);
+
+            }).catch(error => {
+                console.error("The error :" + error);
             });
+
         }
     });
+    //  Search Product Api using js fetch End
 
+    // ==================================================
+
+    //  Search Product Api
+    // $('#search-product-input').keydown(function (e) {
+
+    //     // e.preventDefault();
+    //     // $('#search-result').show();
+    //     // $('#search-result').html(`<div class="row">
+    //     //                                 <div class="col-12 text-center">
+    //     //                                     <p> Loading... </p>
+    //     //                                 </div>
+    //     //                             </div>`);
+    //     if($(this).val().length > 2) {
+    //         $.ajax({
+    //             headers: {
+    //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //             },
+    //             type: 'GET',
+    //             url: '/search-product',
+    //             async: false,
+    //             data: {
+    //                 searchQuery : $(this).val(),
+    //             },
+    //             success: function (response) {
+    //                 console.log( "The response " + response);
+    //                 var tr = ``;
+    //                 if(response && response.status == "success"){
+    //                     if (response.products) {
+
+    //                         tr += `<div class="row  px-4 pt-3">
+    //                                     <div class="col-9 fw-bold">
+    //                                         <h5 class="fw-bold" > Products </h5>
+    //                                     </div>
+    //                                 </div>`;
+    //                         response.products.forEach(element => {
+    //                             var prdName = element.productName.replace(/\|/g, '')
+    //                             .replace(/ /g, '-')
+    //                             .replace(/--/g, '-')
+    //                             .replace(/\//g, '-');
+    //                             var url = '/product-details/'+encodeURIComponent(prdName)+'?product_id='+element.productId;
+
+    //                             var img = element.imageUrl == "null" ? "/asset/img/place-holder.png" : element.imageUrl;
+
+    //                             tr += `<div class="row  px-4 pt-3"><a href="${url}" class="d-flex justify-content-center align-items-center mb-3" >
+    //                                         <div class="col-3">
+    //                                            <img src="${img}" class="img-fluid w-75 shadow rounded" alt="image">
+    //                                         </div>
+    //                                         <div class="col-9 fw-bold">
+    //                                             <p> ${element.productName} </p>
+    //                                         </div></a>
+    //                                     </div>`;
+    //                         });
+
+    //                         if(response.category){
+    //                             tr += `<div class="row d-flex justify-content-center align-items-center py-3 mt-3 search-result-footer" style="background:#3c3b6e;">
+    //                                     <a href="/each-category-products/search/${response.category.alias}/${response.category.id}" class="d-flex justify-content-center align-items-center" >
+    //                                         <div class="col-12 text-center" style=" color:#FFFFFF !important;">
+    //                                             See All (${response.totalCount}) Resultes
+    //                                         </div>
+    //                                     </a>
+    //                                 </div>`;
+    //                         }
+    //                     }
+    //                     else{
+    //                         tr += `<div class="row">
+    //                                     <div class="col-12 text-center">
+    //                                         <p>No product match with your search</p>
+    //                                     </div>
+    //                                 </div>`;
+    //                     }
+    //                 }else{
+    //                     tr = `<div class="row">
+    //                             <div class="col-12 text-center">
+    //                                 <p>No product match with your search</p>
+    //                             </div>
+    //                         </div>`;
+    //                 }
+
+    //                 $('#search-result').html(tr);
+    //                 $('#search-result').show();
+    //                 // console.log("The tr" + tr);
+    //             },
+    //             error: function (xhr, status, error) {
+    //                     console.log("The status " + status);
+    //                     console.log("The Message " + error);
+
+    //             }
+    //         });
+    //     }
+    // });
+//  Search Product Api end
     $('#search-product-input').blur(function(){
         if($(this).val().length > 2){
             return;
@@ -348,6 +422,33 @@ $(document).ready(function () {
     });
 
 });
+
+async function searchProduct(searchQuery) {
+    try {
+        const response = await fetch(`https://erp.monstersmokewholesale.com/api/ecommerce/product/searchByProductOrCategory?searchInput=${encodeURIComponent(searchQuery)}`, {
+            method: 'GET'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || data.hasError || data.status !== 200 || !data.result.productCoreDtoList || !data.result.categoryDtoList) {
+            throw new Error("Something went wrong");
+        }
+
+        return {
+            status: "success",
+            products: data.result.productCoreDtoList,
+            category: data.result.categoryDtoList[0],
+            totalCount: data.result.totalCount
+        };
+    } catch (error) {
+        return {
+            status: "error",
+            message: error.message
+        };
+    }
+}
+
 
 
 function toggleSidebar() {
