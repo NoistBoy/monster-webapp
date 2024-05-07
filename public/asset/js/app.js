@@ -52,6 +52,7 @@ $(document).ready(function () {
         });
 
     });
+
     $('.top-5-products').click(function (e) {
         e.preventDefault();
         console.log("test");

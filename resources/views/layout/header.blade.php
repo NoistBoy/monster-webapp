@@ -30,6 +30,7 @@
 
         @yield('custom-style')
 
+
 </head>
 
 <body>

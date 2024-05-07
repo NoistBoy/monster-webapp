@@ -3,42 +3,19 @@
       <div class="container-fluid">
         <h2 class=" fw-bold fs-1">Products Spotlight</h2>
 
-        {{-- <div id="spot-light-carousel" class="carousel slide" data-bs-ride="carousel" style="z-index: -9;">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="{{ asset('asset/img/spotlight.png') }}" class="d-block w-100" alt="image">
-            </div>
-            <div class="carousel-item">
-              <img src="{{ asset('asset/img/spotlight.png') }}" class="d-block w-100" alt="image">
-            </div>
-            <div class="carousel-item">
-              <img src="{{ asset('asset/img/spotlight.png') }}" class="d-block w-100" alt="image">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#spot-light-carousel"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#spot-light-carousel"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div> --}}
                 <!-- Spot ligth Slider  -->
                 <div id="carousel-second" class="carousel slide carousel-fade" data-bs-ride="true">
                     <div class="carousel-indicators">
-                        @foreach ($spotlightProducts as $index => $mainSlide)
+                        {{-- @foreach ($spotlightProducts as $index => $mainSlide)
                             <button type="button" data-bs-target="#carousel-second" data-bs-slide-to="{{ $index }}" {!! $index == 0 ? 'class="active" aria-current="true"' : '' !!} aria-label="Slide {{ $index+1 }}"></button>
-                        @endforeach
+                        @endforeach --}}
                     </div>
                     <div class="carousel-inner">
-                        @foreach ($spotlightProducts as $index => $mainSlide)
+                        {{-- @foreach ($spotlightProducts as $index => $mainSlide)
                             <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                 <img src=" {{ $mainSlide->imageUrl }}" class="d-block w-100" alt="..." >
                             </div>
-                        @endforeach
+                        @endforeach --}}
                     </div>
 
                     <button class="carousel-control-prev" type="button" data-bs-target="#carousel-second" data-bs-slide="prev">

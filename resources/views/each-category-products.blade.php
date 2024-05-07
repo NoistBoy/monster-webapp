@@ -43,29 +43,30 @@
 @section('custom-scripts')
     <script>
         $(document).ready(function() {
+            setTimeout(function() {
+                var currentURL = window.location.href;
+                var categoryId = {{ $categoryId }};
+                if (!currentURL.includes("search")) {
 
-            var currentURL = window.location.href;
-            var categoryId = {{ $categoryId }};
-            if (!currentURL.includes("search")) {
+                    var category_list = $('#category-list');
+                    category_list.hide();
 
-                var category_list = $('#category-list');
-                category_list.hide();
+                    var subCategory = $('#' + categoryId);
+                    var id = subCategory.data('parent_id');
+                    var list_values_to_show = $('#' + id + '-list');
+                    // subCategory.parent().addClass('active-category');
+                    subCategory.children().addClass('active-category');
+                    list_values_to_show.fadeIn();
 
-                var subCategory = $('#' + categoryId);
-                var id = subCategory.data('parent_id');
-                var list_values_to_show = $('#' + id + '-list');
-                // subCategory.parent().addClass('active-category');
-                subCategory.children().addClass('active-category');
-                list_values_to_show.fadeIn();
+                    list_values_to_show.on('click', '.back-to-category', function() {
+                        category_list.fadeIn();
+                        list_values_to_show.hide();
 
-                list_values_to_show.on('click', '.back-to-category', function() {
-                    category_list.fadeIn();
-                    list_values_to_show.hide();
-
-                });
-            }else{
-                $('#' + categoryId).addClass('active-category');
-            }
+                    });
+                }else{
+                    $('#' + categoryId).addClass('active-category');
+                }
+            }, 500);
 
         });
     </script>

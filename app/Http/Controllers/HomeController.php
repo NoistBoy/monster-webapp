@@ -11,25 +11,23 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $category_Response = $this->getCategories();
-        $categoryTreeView = null;
-        if($category_Response){
-            if($category_Response['status'] == 200){
+        // $category_Response = $this->getCategories();
+        // $categoryTreeView = null;
+        // if($category_Response){
+        //     if($category_Response['status'] == 200){
+        //         $categories = $category_Response['result'];
+        //         $categoryTreeView = $this->getCategoryTreeView($categories);
+        //     }
+        // }
 
-                $categories = $category_Response['result'];
+        // $newProductTag_id = 2;
+        // $whatsNew_section = $this->getFeautureProducts_sections($newProductTag_id);
 
-                $categoryTreeView = $this->getCategoryTreeView($categories);
-            }
-        }
+        // $ShopNowSection = $this->getShopNow_Section();
 
-        $newProductTag_id = 2;
-        $whatsNew_section = $this->getFeautureProducts_sections($newProductTag_id);
-
-        $ShopNowSection = $this->getShopNow_Section();
-
-        $mainSlides = $this->getMainSlides(85);
-        $TopFiveProductSlides = $this->getMainSlides(94);
-        $spotlightProducts = $this->getMainSlides(98);
+        // $mainSlides = $this->getMainSlides(85);
+        // $TopFiveProductSlides = $this->getMainSlides(94);
+        // $spotlightProducts = $this->getMainSlides(98);
 
         // $FeaturedAndDisposableTagId = 5;
         // $FeaturedAndDisposable_section = $this->getFeautureProducts_sections($FeaturedAndDisposableTagId);
@@ -43,18 +41,20 @@ class HomeController extends Controller
         // $TimelimitedTagId = 6;
         // $Timelimited_section = $this->getFeautureProducts_sections($TimelimitedTagId);
 
-        return view('index', compact(
-            'categoryTreeView',
-            'ShopNowSection',
-            'whatsNew_section',
-            'mainSlides',
-            'TopFiveProductSlides',
-            'spotlightProducts',
+        return view('index'
+            // , compact(
+            // 'categoryTreeView',
+            // 'ShopNowSection',
+            // 'whatsNew_section',
+            // 'mainSlides',
+            // 'TopFiveProductSlides',
+            // 'spotlightProducts',
             // 'FeaturedAndDisposable_section',
             // 'FeaturedProducts_section',
             // 'BestSellers_section',
             // 'Timelimited_section',
-        ));
+            // )
+        );
     }
 
     public function userDashBoard()
@@ -107,23 +107,25 @@ class HomeController extends Controller
 
     public function SingleProductDetails(Request $request)
     {
-        $category_Response = $this->getCategories();
-        $categoryTreeView = null;
-        if($category_Response){
-            if($category_Response['status'] == 200){
+        // $category_Response = $this->getCategories();
+        // $categoryTreeView = null;
+        // if($category_Response){
+        //     if($category_Response['status'] == 200){
 
-                $categories = $category_Response['result'];
+        //         $categories = $category_Response['result'];
 
-                $categoryTreeView = $this->getCategoryTreeView($categories);
-            }
-        }
+        //         $categoryTreeView = $this->getCategoryTreeView($categories);
+        //     }
+        // }
 
         $newProductTag_id = 2;
         $whatsNew_section = $this->getFeautureProducts_sections($newProductTag_id);
 
         $SingleProductDetailSection = $this->SingleProductDetailSection($request->query('product_id'));
 
-        return view('product-detail',compact('categoryTreeView', 'whatsNew_section', 'SingleProductDetailSection'));
+        return view('product-detail',compact(
+            // 'categoryTreeView',
+            'whatsNew_section', 'SingleProductDetailSection'));
     }
 
     public function SingleProductDetailSection($productId)
@@ -977,6 +979,7 @@ class HomeController extends Controller
     public function getFeautureProducts_sections($tagId)
     {
         $Response = $this->getFeaturedProductsByEachTag($tagId);
+
         $NewProducts = "";
         if(!empty($Response) && $Response['status'] == 200){
             foreach ($Response['result']['content'] as $newProduct) {
@@ -1090,17 +1093,20 @@ class HomeController extends Controller
         $products = $this->getProducts($categoryId);
         $products = $this->getEachCategoryProducts_sections($products);
 
-        $category_Response = $this->getCategories();
-        $categoryTreeView = null;
-        if($category_Response){
-            if($category_Response['status'] == 200){
+        // $category_Response = $this->getCategories();
+        // $categoryTreeView = null;
+        // if($category_Response){
+        //     if($category_Response['status'] == 200){
 
-                $categories = $category_Response['result'];
-                $categoryTreeView = $this->getCategoryTreeView($categories);
-            }
-        }
+        //         $categories = $category_Response['result'];
+        //         $categoryTreeView = $this->getCategoryTreeView($categories);
+        //     }
+        // }
+
         $subcategory = ucwords(str_replace('-', ' ', $subcategory));
-        return view('each-category-products',compact('categoryTreeView','products','category','subcategory', 'categoryId'));
+        return view('each-category-products',compact(
+            // 'categoryTreeView',
+            'products','category','subcategory', 'categoryId'));
     }
 
     public function getSingleProductDetai($productId)
@@ -1135,21 +1141,23 @@ class HomeController extends Controller
 
     public function addToCart()
     {
-        $category_Response = $this->getCategories();
-        $categoryTreeView = null;
-        if($category_Response){
-            if($category_Response['status'] == 200){
+        // $category_Response = $this->getCategories();
+        // $categoryTreeView = null;
+        // if($category_Response){
+        //     if($category_Response['status'] == 200){
 
-                $categories = $category_Response['result'];
+        //         $categories = $category_Response['result'];
 
-                $categoryTreeView = $this->getCategoryTreeView($categories);
-            }
-        }
+        //         $categoryTreeView = $this->getCategoryTreeView($categories);
+        //     }
+        // }
 
         $cartItems = $this->getCartItem();
         // echo "<pre>";
         // print_r($cartItems['result']['cartLineItemDtoList'][0]['productName']);die();
-      return view('add-to-cart',compact('categoryTreeView', 'cartItems'));
+      return view('add-to-cart',compact(
+        // 'categoryTreeView',
+        'cartItems'));
     }
 
     public function postMultiCartItem(Request $request)

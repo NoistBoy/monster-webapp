@@ -9,7 +9,7 @@
             <div class="tree-list-wrapper d-flex justify-content-center flex-column">
 
                 <!-- Tree List -->
-                {!! $categoryTreeView !!}
+                {{-- {!! $categoryTreeView !!} --}}
                 <!-- Tree List End -->
             </div>
         </div>
