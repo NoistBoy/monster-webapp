@@ -122,7 +122,7 @@
 
 @section('custom-scripts')
     <script>
-            $(document).ready(function() {
+        $(document).ready(function() {
 
             $('.showPassword').click(function() {
                 passId = $(this).data('passid');

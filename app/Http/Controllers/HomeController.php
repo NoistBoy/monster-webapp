@@ -2273,6 +2273,10 @@ class HomeController extends Controller
     {
         return view('user-statement');
     }
+    public function resetPassword()
+    {
+        return view('reset-password');
+    }
 
 }
 

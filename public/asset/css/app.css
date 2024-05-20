@@ -170,16 +170,22 @@ body {
     /* background: #eceff1 !important; */
     border-radius: 10px !important;
 }
+.form-control:hover {
+    border-color: var(--monster-primary-blue) !important;
+}
 
 .form-control:focus {
     border-color: var(--monster-primary-blue) !important;
     box-shadow: 0 0 0 .25rem #3c3b6e5b !important;
 }
 
+.form-select:hover {
+    border-color: var(--monster-primary-blue) !important;
+    /* box-shadow: 0 0 0 0.25rem var(--monster-primary) !important; */
+}
 .form-select:focus {
-    border-color: var(--monster-primary) !important;
+    border-color: var(--monster-primary-blue) !important;
     outline: 0 !important;
-
     /* box-shadow: 0 0 0 0.25rem var(--monster-primary) !important; */
 }
 

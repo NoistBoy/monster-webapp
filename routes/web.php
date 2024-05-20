@@ -38,6 +38,7 @@ Route::get('/contact-us', [HomeController::class, 'contactUs']);
 Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/faqs', [HomeController::class, 'faqs']);
 Route::get('/forgot-password', [HomeController::class, 'forgotPassword']);
+Route::get('/reset-password', [HomeController::class, 'resetPassword']);
 
 // dashboard
 Route::group(['middleware' => ['authCheck']], function () {

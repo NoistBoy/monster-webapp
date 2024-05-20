@@ -22,20 +22,38 @@
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <div class="card cascading-right bg-body-tertiary"  style=" backdrop-filter: blur(30px);">
                         <div class="card-body p-5 shadow-5 text-center">
-                            <h2 class="fw-bold">FORGOT PASSWORD</h2>
-                            <p class="text-secondary  mb-5">Please enter your email address below to receive a password reset link.</p>
+                            <div class="mb-3" >
+                                <h2 class="fw-bold">RESET PASSWORD</h2>
+                                <p class="text-secondary  mb-2">Set a new password for your account.<br>
+                                    <span id="password-head_error"  class=""> Password must be at least 6 characters long <span class="text-danger fw-bold" >*</span></span></p>
+
+                            </div>
+
                             <form  id="forgotPassword-form" >
                                 <!-- 2 column grid layout with text inputs for the first and last names -->
 
-                                <!-- User Name -->
-                                <div data-mdb-input-init class="form-outline mb-4">
-                                    <label for=""  class="fw-bold" style="float: left;" >Email <span class="text-danger fw-bold">*</span></label>
-                                    &nbsp;&nbsp;<small id="forgotPassword_error" style="float: left;"  class="error-message text-danger fw-bold "></small>
-                                        <input type="text" name="user-email" class="form-control reset form-control-lg reset" id="user-email" required>
+                                <!-- Password -->
+                                <div data-mdb-input-init class="form-outline mb-4 position-relative">
+                                    <label for=""  class="fw-bold" style="float: left;" >Password <span class="text-danger fw-bold">*</span></label>&nbsp;&nbsp;
 
+                                    <small id="password_error" style="float: left;"  class="error-message text-danger fw-bold "></small>
+                                    <input type="password" name="password" class="form-control form-control-lg reset position-relative" id="password" required>
+                                    <i  data-passId="password" class="fa-regular fa-eye showPassword" style="    position: absolute;
+                                    top: 41px;
+                                    right: 20px;" ></i>
+                                </div>
+                                <!-- ConfirmPassword -->
+                                <div data-mdb-input-init class="form-outline mb-4 position-relative">
+                                    <label for=""  class="fw-bold" style="float: left;" >Confirm Password <span class="text-danger fw-bold">*</span></label>&nbsp;&nbsp;
+
+                                    <small id="confirn-password_error" style="float: left;"  class="error-message text-danger fw-bold "></small>
+                                    <input type="password" name="confirn-password" class="form-control form-control-lg position-relative reset" id="confirn-password" required>
+                                    <i  data-passId="confirn-password" class="fa-regular fa-eye showPassword" style="    position: absolute;
+                                    top: 41px;
+                                    right: 20px;" ></i>
                                 </div>
                                 <!-- Submit button -->
-                                <button class="btn mb-2 auth-form-btn w-100" id="submi-email"  >Submit</button>
+                                <button class="btn mb-2 auth-form-btn w-100" id="reset-password"  >Reset Password</button>
                             </form>
                         </div>
                     </div>
@@ -57,65 +75,87 @@
     <script>
 
         $(document).ready(function () {
-            $('#submi-email').click(function (e) {
+            $('#reset-password').click(function (e) {
                 e.preventDefault();
-                debugger
-                const email = $('#user-email').val();
-                if(email != '' && email != null){
+                var process = true;
+                var error = $('.error-message');
+                error.text('');
 
-                    sendForgotPasswordEmail(email)
-                    .then(data => {
-                        // console.log(data);
+                var password_error = $('#password_error');
+                var Confirmpassword_error = $('#confirn-password_error');
+                var passwordHead_error = $('#password-head_error');
 
-                        Toast.fire({
-                            icon: `success`,
-                            title: `Link has been send to you email.`
-                        });
+                const email = "{{ $_GET['email'] }}";
+                const token = "{{ $_GET['token'] }}";
 
-                        $('.reset').val(null);
-                    })
-                    .catch(error => {
+                const password = $('#password').val();
+                const Confirmpassword = $('#confirn-password').val();
 
-                        alert('Error:', error);
-                    });
 
+                if (!password) {
+                    password_error.text('Passwird is required.');
+                    process = false;
+                }
+                if (!Confirmpassword) {
+                    Confirmpassword_error.text('Confirm Passwird is required.');
+                    process = false;
+                }
+                if (password.length < 6) {
+                    passwordHead_error.addClass('text-danger fw-bold');
+                    process = false;
                 }
 
+                if (password !== Confirmpassword) {
+                    Confirmpassword_error.text('Passwords do not match.');
+                    process = false;
+                }
+                if (!process) {
+                    return;
+                }
+                const url = `https://erp.monstersmokewholesale.com/api/ecommerce/customer/resetPassword?email=${email}&token=${token}`;
+                const data = {
+                    password: password,
+                    confirmPassword: Confirmpassword
+                };
 
-            });
-        });
-
-        function sendForgotPasswordEmail(email) {
-            // Define the request options
-            const requestOptions = {
+                fetch(url, {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json'
-                }
-            };
-
-            // Perform the fetch request
-            return fetch('https://erp.monstersmokewholesale.com/api/ecommerce/customer/sendForgotPasswordEmail?email=' + encodeURIComponent(email), requestOptions)
-                .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to send forgot password email');
-                }
-                // Check if response has content
-                if (response.status === 204) {
-                    return { message: 'No content' };
-                }
-                return response.json();
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
                 })
-                .then(data => {
+                .then(response => {
+                    if (response.status === 204) {
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Password reset successfully.'
+                        });
 
-                    return data;
+                        setTimeout(() => {
+                            window.location.href = '/sign-in';
+                        }, 1500); // Redirect after 1.5 seconds
+                    }
                 })
                 .catch(error => {
-
                     alert('Error:', error);
-                    throw error;
                 });
-            }
 
+            });
+
+            $('.showPassword').click(function() {
+                passId = $(this).data('passid');
+                console.log("The PassId" + passId);
+                let pass = $('#'+passId);
+                let icon = $(this);
+                togglePasswordVisibility(pass, icon);
+            });
+
+        });
+
+        function togglePasswordVisibility(pass, icon) {
+            pass.attr('type', pass.attr('type') === 'password' ? 'text' : 'password');
+            icon.toggleClass('fa-eye fa-eye-slash');
+        }
     </script>
 @endsection
