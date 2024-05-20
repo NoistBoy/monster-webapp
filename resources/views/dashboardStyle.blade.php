@@ -11,104 +11,85 @@
         top: 0;
         left: 0 !important;
     }
-
-    .fa-arrows-rotate {
-        animation: spin 2s infinite linear;
+    .info-card{
+        cursor: pointer !important;
+        transition: all .2s ease-in-out !important;
+    }
+    .info-card:hover{
+        background-color: #f9b1ba !important;
     }
 
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-    /* The Modal (background) */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 99999;
-        padding-top: 5%;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    /* Modal Content */
-    .modal-content {
-        position: relative;
-        background-color: #fefefe;
-        margin: auto;
-        padding: 0;
-        border: 1px solid #888;
-        width: 80%;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        -webkit-animation-name: animatetop;
-        -webkit-animation-duration: 0.4s;
-        animation-name: animatetop;
-        animation-duration: 0.4s
-    }
-
-    /* Add Animation */
-    @-webkit-keyframes animatetop {
-        from {
-            top: -300px;
-            opacity: 0
-        }
-
-        to {
-            top: 0;
-            opacity: 1
-        }
-    }
-
-    @keyframes animatetop {
-        from {
-            top: -300px;
-            opacity: 0
-        }
-
-        to {
-            top: 0;
-            opacity: 1
-        }
-    }
-
-    /* The Close Button */
-    .close {
-        color: white;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
+    .user-info-card{
+        background: #FFFFFF;
+        transition: all .2s ease-in-out !important;
         cursor: pointer;
     }
-
-    .modal-header {
-        padding: 2px 16px;
-        background-color: #242342;
-        color: white;
-    }
-
-    .modal-body {
-        padding: 2px 16px;
-    }
-
-    .modal-footer {
-        padding: 2px 16px;
-        background-color: #242342;
-        color: white;
+    .user-info-card:hover{
+        background-color: #f9b1ba !important;
     }
 </style>
+
+<style>
+    .page-link{
+        color: #3c3b6e !important;
+    }
+
+    .active>.page-link, .page-link.active {
+        background-color: #b22234 !important;
+        border-color: #3c3b6e !important;
+        color: #FFFFFF !important;
+        z-index: 0;
+    }
+    #user-time-message{
+        width: 100%;
+        text-align: right;
+        font-size: 34px;
+    }
+</style>
+
+    <!--the new table style-->
+<style>
+
+    body {
+          background-color: #f8f9fa;
+      }
+
+      .container {
+          /* max-width: 1200px; */
+          /* max-width: 1446px; */
+          max-width: 100%;
+          /* margin: auto; */
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 25px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+          /* text-align: center;
+          color: #4CAF50;
+          margin-bottom: 20px; */
+          font-family: 'Helvetica', sans-serif;
+          font-weight: bold;
+      }
+
+      .action-btn.view {
+          color: #17a2b8;
+      }
+
+      .action-btn.download {
+          color: #28a745;
+      }
+
+      .status.pending {
+          color: #ffc107;
+          font-weight: bold;
+      }
+
+.section-wrapper-dashboard{
+    display: flex;
+    justify-content: center;
+}
+
+</style>
+    <!--the new table style-->

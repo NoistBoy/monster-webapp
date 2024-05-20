@@ -3,7 +3,7 @@
       <div class="container-fluid">
         <h2 class=" fw-bold fs-1 mb-3">Featured Brands</h2>
 
-        <div class="row">
+        <div class="row d-flex justify-content-center align-items-center">
           <marquee behavior="scroll" direction="left" class="fw-bold fs-1" scrollamount="18" loop="infinite">
             <div class="col d-flex gap-4 flex-row">
               <img src="https://everythingfor420.com/cdn/shop/files/brands-board-icon-05.jpg?v=1699387717"
@@ -44,22 +44,16 @@
           </marquee>
                       {{--  Return policy --}}
                       <div class="row my-5">
-                        <div class="col-md-7 col-sm-12" >
-                            <div class="row  py-5 px-3 bg-monster-light monster-primary" style="border-radius: 50px; margin-right: 6px;">
-
-                                <div class="col-md-6 col-sm-12 my-auto" style="padding-left: 3rem;">
+                        <div class="col-md-7 col-sm-12 mb-3 px-3" >
+                            <div class="row  py-5 px-3 bg-monster-light monster-primary" style="border-radius: 50px; ">
+                                <div class="col-md-6 col-sm-12 my-auto " style="padding-left: 3rem;">
                                     <h2 class="fw-bold fs-1 mb-4">Same Day Services</h2>
 
-                                    <div class="mt-3">
+                                    <div class="mt-3 mb-3">
                                         <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Convenient Pickup</span>
                                         <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Store Delivery: Your Convenience</span>
                                         <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Rapid Dispatch</span>
                                     </div>
-                                    {{-- <ul>
-                                        <li>Convenient Pickup</li>
-                                        <li>Store Delivery: Your Convenience</li>
-                                        <li>Rapid Dispatch</li>
-                                    </ul> --}}
                                 </div>
 
                                 <div class="col-md-6 col-sm-12">
@@ -68,9 +62,30 @@
 
                             </div>
                         </div>
-                        <div class="col-md-5 col-sm-12 py-5 px-3  bg-monster-light monster-primary" style="border-radius: 50px;">
+                        <div class="col-md-5 col-sm-12 mb-3 px-3" >
+                            <div class="row  py-5 px-3 bg-monster-light monster-primary" style="border-radius: 50px; ">
 
-                            <div class=" d-flex flex-md-column gap-5 px-5">
+                                <div class="d-flex flex-md-column flex-sm-column gap-5 px-5 flex-sm-dir-column">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h3 class=" fw-bold fs-1" >180 Days: <br> Your Happiness <br>Guarantee</h3>
+
+                                        <span><i class="fa-solid fa-arrow-rotate-left fw-bold" style="font-size: 4rem;" ></i></span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Authentic: Suppliers' Products Guaranteed!</span>
+                                        <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Return Guarantee: Unsatisfied?<br>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send Back!</span>
+                                            <a href="{{ url('return-policy') }}" >
+                                                <button  class="btn-sidebar-footer w-50 mt-3">Return Policy</button>
+                                            </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        {{-- <div class="col-md-5 col-sm-12 py-5 px-3  bg-monster-light monster-primary" style="border-radius: 50px;">
+
+                            <div class="d-flex flex-md-column flex-sm-column gap-5 px-5 flex-sm-dir-column">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h3 class=" fw-bold fs-1" >180 Days: <br> Your Happiness <br>Guarantee</h3>
 
@@ -79,11 +94,11 @@
                                 <div class="mt-3">
                                     <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Authentic: Suppliers' Products Guaranteed!</span>
                                     <span class="d-block fs-5 fw-bold" ><i class="fa-solid fa-circle"></i>&nbsp;Return Guarantee: Unsatisfied?<br>
-                                        Send Back!</span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Send Back!</span>
+                                        <button class="btn-sidebar-footer w-50 mt-3">Return Policy</button>
                                 </div>
-                                <button class="btn-sidebar-footer w-50">Return Policy</button>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     {{--  --}}
           <div class="d-flex justify-content-center d-none ">

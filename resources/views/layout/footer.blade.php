@@ -1,7 +1,7 @@
 <div class="footer container-fluid pt-5 pb-3 ">
     <div class="row px-5 py-4 footer-row">
-        <div>
-            <a class="navbar-brand" href="{{ url('/') }}" style="display: block; width:13%;">
+        <div class="col-12">
+            <a class="navbar-brand footer-brand" href="{{ url('/') }}" style="display: block; ">
                 <img src="{{ asset('asset/img/footer-logo.png') }}" alt="logo" srcset="" class=" img-fluid " style="object-fit: contain;">
             </a>
         </div>
@@ -57,12 +57,12 @@
         <div class="d-md-flex justify-content-between align-items-center d-sm-block">
 
             <div class="footer-nav text-center">
-                <a href="#">HOME</a> |
-                <a href="#">ACCOUNT</a> |
-                <a href="/aboutus">ABOUT US </a> |
-                <a href="/contactus">CONTACT</a> |
-                <a href="/faqs">FAQ's</a> |
-                <a href="/faqs">RETURN POLICY</a>
+                <a href="{{ url('/') }}">HOME</a> |
+                <a href="{{ url('/user-dashboard') }}">ACCOUNT</a> |
+                <a href="{{ url('/about-us') }}">ABOUT US </a> |
+                <a href="{{ url('/contact-us') }}">CONTACT</a> |
+                <a href="{{ url('/faqs') }}">FAQ's</a> |
+                <a href="{{ url('/return-policy') }}">RETURN POLICY</a>
             </div>
 
             <div class="footer-social d-flex">

@@ -1,7 +1,7 @@
 
 const Toast = Swal.mixin({
     toast: true,
-    position: "top-end",
+    position: "top-start",
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
@@ -11,6 +11,35 @@ const Toast = Swal.mixin({
     }
 });
 
+// age varification
+window.onload = function() {
+    if (!localStorage.getItem('ageVerified')) {
+        Swal.fire({
+            title: 'Are you 18+?',
+            text: 'You must be 18 or older to enter this site.',
+            // icon: 'warning',
+            imageUrl: "/asset/img/logo-monster.png",
+            imageWidth: 400,
+            imageAlt: "Monster Smoke",
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Swal.fire(
+                //     'Welcome!',
+                //     'You can now browse the site.',
+                //     'success'
+                // );
+                localStorage.setItem('ageVerified', 'true');
+            } else {
+                window.location.href = "https://www.google.com";
+            }
+        });
+    }
+};
+// age varification End
 
 $(document).ready(function () {
 
@@ -42,7 +71,8 @@ $(document).ready(function () {
         var id = $(this).attr('id');
         var category_list = $(this).closest('#category-list');
         category_list.hide();
-        var list_values_to_show = $('#' + id + '-list');
+        // var list_values_to_show = $('#' + id + '-list');
+        var list_values_to_show = $('.' + id + '-list');
         list_values_to_show.fadeIn();
 
         list_values_to_show.on('click', '.back-to-category', function () {
@@ -198,19 +228,30 @@ $(document).ready(function () {
     getCartCount();
 
 
-    $(window).scroll(function(){
+    $(window).scroll(function () {
         var scroll = $(window).scrollTop();
+        var windowWidth = $(window).width();
         if (scroll > 0) {
             $('.custom-navbar').addClass('sticky-top');
-            $('.sidebar').css('margin-top', '-30px');
-            $('.sidebar-footer').css('bottom', '4%');
+            if (windowWidth > 1260) {
+                $('.sidebar').css('margin-top', '-30px');
+                $('.sidebar-footer').css('bottom', '4%');
+            } else {
+                $('.sidebar').css('top', '90px');
+            }
 
             // $('.sidebar').addClass('sticky-top');
 
         } else {
             $('.custom-navbar').removeClass('sticky-top');
-            $('.sidebar').css('margin-top', '30px');
-            $('.sidebar-footer').css('bottom', '10%');
+            if (windowWidth > 1260) {
+                $('.sidebar').css('margin-top', '30px');
+                $('.sidebar-footer').css('bottom', '10%');
+
+            }
+            else {
+                $('.sidebar').css('top', '146px');
+            }
             // $('.sidebar').removeClass('sticky-top');
 
         }
@@ -221,46 +262,47 @@ $(document).ready(function () {
 
         let formData = new FormData($('#order-products-form')[0]);
 
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'POST',
-                url: '/post-multiple-cart-item',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            url: '/post-multiple-cart-item',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
 
-                    Toast.fire({
-                        icon: `${response.icon}`,
-                        title: `${response.message}`
-                    });
-                    getCartCount();
+                Toast.fire({
+                    icon: `${response.icon}`,
+                    title: `${response.message}`
+                });
+                getCartCount();
 
-                    $('.quantity-input').val(parseInt(0));
-                },
-                error: function (xhr, status, error) {
-                        console.log("The status " + status);
-                        console.log("The Message " + error);
+                $('.quantity-input').val(parseInt(0));
+            },
+            error: function (xhr, status, error) {
+                console.log("The status " + status);
+                console.log("The Message " + error);
 
-                }
-            });
+            }
+        });
     });
 
     //  Search Product Api using js fetch
-     $('#search-product-input').on('input', function(e) {
+    $('.search-product-input').on('input', function (e) {
         // debugger;
         // e.preventDefault();
-        // $('#search-result').show();
-        // $('#search-result').html(`<div class="row">
+        // $('.search-result').show();
+        // $('.search-result').html(`<div class="row">
         //                                 <div class="col-12 text-center">
         //                                     <p> Loading... </p>
         //                                 </div>
         //                             </div>`);
-        if($(this).val().length > 2) {
+        if ($(this).val().length > 2) {
 
-            searchProduct($(this).val().replace(/ /g, '-')).then(result => {
+            // searchProduct($(this).val().replace(/ /g, '-')).then(result => {
+            searchProduct($(this).val()).then(result => {
 
                 console.log("The result :" + result.status);
                 var tr = ``;
@@ -274,16 +316,16 @@ $(document).ready(function () {
 
                     result.products.forEach(element => {
                         var prdName = element.productName.replace(/\|/g, '')
-                        .replace(/ /g, '-')
-                        .replace(/--/g, '-')
-                        .replace(/\//g, '-');
-                        var url = '/product-details/'+encodeURIComponent(prdName)+'?product_id='+element.productId;
+                            .replace(/ /g, '-')
+                            .replace(/--/g, '-')
+                            .replace(/\//g, '-');
+                        var url = '/product-details/' + encodeURIComponent(prdName) + '?product_id=' + element.productId;
 
                         var img = element.imageUrl == "null" ? "/asset/img/place-holder.png" : element.imageUrl;
 
                         tr += `<div class="row  px-4 pt-3"><a href="${url}" class="d-flex justify-content-center align-items-center mb-3" >
                                     <div class="col-3">
-                                        <img src="${img}" class="img-fluid w-75 shadow rounded" alt="image">
+                                        <img src="${img}" class="img-fluid shadow rounded search-result-img" alt="image" style="width:75%;">
                                     </div>
                                     <div class="col-9 fw-bold">
                                         <p> ${element.productName} </p>
@@ -291,9 +333,9 @@ $(document).ready(function () {
                                 </div>`;
                     });
 
-                    if(result.category){
+                    if (result.category) {
                         tr += `<div class="row d-flex justify-content-center align-items-center py-3 mt-3 search-result-footer" style="background:#3c3b6e;">
-                                <a href="/each-category-products/search/${result.category.alias}/${result.category.id}" class="d-flex justify-content-center align-items-center" >
+                                <a href="/category-products/search/${result.category.alias}/${result.category.id}" class="d-flex justify-content-center align-items-center" >
                                     <div class="col-12 text-center" style=" color:#FFFFFF !important;">
                                         See All (${result.totalCount}) Resultes
                                     </div>
@@ -301,15 +343,15 @@ $(document).ready(function () {
                             </div>`;
                     }
 
-                }else{
+                } else {
                     tr += `<div class="row">
                                 <div class="col-12 text-center">
                                     <p>No product match with your search</p>
                                 </div>
                             </div>`;
                 }
-                $('#search-result').html(tr);
-                $('#search-result').show();
+                $('.search-result').html(tr);
+                $('.search-result').show();
                 console.log("The tr" + tr);
 
             }).catch(error => {
@@ -323,11 +365,11 @@ $(document).ready(function () {
     // ==================================================
 
     //  Search Product Api
-    // $('#search-product-input').keydown(function (e) {
+    // $('.search-product-input').keydown(function (e) {
 
     //     // e.preventDefault();
-    //     // $('#search-result').show();
-    //     // $('#search-result').html(`<div class="row">
+    //     // $('.search-result').show();
+    //     // $('.search-result').html(`<div class="row">
     //     //                                 <div class="col-12 text-center">
     //     //                                     <p> Loading... </p>
     //     //                                 </div>
@@ -375,7 +417,7 @@ $(document).ready(function () {
 
     //                         if(response.category){
     //                             tr += `<div class="row d-flex justify-content-center align-items-center py-3 mt-3 search-result-footer" style="background:#3c3b6e;">
-    //                                     <a href="/each-category-products/search/${response.category.alias}/${response.category.id}" class="d-flex justify-content-center align-items-center" >
+    //                                     <a href="/category-products/search/${response.category.alias}/${response.category.id}" class="d-flex justify-content-center align-items-center" >
     //                                         <div class="col-12 text-center" style=" color:#FFFFFF !important;">
     //                                             See All (${response.totalCount}) Resultes
     //                                         </div>
@@ -398,8 +440,8 @@ $(document).ready(function () {
     //                         </div>`;
     //                 }
 
-    //                 $('#search-result').html(tr);
-    //                 $('#search-result').show();
+    //                 $('.search-result').html(tr);
+    //                 $('.search-result').show();
     //                 // console.log("The tr" + tr);
     //             },
     //             error: function (xhr, status, error) {
@@ -410,16 +452,16 @@ $(document).ready(function () {
     //         });
     //     }
     // });
-//  Search Product Api end
-    $('#search-product-input').blur(function(){
-        if($(this).val().length > 2){
+    //  Search Product Api end
+    $('.search-product-input').blur(function () {
+        if ($(this).val().length > 2) {
             return;
         }
-        $('#search-result').css('display', 'none');
+        $('.search-result').css('display', 'none');
     });
 
-    $('#search-product-input').focus(function(){
-        $('#search-result').css('display', 'block');
+    $('.search-product-input').focus(function () {
+        $('.search-result').css('display', 'block');
     });
 
 });
@@ -488,7 +530,7 @@ function addToCart(productId, stock, sku, upc, productName, alias, eta, image, s
         async: false,
         success: function (response) {
 
-            if(response.status == "success"){
+            if (response.status == "success") {
                 if ($('.quantity-plus').hasClass('showSuccessMessage')) {
                     Toast.fire({
                         icon: `${response.icon}`,
@@ -497,7 +539,7 @@ function addToCart(productId, stock, sku, upc, productName, alias, eta, image, s
                 }
 
                 getCartCount();
-            }else{
+            } else {
                 Toast.fire({
                     icon: `${response.icon}`,
                     title: `${response.message}`
@@ -514,7 +556,7 @@ function addToCart(productId, stock, sku, upc, productName, alias, eta, image, s
 
     });
 }
-function UpdateCart(cartId,productId, stock, sku, upc, productName, alias, eta, image, standardPrice, standardPriceWithoutDiscount, sequenceNumber, minQuantityToSale, maxQuantityToSale, quantity, costPrice) {
+function UpdateCart(cartId, productId, stock, sku, upc, productName, alias, eta, image, standardPrice, standardPriceWithoutDiscount, sequenceNumber, minQuantityToSale, maxQuantityToSale, quantity, costPrice) {
 
     $.ajax({
         headers: {
@@ -543,12 +585,12 @@ function UpdateCart(cartId,productId, stock, sku, upc, productName, alias, eta, 
 
         success: function (response) {
 
-            if(response.status == "error"){
+            if (response.status == "error") {
                 Toast.fire({
-                    icon:`${response.icon}`,
+                    icon: `${response.icon}`,
                     title: `${response.message}`
                 });
-            }else{
+            } else {
                 getCartCount();
 
             }
@@ -578,20 +620,20 @@ function getCartCount() {
                 $('.cart-count').text(response.result.totalCartQuantity);
                 $('.cart-count-main').text(response.result.totalCartQuantity);
 
-                if($('.totalCartQuantity')){
+                if ($('.totalCartQuantity')) {
                     $('.totalCartQuantity').text(response.result.totalCartQuantity);
                 }
-                if($('.cartDiscount')){
-                    $('.cartDiscount').text(response.result.cartDiscount+"%");
+                if ($('.cartDiscount')) {
+                    $('.cartDiscount').text(response.result.cartDiscount + "%");
                 }
-                if($('.cartSubTotal')){
-                    $('.cartSubTotal').text("$"+response.result.cartSubTotal);
+                if ($('.cartSubTotal')) {
+                    $('.cartSubTotal').text("$" + response.result.cartSubTotal);
                 }
-                if($('.totalCartPrice')){
-                    $('.totalCartPrice').text("$"+response.result.totalCartPrice);
+                if ($('.totalCartPrice')) {
+                    $('.totalCartPrice').text("$" + response.result.totalCartPrice);
                 }
-                if($('.total-cart-price-checkout')){
-                    $('.total-cart-price-checkout').text("$"+response.result.totalCartPrice);
+                if ($('.total-cart-price-checkout')) {
+                    $('.total-cart-price-checkout').text("$" + response.result.totalCartPrice);
                 }
             }
 
@@ -603,7 +645,7 @@ function getCartCount() {
     });
 }
 
-function deleteCartItem(CartID,productID) {
+function deleteCartItem(CartID, productID) {
     // console.log("The cart idd " + CartID);
     // console.log("The product Idd" + productID);
     $.ajax({
@@ -613,55 +655,60 @@ function deleteCartItem(CartID,productID) {
         type: "post",
         url: "/delete-cart-item",
         data: {
-            productID : productID,
-            CartID : CartID,
-            storeId : $('#storeId-of-'+productID).val(),
-            productName : $('#productName-of-'+productID).val(),
-            sku : $('#sku-of-'+productID).val(),
-            upc : $('#upc-of-'+productID).val(),
-            quantity : $('#quantity-of-'+productID).val(),
-            status : $('#status-of-'+productID).val(),
-            costPrice : $('#costPrice-of-'+productID).val(),
-            standardPrice : $('#standardPrice-of-'+productID).val(),
-            cartStandardPrice : $('#cartStandardPrice-of-'+productID).val(),
-            tierPrice : $('#tierPrice-of-'+productID).val(),
-            originalStandardPrice : $('#originalStandardPrice-of-'+productID).val(),
-            adminRetailPrice : $('#adminRetailPrice-of-'+productID).val(),
-            availableQuantity : $('#availableQuantity-of-'+productID).val(),
-            deleted : $('#deleted-of-'+productID).val(),
-            discountValue : $('#discountValue-of-'+productID).val(),
-            discountType : $('#discountType-of-'+productID).val(),
-            discountAmount : $('#discountAmount-of-'+productID).val(),
-            cartStandardPrice : $('#cartStandardPrice-of-'+productID).val(),
-            taxClassId : $('#taxClassId-of-'+productID).val(),
-            taxType : $('#taxType-of-'+productID).val(),
-            taxPercentage : $('#taxPercentage-of-'+productID).val(),
-            taxPerVolume : $('#taxPerVolume-of-'+productID).val(),
-            outOfStock : $('#outOfStock-of-'+productID).val(),
-            minQuantityToSale : $('#minQuantityToSale-of-'+productID).val(),
-            maxQuantityToSale : $('#maxQuantityToSale-of-'+productID).val(),
-            quantityIncrement : $('#quantityIncrement-of-'+productID).val(),
-            cartLineItemUpdated : $('#cartLineItemUpdated-of-'+productID).val(),
-            imageUrl : $('#imageUrl-of-'+productID).val(),
-            updatedBy : $('#updatedBy-of-'+productID).val(),
-            insertedTimestamp : $('#insertedTimestamp-of-'+productID).val(),
-            updatedTimestamp : $('#updatedTimestamp-of-'+productID).val(),
-            discount : $('#discount-of-'+productID).val(),
-            taxIncludedInSellingPrice : $('#taxIncludedInSellingPrice-of-'+productID).val(),
-            taxPerOunce : $('#taxPerOunce-of-'+productID).val(),
-            directTaxPercentage : $('#directTaxPercentage-of-'+productID).val(),
-            maxCostPrice : $('#maxCostPrice-of-'+productID).val(),
-            taxAmount : $('#taxAmount-of-'+productID).val(),
-            size : $('#size-of-'+productID).val(),
-            serviceProduct : $('#serviceProduct-of-'+productID).val(),
+            productID: productID,
+            CartID: CartID,
+            storeId: $('#storeId-of-' + productID).val(),
+            productName: $('#productName-of-' + productID).val(),
+            sku: $('#sku-of-' + productID).val(),
+            upc: $('#upc-of-' + productID).val(),
+            quantity: $('#quantity-of-' + productID).val(),
+            status: $('#status-of-' + productID).val(),
+            costPrice: $('#costPrice-of-' + productID).val(),
+            standardPrice: $('#standardPrice-of-' + productID).val(),
+            cartStandardPrice: $('#cartStandardPrice-of-' + productID).val(),
+            tierPrice: $('#tierPrice-of-' + productID).val(),
+            originalStandardPrice: $('#originalStandardPrice-of-' + productID).val(),
+            adminRetailPrice: $('#adminRetailPrice-of-' + productID).val(),
+            availableQuantity: $('#availableQuantity-of-' + productID).val(),
+            deleted: $('#deleted-of-' + productID).val(),
+            discountValue: $('#discountValue-of-' + productID).val(),
+            discountType: $('#discountType-of-' + productID).val(),
+            discountAmount: $('#discountAmount-of-' + productID).val(),
+            cartStandardPrice: $('#cartStandardPrice-of-' + productID).val(),
+            taxClassId: $('#taxClassId-of-' + productID).val(),
+            taxType: $('#taxType-of-' + productID).val(),
+            taxPercentage: $('#taxPercentage-of-' + productID).val(),
+            taxPerVolume: $('#taxPerVolume-of-' + productID).val(),
+            outOfStock: $('#outOfStock-of-' + productID).val(),
+            minQuantityToSale: $('#minQuantityToSale-of-' + productID).val(),
+            maxQuantityToSale: $('#maxQuantityToSale-of-' + productID).val(),
+            quantityIncrement: $('#quantityIncrement-of-' + productID).val(),
+            cartLineItemUpdated: $('#cartLineItemUpdated-of-' + productID).val(),
+            imageUrl: $('#imageUrl-of-' + productID).val(),
+            updatedBy: $('#updatedBy-of-' + productID).val(),
+            insertedTimestamp: $('#insertedTimestamp-of-' + productID).val(),
+            updatedTimestamp: $('#updatedTimestamp-of-' + productID).val(),
+            discount: $('#discount-of-' + productID).val(),
+            taxIncludedInSellingPrice: $('#taxIncludedInSellingPrice-of-' + productID).val(),
+            taxPerOunce: $('#taxPerOunce-of-' + productID).val(),
+            directTaxPercentage: $('#directTaxPercentage-of-' + productID).val(),
+            maxCostPrice: $('#maxCostPrice-of-' + productID).val(),
+            taxAmount: $('#taxAmount-of-' + productID).val(),
+            size: $('#size-of-' + productID).val(),
+            serviceProduct: $('#serviceProduct-of-' + productID).val(),
         },
         success: function (response) {
             Toast.fire({
                 icon: "success",
-                title: `SomethingItem successfully removed from the cart.`
+                title: `Item successfully removed from the cart.`
             });
-            $('#cartItem-row-of-'+productID).fadeOut();
+            $('#cartItem-row-of-' + productID).fadeOut();
             getCartCount();
+            // console.log("The total cart quaintity " + parseInt($('.totalCartQuantity').text()));
+            if (parseInt($('.totalCartQuantity').text()) == 1) {
+                $('#check-out-btn').attr('href', "javascript:showMessage('Please add some product in cart')");
+            }
+
         },
         error: function (xhr, status, error) {
 
@@ -680,4 +727,11 @@ function showLoadingScreen() {
 
 function hideLoadingScreen() {
     $('#loading-screen').hide();
-  }
+}
+
+function showMessage(message) {
+    Toast.fire({
+        icon: `info`,
+        title: `${message}`
+    });
+}

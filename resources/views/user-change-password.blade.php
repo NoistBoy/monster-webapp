@@ -51,7 +51,7 @@
         color: var(--text-color);
         padding: 10px;
         right: 25px;
-        top: 50%;
+        top: 26px;
         transform: translateY(-50%);
         cursor: pointer;
         transition: 0.2s;
@@ -61,37 +61,45 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid p-5 my-5">
-        <div class="row py-5 px-3 shadow" style="border-radius: 20px;">
+<div class="container-fluid p-dynamic " style="overflow: hidden;">
+    <div class="row py-5 px-3  section-wrapper-dashboard" style="border-radius: 20px;">
             @include('user-dashboard-sidebar')
             <div class="col-md-10 col-12 mainContent-wrapper">
-                <div class="row" style="margin-left: 2rem;">
+                {{-- <div class="row " >
                     <div class="col-12">
-                        <div class="d-flex gap-3 fs-4 fw-bold">
-                            <span style="cursor: pointer;" id="ToggleSideBar"><i class="fa-solid fa-angles-left" id="dashboard-icon"></i></span>
-                            <span>Forgot Password</span>
+                        <div class="d-flex gap-3 fs-4 fw-bold container">
+                            <span style="cursor: pointer;" class="d-none-sm" id="ToggleSideBar"><i class="fa-solid fa-angles-left" id="dashboard-icon"></i></span>
+                            <span>Change Password</span>
                         </div>
                     </div>
-                </div>
-                <div class="row pt-5" style="margin-left: 2rem;">
+                </div> --}}
+                <div class="row" >
 
+                    {{--  --}}
+                        @include('dashboard-off-canvas')
+                    {{--  --}}
                     {{-- User Profile Start --}}
                     <section >
                         <div class="container-fluid">
                           <div class="row">
                             <div class="col-12">
-                              <div class="shadow mb-4 py-4 px-3" style="border-radius: 20px;" >
+                              <div class="container shadow py-4 px-4" style="border-radius: 20px;" >
                                 <div class="card-body">
 
                                     {{--  --}}
 
-                                        <div class="tab">
-                                            <button class="tablinks  mx-3 active" onclick="openCity(event, 'forgot-password')" id="forgot-password-btn">Forget Password</button>
-                                            <button class="tablinks mx-3" onclick="openCity(event, 'change-password')">Change Password</button>
-                                        </div>
-                                        <hr>
+                                        <div class="tab d-small-flex">
+                                            {{-- <button class="tablinks  mx-3 active" onclick="openCity(event, 'forgot-password')" id="forgot-password-btn">Forget Password</button> --}}
+                                            {{-- <button class="tablinks mx-3" onclick="openCity(event, 'change-password')" id="change-password-btn" >Change Password</button> --}}
+                                            <div class="d-flex gap-3 mb-3 fs-4 fw-bold">
+                                                <span style="cursor: pointer;" class="d-none-sm" id="ToggleSideBar"><i class="fa-solid fa-angles-left" id="dashboard-icon"></i></span>
+                                                <span>Change Password</span>
+                                            </div>
 
-                                        <div id="forgot-password" class="tabcontent mt-4">
+                                        </div>
+                                        {{-- <hr> --}}
+
+                                        {{-- <div id="forgot-password" class="tabcontent mt-4">
                                             <div class="mb-4">
                                                 <h3 class="mb-1">Forgot Password</h3>
                                                 <p class="text-danger fw-bold" >Fields are required with *</p>
@@ -100,55 +108,58 @@
                                             <div>
                                                 <form action="" id="forgot-password-form" >
                                                     <div class="row form-group mb-3">
-                                                        <div class="col-2 form-label fw-bold">Email<span class="text-danger fw-bold">*</span></div>
-                                                        <div class="col-8">
+                                                        <div class="col-md-2 col-sm-12 form-label fw-bold">Email<span class="text-danger fw-bold">*</span></div>
+                                                        <div class="col-md-8 col-sm-12">
                                                             <input type="email" name="email" class="form-control form-control-lg">
                                                         </div>
                                                     </div>
                                                     <div class="row row form-group mb-3">
-                                                        <div class="col-2 form-label fw-bold"></div>
-                                                        <div class="col-8">
-                                                            <button class="btn-address" >
+                                                        <div class="col-md-2 col-sm-12 form-label fw-bold"></div>
+                                                        <div class="col-md-8 col-sm-12">
+                                                            <button class="btn-address w-100" >
                                                                 Send
                                                             </button>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
-                                        <div id="change-password" class="tabcontent mt-4" >
-                                            <div class="mb-4">
+                                        <div id="change-password" class=" mt-4" >
+                                            <div class="mb-5">
                                                 <h3 class="mb-1">Update Your Password</h3>
                                                 <p class="text-danger fw-bold" >Fields are required with *</p>
                                             </div>
                                             <div>
                                                 <form action="" id="change-password-form" >
                                                     <div class="row form-group mb-3">
-                                                        <div class="col-2 form-label fw-bold">Old Password <span class="text-danger fw-bold">*</span></div>
-                                                        <div class="col-8 input-field">
+                                                        <div class="col-md-2 col-sm-12 form-label fw-bold">Old Password <span class="text-danger fw-bold">*</span></div>
+                                                        <div class="col-md-10 col-sm-12 input-field">
                                                             <input type="password" name="old-password" id="old-password" class="form-control form-control-lg">
                                                             <i  data-passId="old-password" class="fa-regular fa-eye showPassword"></i>
+                                                            <small class="text-danger fw-bold error-message" id="old-password_error" ></small>
                                                         </div>
                                                     </div>
                                                     <div class="row row form-group mb-3">
-                                                        <div class="col-2 form-label fw-bold">New Password <span class="text-danger fw-bold">*</span></div>
-                                                        <div class="col-8 input-field">
+                                                        <div class="col-md-2 col-sm-12 form-label fw-bold">New Password <span class="text-danger fw-bold">*</span></div>
+                                                        <div class="col-md-10 col-sm-12 input-field">
                                                             <input type="password" name="new-password" id="new-password" class="form-control form-control-lg">
                                                             <i  data-passId="new-password" class="fa-regular fa-eye showPassword"></i>
+                                                            <small class="text-danger fw-bold error-message" id="new-password_error" ></small>
                                                         </div>
                                                     </div>
                                                     <div class="row row form-group mb-3">
-                                                        <div class="col-2 form-label fw-bold">Confirm Your Password <span class="text-danger fw-bold">*</span></div>
-                                                        <div class="col-8 input-field">
+                                                        <div class="col-md-2 col-sm-12 form-label fw-bold">Confirm Your Password <span class="text-danger fw-bold">*</span></div>
+                                                        <div class="col-md-10 col-sm-12 input-field">
                                                             <input type="password" name="confirm-password" id="confirm-password" class="form-control form-control-lg">
                                                             <i  data-passId="confirm-password" class="fa-regular fa-eye showPassword"></i>
+                                                            <small class="text-danger fw-bold error-message" id="confirm-password_error" ></small>
                                                         </div>
                                                     </div>
                                                     <div class="row row form-group mb-3">
-                                                        <div class="col-2 form-label fw-bold"></div>
-                                                        <div class="col-8">
-                                                            <button class="btn-address" >
+                                                        <div class="col-md-2 col-sm-12 form-label fw-bold"></div>
+                                                        <div class="col-md-10 col-sm-12">
+                                                            <button class="btn-address w-100" id="change-user-password" >
                                                                 Change Password
                                                             </button>
                                                         </div>
@@ -196,14 +207,42 @@
 <script>
 
     $(document).ready(function() { // open default tab
-        $("#forgot-password-btn").click();
+        $("#change-password-btn").click();
 
         $('.showPassword').click(function() {
             passId = $(this).data('passid');
-            console.log("The PassId" + passId);
+
             let pass = $('#'+passId);
             let icon = $(this);
             togglePasswordVisibility(pass, icon);
+        });
+
+        $('#change-user-password').click(function (e) {
+            e.preventDefault();
+            $('.error-message').html("");
+            var process = true;
+            const oldPassword = $('#old-password').val();
+            const newPassword = $('#new-password').val();
+            const confirmPassword = $('#confirm-password').val();
+
+            if (oldPassword == '' || oldPassword == null ) {
+                process = false;
+                $('#old-password_error').html('Old password is required!');
+            }
+            if (newPassword == '' || newPassword == null) {
+                process = false;
+                $('#new-password_error').html('New password is required!');
+            }
+            if (confirmPassword == '' || confirmPassword == null) {
+                process = false;
+                $('#confirm-password_error').html('Comfirm password is required!');
+            }
+
+            if (process) {
+                const token = "{{ Session::get('user.accessToken') }}";
+                changePassword(oldPassword, newPassword, confirmPassword, token);
+            }
+
         });
 
     });
@@ -214,10 +253,60 @@
         }
 
         function openCity(evt, cityName) {
+
             $(".tabcontent").hide();
             $(".tablinks").removeClass("active");
             $("#" + cityName).show();
             $(evt.currentTarget).addClass("active");
+
         }
+
+        function changePassword(oldPassword, newPassword, confirmPassword, token) {
+            const url = 'https://erp.monstersmokewholesale.com/api/ecommerce/customer/changePassword';
+
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Accept-Language': 'en-US,en;q=0.9',
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'Origin': 'https://www.monstersmokewholesale.com',
+                    'Referer': 'https://www.monstersmokewholesale.com/',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+                    'sec-ch-ua': '"Chromium";v="124", "Google Chrome";v="124", "Not-A.Brand";v="99"',
+                    'sec-ch-ua-mobile': '?0',
+                    'sec-ch-ua-platform': '"Windows"'
+                },
+                body: JSON.stringify({
+                    oldPassword: oldPassword,
+                    password: newPassword,
+                    confirmPassword: confirmPassword
+                })
+            };
+
+            fetch(url, requestOptions)
+                .then(response => {
+
+                    if (response.status === 204) {
+                        return null;
+                    }
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+
+                    return response.json();
+                })
+                .then(data => {
+                    alert("Password change successfullly");
+                    window.location.href = '/log-out';
+                })
+                .catch(error => {
+                    alert('There was an error!', error);
+                });
+            }
+
+
     </script>
 @endsection

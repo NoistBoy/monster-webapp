@@ -6,10 +6,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('asset/img/monster-fav-icon.png') }}" type="image/x-icon">
     <title>Monster Smoke Whole Sale</title>
-
     <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('asset/css/app.css') }}">
+
+
     <!--font awsome cdn-->
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
 
@@ -28,9 +29,23 @@
         <!-- Include jquery ui -->
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+
+        <!-- jquery/3.7.1 --->
+        <script src="{{ asset('asset/js/jquery.min.js') }}"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <!-- Include owl caroucel -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <!-- Data table  -->
+        {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">--}}
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css">
+        <!-- Data table  -->
+
+        <link rel="stylesheet" href="{{ asset('asset/css/app.css') }}">
         @yield('custom-style')
-
-
 </head>
 
 <body>

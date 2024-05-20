@@ -23,8 +23,9 @@
 
         getCategories()
         .then(categories => {
-
-            $('.tree-list-wrapper').append(getCategoryTreeView(categories.result));
+            var categoryFinalview = getCategoryTreeView(categories.result);
+            $('#shop-by-category-canvas').append(categoryFinalview);
+            $('.tree-list-wrapper').append(categoryFinalview);
 
         })
         .catch(error => {
@@ -62,18 +63,18 @@
             const categoryId = category.id;
 
             // Construct category labels
-            categoryLabels += `<li class="mb-2 label d-flex justify-content-between align-items-center" id="${categoryId}" onClick="showCategoryList(this)">
+            categoryLabels += `<li class="mb-2 label d-flex justify-content-between align-items-center " id="${categoryId}" onClick="showCategoryList(this)">
                                     <span>${categoryName}</span><i class="lni lni-chevron-right"></i>
                                 </li>`;
 
             // Construct category lists
-            categoryLists += `<div class="list-values" id="${categoryId}-list">
+            categoryLists += `<div class="list-values ${categoryId}-list" id="${categoryId}-list">
                                     <span class="d-flex align-items-center back-to-category"><i class="lni lni-chevron-left"></i>&nbsp;&nbsp;&nbsp;<a href="#"> Back to Home</a></span>`;
 
             if (category.subCategories && category.subCategories.length > 0) {
                 category.subCategories.forEach(subCategory => {
-                    const subCategoryHref = `/each-category-products/${categoryName.toLowerCase()}/${subCategory.name.toLowerCase().replace(/\//g, '-').replace(/\s/g, '-')}/${subCategory.id}`;
-                    categoryLists += `<a href="${subCategoryHref}" id="${subCategory.id}" data-parent_id="${categoryId}">
+                    const subCategoryHref = `/category-products/${categoryName.toLowerCase()}/${subCategory.name.toLowerCase().replace(/\//g, '-').replace(/\s/g, '-')}/${subCategory.id}`;
+                    categoryLists += `<a href="${subCategoryHref}" class="${subCategory.id}" id="${subCategory.id}" data-parent_id="${categoryId}">
                                             <span class="d-flex align-items-center">${subCategory.name}</span>
                                         </a>`;
                 });
@@ -82,7 +83,7 @@
             categoryLists += `</div>`;
         });
 
-        const categoryTreeView = `<ul id="category-list">${categoryLabels}</ul>${categoryLists}`;
+        const categoryTreeView = `<ul class="category-list" id="category-list">${categoryLabels}</ul>${categoryLists}`;
         return categoryTreeView;
     }
 
@@ -91,7 +92,8 @@
         var id = element.id;
         var categoryList = $(element).closest('#category-list');
         categoryList.hide();
-        var listValuesToShow = $('#' + id + '-list');
+        // var listValuesToShow = $('#' + id + '-list');
+        var listValuesToShow = $('.' + id + '-list');
         listValuesToShow.fadeIn();
 
         listValuesToShow.on('click', '.back-to-category', function () {

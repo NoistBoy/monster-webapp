@@ -193,6 +193,36 @@
     .radio-wrapper label{
         cursor: pointer !important;
     }
+    .check-out-detail-section{
+        padding-top: 3rem;
+    }
+
+    .Payment-Information-section{
+
+    }
+
+@media screen and (max-width: 425px) {
+   .check-out-detail-section{
+        padding-right: 2rem !important;
+        padding-left: 2rem !important;
+        padding-top: 0rem !important;
+   }
+
+   .Payment-Information-section{
+         padding-left: 0.8rem !important;
+    }
+
+    .fs-title {
+        font-size: 20px !important;
+    }
+
+    .steps{
+        font-size: 20px !important;
+    }
+}
+.action-button, .previous{
+    border-radius: 10px !important;
+}
 
 </style>
 
@@ -200,8 +230,8 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-8">
-            <div class="container-fluid mb-5 " style="padding-left: 3rem;">
+        <div class="col-md-8 col-sm-12">
+            <div class="container-fluid mb-5 Payment-Information-section " style="padding-left: 3rem;">
                 <div class="row justify-content-center">
                     <div class="col-11 col-sm-10 col-md-10 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2" style="width:90%;">
                         <div class="checkOut-card px-0 pt-4 pb-0 mt-3 mb-3">
@@ -242,18 +272,47 @@
                                                 </select>
                                                 {{-- <input type="email" name="email" placeholder="Email Id" /> --}}
                                             </div>
+
+                                            <div class="row mt-2 mb-4">
+                                                <div class="col-md-6 col-sm-12 mb-3 px-4" style="display: none;">
+                                                    <div class=" billingDetails-wrapper radio-active radio-label row d-flex justify-content-center align-baseline align-items-baseline" style="cursor: pointer;">
+                                                        <div class="col-1">
+                                                            <input type="radio" name="billingDetails" checked class="input-radio billingDetails-radio" id="same-address" value="dd" >
+                                                        </div>
+                                                        <div class="col-9 ">
+                                                            <label class="fw-bold " for="same-address" style="width: -webkit-fill-available; cursor: pointer;">
+                                                                Deliver to this address
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-12 mb-3 px-4" >
+                                                    <div class="billingDetails-wrapper radio-label row d-flex justify-content-center align-baseline align-items-baseline" style="cursor: pointer;">
+                                                        <div class="col-1">
+                                                            <input type="radio" name="billingDetails"  class="input-radio billingDetails-radio" id="different-address" value="dd" style="display: none;" >
+                                                        </div>
+                                                        <div class="col-9">
+                                                            <label class="fw-bold " for="different-address" style="width: -webkit-fill-available; cursor: pointer;">
+                                                                <span><i class="fa-solid fa-plus"></i></span> Add new Address
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
                                             <div class="row" id="add-customer-address" style="display: none;">
                                                 <div class="col-12 mb-3">
                                                     <h3>Add Billing Address</h3>
                                                 </div>
-                                                <div class="col-12 mb-3 ">
+                                                <div class="col-md-12 col-sm-12 mb-3 ">
                                                     <input type="text" name="address1" value="" class="form-control form-control-lg reset" id="customer-address1" placeholder="Address 1 *">
                                                     <small class="text-danger fw-bold px-2 "  id="customer-address1-error" ></small>
                                                 </div>
-                                                <div class="col-4 mb-3 ">
+                                                <div class="col-md-4 col-sm-12 mb-3 ">
                                                     <input type="text" name="address2" value="" class="form-control form-control-lg reset" id="customer-address2" placeholder="Address 2">
                                                 </div>
-                                                <div class="col-4 mb-3 ">
+                                                <div class="col-md-4 col-sm-12 mb-3 ">
                                                     <select name="country" id="country_id" class="form-select form-select-lg reset" required>
                                                         @if ($countries)
                                                         <?php $country = $countries;?>
@@ -265,52 +324,25 @@
                                                     </select>
                                                     <small class="text-danger fw-bold px-2 "  id="country_id-error" ></small>
                                                 </div>
-                                                <div class="col-4 mb-3 ">
+                                                <div class="col-md-4 col-sm-12 mb-3 ">
                                                     <select  name="state_id" id="state_id" class="form-select form-select-lg reset" disabled></select>
                                                     <small class="text-danger fw-bold px-2 "  id="state_id-error" ></small>
                                                 </div>
-                                                <div class="col-4 mb-3 ">
+                                                <div class="col-md-4 col-sm-12 mb-3 ">
                                                     <input type="text" name="city" value="" class="form-control form-control-lg reset" id="customer-city" placeholder="City *">
                                                     <small class="text-danger fw-bold px-2 "  id="customer-city-error" ></small>
                                                 </div>
-                                                <div class="col-4 mb-3 ">
+                                                <div class="col-md-4 col-sm-12 mb-3 ">
                                                     <input type="text" name="postalCode" class="form-control form-control-lg reset" id="customer-postalCode" placeholder="Zip/Postal Code *">
                                                     <small class="text-danger fw-bold px-2 "  id="customer-postalCode-error" ></small>
                                                 </div>
-                                                <div class="col-4 mb-3 ">
+                                                <div class="col-md-4 col-sm-12 mb-3 ">
                                                     <input type="text" name="phone" id="customer-phone" class="form-control form-control-lg reset"  placeholder="Phone *">
                                                     <small class="text-danger fw-bold px-2 "  id="customer-phone-error" ></small>
                                                 </div>
-                                                <div class="col-4 mb-3">
+                                                <div class="col-md-4 col-sm-12 mb-3">
                                                     <button class="btn bg-monster-primary" id="add-new-address">Add Address</button>
                                                 </div>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-6 mb-3 px-4" >
-                                                    <div class="billingDetails-wrapper radio-active radio-label row d-flex justify-content-center align-baseline align-items-baseline" style="cursor: pointer;">
-                                                        <div class="col-1">
-                                                            <input type="radio" name="billingDetails" checked class="input-radio billingDetails-radio" id="same-address" value="dd" >
-                                                        </div>
-                                                        <div class="col-9">
-                                                            <label class="fw-bold " for="same-address" style="width: -webkit-fill-available; cursor: pointer;">
-                                                                Deliver to this address
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 mb-3 px-4" >
-                                                    <div class="billingDetails-wrapper radio-label row d-flex justify-content-center align-baseline align-items-baseline" style="cursor: pointer;">
-                                                        <div class="col-1">
-                                                            <input type="radio" name="billingDetails"  class="input-radio billingDetails-radio" id="different-address" value="dd" >
-                                                        </div>
-                                                        <div class="col-9">
-                                                            <label class="fw-bold " for="different-address" style="width: -webkit-fill-available; cursor: pointer;">
-                                                                Deliver to a different address
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                             </div>
                                         </div>
                                     <input type="button" name="next" class="action-button parse-billing-details" value="Next" />
@@ -333,14 +365,14 @@
                                             <div class="row mt-5">
                                                 @foreach ($shipingMethods['result'] as $shipingMethods)
                                                     @if ($shipingMethods['active'])
-                                                        <div class="col-6 mb-3 px-4" >
+                                                        <div class="col-md-6 col-sm-12 mb-3 px-4" >
                                                             <div class="radio-wrapper radio-label row d-flex justify-content-center align-baseline align-items-baseline">
                                                                 <div class="col-1">
-                                                                    <input type="radio" name="shipingMethod" data-shipping-label="{{ $shipingMethods['name']."&nbsp; - &nbsp;$ ".$shipingMethods['amount'] }}" class="input-radio " id="{{ $shipingMethods['id'] }}" value="{{ $shipingMethods['id'].",".$shipingMethods['amount'] }}" >
+                                                                    <input type="radio" name="shipingMethod" data-shipping-label="{{ $shipingMethods['name']."&nbsp; - &nbsp;$ ".$shipingMethods['amount'] }}" class="input-radio " id="shipping-method-{{ $shipingMethods['id'] }}" value="{{ $shipingMethods['id'].",".$shipingMethods['amount'] }}" >
                                                                     <input type="hidden" name="">
                                                                 </div>
                                                                 <div class="col-9">
-                                                                    <label class="fw-bold " for="{{ $shipingMethods['id'] }}" style="width: -webkit-fill-available;">
+                                                                    <label class="fw-bold " for="shipping-method-{{ $shipingMethods['id'] }}" style="width: -webkit-fill-available;">
                                                                         {{ $shipingMethods['name'] }}
                                                                     </label>
                                                                 </div>
@@ -375,37 +407,37 @@
                                             <div class="col-12 mb-3">
                                                 <h3>Add Credit Card</h3>
                                             </div>
-                                            <div class="col-6 mb-3 ">
+                                            <div class="col-md-6 col-sm-12 mb-3 ">
                                                 <input type="text" name="firstName" value="" class="form-control form-control-lg reset" id="firstName" placeholder="First Name *">
                                                 <small class="text-danger fw-bold px-2 "  id="firstName-error" ></small>
                                             </div>
-                                            <div class="col-6 mb-3 ">
+                                            <div class="col-md-6 col-sm-12 mb-3 ">
                                                 <input type="text" name="lastName" value="" class="form-control form-control-lg reset" id="lastName" placeholder="Last Name *">
                                                 <small class="text-danger fw-bold px-2 "  id="lastName-error" ></small>
                                             </div>
 
-                                            <div class="col-12 mb-3 ">
+                                            <div class="col-md-12 col-sm-12 mb-3 ">
                                                 <input type="number" name="cardNumber" value="" class="form-control form-control-lg reset" id="cardNumber" placeholder="Card Number *">
                                                 <small class="text-danger fw-bold px-2 "  id="cardNumber-error" ></small>
                                             </div>
-                                            <div class="col-4 mb-3 ">
+                                            <div class="col-md-4 col-sm-12 mb-3 ">
                                                 <input type="number" name="expirationMonth" value="" max="2" class="form-control form-control-lg reset" id="expirationMonth" placeholder="Expiration Month  MM *">
                                                 <small class="text-danger fw-bold px-2 "  id="expirationMonth-error" ></small>
                                             </div>
-                                            <div class="col-4 mb-3 ">
+                                            <div class="col-md-4 col-sm-12 mb-3 ">
                                                 <input type="number" name="expirationYear" value="" class="form-control form-control-lg reset" id="expirationYear" placeholder="Expiration Year  YY *">
                                                 <small class="text-danger fw-bold px-2 "  id="expirationYear-error" ></small>
                                             </div>
-                                            <div class="col-4 mb-3 ">
+                                            <div class="col-md-4 col-sm-12 mb-3 ">
                                                 <input type="number" name="cvv" id="cvv" class="form-control form-control-lg reset" placeholder="CVC/CVV *">
                                                 <small class="text-danger fw-bold px-2 "  id="cvv-error" ></small>
                                             </div>
-                                            <div class="col-12 mb-3 ">
+                                            <div class="col-md-12 col-sm-12 mb-3 ">
                                                 <input type="text" name="credit-card-address" value="" class="form-control form-control-lg reset" id="credit-card-address" placeholder="Address *">
                                                 <small class="text-danger fw-bold px-2 "  id="credit-card-address-error" ></small>
                                             </div>
 
-                                            <div class="col-3 mb-3 ">
+                                            <div class="col-md-3 col-sm-12 mb-3 ">
                                                 {{-- <input type="text" name="credit-card-country" class="form-control form-control-lg reset" id="credit-card-country" placeholder="Country *"> --}}
                                                 <select name="credit-card-country" id="credit-card-country" class="country_id_class form-select form-select-lg reset" required>
                                                     @if ($cntry)
@@ -417,18 +449,18 @@
                                                 </select>
                                                 <small class="text-danger fw-bold px-2 "  id="credit-card-country-error" ></small>
                                             </div>
-                                            <div class="col-3 mb-3 ">
+                                            <div class="col-md-3 col-sm-12 mb-3 ">
                                                 <select  name="credit-card-state" id="credit-card-state" class="state_id_class form-select form-select-lg reset " disabled></select>
                                                 &nbsp;<small id="credit-card-state-error" class="error-message text-danger fw-bold "></small>
 
                                                 {{-- <input type="text" name="credit-card-state" id="credit-card-state" class="form-control form-control-lg reset"  placeholder="State *">
                                                 <small class="text-danger fw-bold px-2 "  id="credit-card-state-error" ></small> --}}
                                             </div>
-                                            <div class="col-3 mb-3 ">
+                                            <div class="col-md-3 col-sm-12 mb-3 ">
                                                 <input type="text" name="credit-card-city" id="credit-card-city" class="form-control form-control-lg reset"  placeholder="City *">
                                                 <small class="text-danger fw-bold px-2 "  id="credit-card-city-error" ></small>
                                             </div>
-                                            <div class="col-3 mb-3 ">
+                                            <div class="col-md-3 col-sm-12 mb-3 ">
                                                 <input type="text" name="credit-card-zipcode" id="credit-card-zipcode" class="form-control form-control-lg reset"  placeholder="Zip code *">
                                                 <small class="text-danger fw-bold px-2 "  id="credit-card-zipcode-error" ></small>
                                             </div>
@@ -442,7 +474,7 @@
                                             <div class="row mt-5">
                                                 @foreach ($PaymentMethods['result'] as $PaymentMethods)
                                                     @if ($PaymentMethods['ecommerce'])
-                                                        <div class="col-6 mb-3 px-4" >
+                                                        <div class="col-md-6 col-sm-12 mb-3 px-4" >
                                                             <div class="radio-wrapper paymentMethods-wrapper radio-label row d-flex justify-content-center align-baseline align-items-baseline">
                                                                 <div class="col-3">
                                                                     <input type="radio" name="PaymentMethods" data-label="{{ $PaymentMethods['name'] }}"  class="{{strtolower(str_replace(' ', '', $PaymentMethods['name']))  }}-option paymentMethods-radio" id="payment-option-{{ $PaymentMethods['id'] }}" value="{{ $PaymentMethods['id'] }}" >
@@ -478,43 +510,62 @@
 
                                         <div class="row">
                                             @if ($cartLineItem)
-                                            <div class="col-12 mb-3" style="min-height: 10rem; max-height: 22rem; overflow-x: hidden;">
-
+                                            <div class="col-12 mb-3" style="min-height: 10rem; max-height: 22rem; overflow-x: auto;">
                                                     @foreach ($cartLineItem as $cartItems )
 
-                                                    <div class="card mb-2" >
-                                                        <div class="row py-2 px-3 d-flex justify-content-center align-items-center" >
-                                                            <div class="col-2 fw-bold">
-                                                                <img src="{{ $cartItems['imageUrl'] ?? asset('asset/img/place-holder.jpeg') }}" class=" img-thumbnail img-fluid w-50" alt="" srcset="">
-                                                                {{-- ID:&nbsp;#{{ $cartItems['id'] }} --}}
+                                                        <div class="card mb-2" >
+
+                                                            <div class=" d-flex justify-content-center align-items-center gap-4 px-4 py-1" style="overflow-x: auto;">
+                                                                <div class=" d-flex justify-content-center align-items-center" style="width: 130px;">
+                                                                    <img src="{{ $cartItems['imageUrl'] ?? asset('asset/img/place-holder.jpeg') }}" class=" img-fluid w-100" alt="" srcset="">
+                                                                </div>
+                                                                <div style="width: 650px;font-weight: 500;">
+                                                                    {{ $cartItems['productName'] }}
+                                                                </div>
+                                                                <div style="width: 250px;font-weight: 500;">
+                                                                    {!! $cartItems['quantity']."&nbsp;X&nbsp;".$cartItems['originalStandardPrice'] !!}
+                                                                    <input type="hidden" name="order-totalQuantity" value="{{ $cartItems['quantity'] }}">
+                                                                </div>
+                                                                <div style="width: 250px;font-weight: 500;">
+                                                                    $&nbsp;{{ $cartItems['quantity']*$cartItems['originalStandardPrice'] }}
+                                                                </div>
                                                             </div>
-                                                            <div class="col-6" style="font-weight: 500;" >{{ $cartItems['productName'] }}</div>
-                                                            <div class="col-2" style="font-weight: 500;" >{!! $cartItems['quantity']."&nbsp;X&nbsp;".$cartItems['originalStandardPrice'] !!}</div>
-                                                            <input type="hidden" name="order-totalQuantity" value="{{ $cartItems['quantity'] }}">
-                                                            <div class="col-2" style="font-weight: 500;" >$ {{ $cartItems['quantity']*$cartItems['originalStandardPrice'] }}</div>
+
+                                                            {{-- <div class="row py-2 px-3 d-flex justify-content-center align-items-center" >
+                                                                <div class="col-2 fw-bold">
+                                                                    <img src="{{ $cartItems['imageUrl'] ?? asset('asset/img/place-holder.jpeg') }}" class=" img-thumbnail img-fluid w-50" alt="" srcset="">
+
+                                                                </div>
+                                                                <div class="col-6" style="font-weight: 500;" >{{ $cartItems['productName'] }}</div>
+                                                                <div class="col-2" style="font-weight: 500;" >{!! $cartItems['quantity']."&nbsp;X&nbsp;".$cartItems['originalStandardPrice'] !!}</div>
+                                                                <input type="hidden" name="order-totalQuantity" value="{{ $cartItems['quantity'] }}">
+                                                                <div class="col-2" style="font-weight: 500;" >$ {{ $cartItems['quantity']*$cartItems['originalStandardPrice'] }}</div>
+                                                            </div> --}}
+
                                                         </div>
-                                                    </div>
 
                                                     @endforeach
                                                 </div>
                                                 <div class="mb-0 text-right px-5">
                                                     <div class="row mb-2">
-                                                        <div class="col-3 offset-md-7 fw-bold">Total({{ $totalCartQuantity }} items)</div>
-                                                        <div class="col-2 fw-bold">$ {{ $cartSubTotal }}</div>
-                                                        <input type="hidden" name="cartSubTotal" value="{{ $cartSubTotal }}">
+                                                        <div class="col-md-3 col-sm-6 offset-md-7 fw-bold">Total({{ $totalCartQuantity }} items)</div>
+                                                        <div class="col-md-2 col-sm-6 fw-bold">$ {{ $cartSubTotal }}
+
+                                                            <input type="hidden" name="cartSubTotal" value="{{ $cartSubTotal }}">
+                                                        </div>
                                                     </div>
                                                     <div class="row mb-2">
-                                                        <div class="col-3 offset-md-7 fw-bold">Shipping&nbsp;Charges</div>
-                                                        <div class="col-2 fw-bold">$ {{ 0 }}</div>
+                                                        <div class="col-md-3 col-sm-6 offset-md-7 fw-bold">Shipping&nbsp;Charges</div>
+                                                        <div class="col-md-2 col-sm-6 fw-bold">$ {{ 0 }}</div>
                                                     </div>
                                                     <div class="row mb-4">
-                                                        <div class="col-3 offset-md-7 fw-bold">Tax Charges</div>
-                                                        <div class="col-2 fw-bold">$ {{ 0 }}</div>
+                                                        <div class="col-md-3 col-sm-6 offset-md-7 fw-bold">Tax Charges</div>
+                                                        <div class="col-md-2 col-sm-6 fw-bold">$ {{ 0 }}</div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <hr>
-                                                        <div class="col-3 offset-md-7 fw-bold">Grand Total</div>
-                                                        <div class="col-2 fw-bold">$ {{ $totalCartPrice }}</div>
+                                                        <div class="col-md-3 col-sm-6 offset-md-7 fw-bold">Grand Total</div>
+                                                        <div class="col-md-2 col-sm-6 fw-bold">$ {{ $totalCartPrice }}</div>
                                                         <input type="hidden" name="totalCartPrice" value="{{ $totalCartPrice }}">
                                                         <input type="hidden" name="cartDiscount" value="{{ $cartDiscount }}">
                                                     </div>
@@ -526,7 +577,7 @@
                                                     </div>
                                                     <div class="col-1"><i class="fa-solid fa-user-large monster-primary"></i></div>
                                                     <div class="col-11">
-                                                        <textarea name="customer-notes" id="" cols="30" rows="3" class="w-100">Comment on this order</textarea>
+                                                        <textarea name="customer-notes" id="" cols="30" rows="3" class="w-100"></textarea>
                                                     </div>
                                                 </div>
                                                 @endif
@@ -566,7 +617,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-4 pt-5" style="padding-right: 3rem; padding-left: 0;">
+        <div class="col-md-4 col-sm-12 check-out-detail-section" style="padding-right: 3rem; padding-left: 0;">
             <div class="card bg-light-gray card-detail-section rounded-3 mt-5 mb-5 pb-3">
                 <div class="card-body">
 
@@ -605,10 +656,46 @@
         </div>
     </div>
 </div>
+
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close" id="close-model">&times;</span>
+
+                        </div>
+                        <div class="modal-body" id="details-views" style="height: 40rem;">
+
+                        </div>
+                        {{-- <div class="modal-footer">
+                                    <h3>Modal Footer</h3>
+                                </div> --}}
+                    </div>
+
+                </div>
 @endsection
 
 
 @section('custom-scripts')
+    <script>
+        var token = @php echo json_encode(Session::get('user.accessToken')); @endphp;
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
     <script>
         $(document).ready(function () {
             $('.info-billing-detail').html($('#Shiping-Address option:first').text());
@@ -718,22 +805,27 @@
                 }
             });
 
-            $('.billingDetails-radio').change(function() {
-                $('.billingDetails-wrapper').removeClass('radio-active');
-                $(this).closest('.billingDetails-wrapper').addClass('radio-active');
-
+            $('.billingDetails-radio').click(function() {
+                // $('.billingDetails-wrapper').removeClass('radio-active');
+                // $(this).closest('.billingDetails-wrapper').addClass('radio-active');
+                $(this).closest('.billingDetails-wrapper').toggleClass('radio-active');
+                $('.action-button').prop('disabled', function(i, val) {
+                    return !val;
+                });
                 if ($('#different-address').is(':checked')) {
-                    $('#add-customer-address').fadeIn();
-                    $('.action-button').prop('disabled', true);
+                    // $('#add-customer-address').fadeIn();
+                    $('#add-customer-address').toggle();
+                    // $('.action-button').prop('disabled', true);
 
                 } else {
                     $('#add-customer-address').hide();
-                    $('.action-button').prop('disabled', false);
+                    // $('.action-button').prop('disabled', false);
                 }
             });
 
             $('.parse-billing-details').click(function (e) {
                 e.preventDefault();
+                // debugger;
                 var process = false;
                 if ($('#add-customer-address').css('display') !== 'none') {
 
@@ -763,7 +855,7 @@
 
             });
             $('.PaymentMethods-parse').click(function (e) {
-            debugger
+
                 e.preventDefault();
 
                 $('#PaymentMethods-error').text("");
@@ -827,18 +919,24 @@
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        console.log(response);
+
                         if(response.hasError){
                             Toast.fire({
                                 icon: `error`,
                                 title: `${response.error.details}`
                             });
                         }else{
+                            var InvID = response.result.orderDto.id;
+                            var url = "https://erp.monstersmokewholesale.com/services/pdf/sales-order/invoice/" + InvID + "?token={{ Session::get('user.accessToken') }}&defaultStoreId=2&storeIdList=1,2&isEcommerce=true";
+                            var iframe = `<iframe src="${url}" width="100%" height="100%" title="Order Details"></iframe>`;
+                            $('#details-views').html(iframe);
+                            modal.style.display = "block";
                             Toast.fire({
                                 icon: `success`,
                                 title: `Your order has been successfully placed!`
                             });
                             $('#place-customer-orders-parse').click();
+
                         }
                         // $('#loading-indicator').hide();
                         $('.action-button').prop('disabled', false);
@@ -886,10 +984,13 @@
                             icon: "success",
                             title: `Address add Successfully!`
                         });
+                        $('.billingDetails-wrapper').removeClass('radio-active');
+                        $('#different-address').prop('checked', false);
+
                     }else{
                         Toast.fire({
                             icon: "error",
-                            title: `Something went wrong!`
+                            title: `Some unexpected situations found.`
                         });
                     }
                 },

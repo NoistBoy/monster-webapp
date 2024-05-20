@@ -136,7 +136,7 @@ class HomeController extends Controller
 
         if($productsDetails['hasError'] == false && $productsDetails['status'] == 200 ){
 
-            $masterProductImage = $productsDetails['result']['productImageList'][0];
+            $masterProductImage =  $this->imgUrl($productsDetails['result']['productImageList'][0]);
 
             $masterProduct .= '<div class="col-md-5 col-sm-12">
                                     <div class="same-height-images">
@@ -365,9 +365,9 @@ class HomeController extends Controller
             if(!empty($category['subCategories'])){
                 foreach ($category['subCategories'] as $subCategory) {
                     // $categorylists .= '<span class="d-flex align-items-center">
-                    //     <a href="'.url('/each-category-products/'.strtolower(str_replace(' ', '-', $categoryName)).'/'.strtolower(str_replace(' ', '-', str_replace('/', '-', $subCategory['name']))).'/'.$subCategory['id']).'" id="'.$subCategory['id'].'" data-parent_id="'.$categoryID.'"  >'.$subCategory['name'].'</a>
+                    //     <a href="'.url('/category-products/'.strtolower(str_replace(' ', '-', $categoryName)).'/'.strtolower(str_replace(' ', '-', str_replace('/', '-', $subCategory['name']))).'/'.$subCategory['id']).'" id="'.$subCategory['id'].'" data-parent_id="'.$categoryID.'"  >'.$subCategory['name'].'</a>
                     // </span>';
-                    $subCategory_href = url('/each-category-products/'.strtolower(str_replace(' ', '-', $categoryName)).'/'.strtolower(str_replace(' ', '-', str_replace('/', '-', $subCategory['name']))).'/'.$subCategory['id']).'';
+                    $subCategory_href = url('/category-products/'.strtolower(str_replace(' ', '-', $categoryName)).'/'.strtolower(str_replace(' ', '-', str_replace('/', '-', $subCategory['name']))).'/'.$subCategory['id']).'';
                     $categorylists .= '<a href="'.$subCategory_href.'" id="'.$subCategory['id'].'" data-parent_id="'.$categoryID.'"  >
                         <span class="d-flex align-items-center">
                         '.$subCategory['name'].'
@@ -750,12 +750,12 @@ class HomeController extends Controller
 
                         if (!$customerDetails['hasError'] && $customerDetails['status'] == 200) {
 
-                            if(!$customerDetails['result']['customerDto']['active']){
-                                return response()->json([
-                                    'status' => "info",
-                                    'message' => "Your account is inactive. Please contact support for assistance.",
-                                ]);
-                            }
+                            // if(!$customerDetails['result']['customerDto']['active']){
+                            //     return response()->json([
+                            //         'status' => "info",
+                            //         'message' => "Your account is inactive. Please contact support for assistance.",
+                            //     ]);
+                            // }
 
                             Session::put('user', [
                                 'accessToken' => $accessToken,
@@ -765,6 +765,8 @@ class HomeController extends Controller
                                 'lastName' => $customerDetails['result']['customerDto']['lastName'],
                                 'company' => $customerDetails['result']['customerDto']['company'],
                                 'email' => $customerDetails['result']['customerDto']['email'],
+                                'email1' => $customerDetails['result']['customerDto']['email1'],
+                                'email2' => $customerDetails['result']['customerDto']['email2'],
                                 'phone' => $customerDetails['result']['customerDto']['phone'],
                                 'phone1' => $customerDetails['result']['customerDto']['phone1'],
                                 'phone2' => $customerDetails['result']['customerDto']['phone2'],
@@ -810,6 +812,53 @@ class HomeController extends Controller
                                 'paymentMethodNonce' => $customerDetails['result']['customerDto']['paymentMethodNonce'],
                                 'billingAddress' => $customerDetails['result']['customerDto']['billingAddress'],
                                 'shippingAddress' => $customerDetails['result']['customerDto']['shippingAddress'],
+                                'customerPaymentModePreferenceDtoList' => $customerDetails['result']['customerDto']['customerPaymentModePreferenceDtoList'],
+                                'customerDocumentList' => $customerDetails['result']['customerDto']['customerDocumentList'],
+                                'sendDuePaymentReminder' => $customerDetails['result']['customerDto']['sendDuePaymentReminder'],
+                                'signUpStoreId' => $customerDetails['result']['customerDto']['signUpStoreId'],
+                                'creditLimit' => $customerDetails['result']['customerDto']['creditLimit'],
+                                'primaryBusinessName' => $customerDetails['result']['customerDto']['primaryBusinessName'],
+                                'billingZip' => $customerDetails['result']['customerDto']['billingZip'],
+                                'billingState' => $customerDetails['result']['customerDto']['billingState'],
+                                'billingStateId' => $customerDetails['result']['customerDto']['billingStateId'],
+                                'billingCounty' => $customerDetails['result']['customerDto']['billingCounty'],
+                                'billingCity' => $customerDetails['result']['customerDto']['billingCity'],
+                                'billingAddress2' => $customerDetails['result']['customerDto']['billingAddress2'],
+                                'billingAddress1' => $customerDetails['result']['customerDto']['billingAddress1'],
+                                'zip' => $customerDetails['result']['customerDto']['zip'],
+                                'state' => $customerDetails['result']['customerDto']['state'],
+                                'stateId' => $customerDetails['result']['customerDto']['stateId'],
+                                'county' => $customerDetails['result']['customerDto']['county'],
+                                'city' => $customerDetails['result']['customerDto']['city'],
+                                'address2' => $customerDetails['result']['customerDto']['address2'],
+                                'address1' => $customerDetails['result']['customerDto']['address1'],
+                                'parentCustomerCompany' => $customerDetails['result']['customerDto']['parentCustomerCompany'],
+                                'parentCustomerLastName' => $customerDetails['result']['customerDto']['parentCustomerLastName'],
+                                'parentCustomerFirstName' => $customerDetails['result']['customerDto']['parentCustomerFirstName'],
+                                'achVerified' => $customerDetails['result']['customerDto']['achVerified'],
+                                'preferredLanguage' => $customerDetails['result']['customerDto']['preferredLanguage'],
+                                'customerTypeName' => $customerDetails['result']['customerDto']['customerTypeName'],
+                                'customerTypeId' => $customerDetails['result']['customerDto']['customerTypeId'],
+                                'drivingLicenseNumber' => $customerDetails['result']['customerDto']['drivingLicenseNumber'],
+                                'voidCheckNumber' => $customerDetails['result']['customerDto']['voidCheckNumber'],
+                                'dbaName' => $customerDetails['result']['customerDto']['dbaName'],
+                                'customerGroupName' => $customerDetails['result']['customerDto']['customerGroupName'],
+                                'customerGroupId' => $customerDetails['result']['customerDto']['customerGroupId'],
+                                'quickbooksCustomerId' => $customerDetails['result']['customerDto']['quickbooksCustomerId'],
+                                'tobaccoId' => $customerDetails['result']['customerDto']['tobaccoId'],
+                                'secondarySalesRepresentativeId' => $customerDetails['result']['customerDto']['secondarySalesRepresentativeId'],
+                                'primarySalesRepresentativeId' => $customerDetails['result']['customerDto']['primarySalesRepresentativeId'],
+                                'excessAmount' => $customerDetails['result']['customerDto']['excessAmount'],
+                                'tierStr' => $customerDetails['result']['customerDto']['tierStr'],
+                                'customerStoreName' => $customerDetails['result']['customerDto']['customerStoreName'],
+                                'storeId' => $customerDetails['result']['customerDto']['storeId'],
+                                'name' => $customerDetails['result']['customerDto']['name'],
+                                'idStr' => $customerDetails['result']['customerDto']['idStr'],
+                                'parentCustomerId' => $customerDetails['result']['customerDto']['parentCustomerId'],
+                                'updatedTimestamp' => $customerDetails['result']['customerDto']['updatedTimestamp'],
+                                'updatedBy' => $customerDetails['result']['customerDto']['updatedBy'],
+                                'insertedTimestamp' => $customerDetails['result']['customerDto']['insertedTimestamp'],
+                                'createdBy' => $customerDetails['result']['customerDto']['createdBy'],
                             ]);
 
                             // Session::put('customerStoreAddressList', [
@@ -1090,8 +1139,8 @@ class HomeController extends Controller
 
     public function getEachCategoryProducts($category, $subcategory, $categoryId)
     {
-        $products = $this->getProducts($categoryId);
-        $products = $this->getEachCategoryProducts_sections($products);
+        // $products = $this->getProducts($categoryId);
+        // $products = $this->getEachCategoryProducts_sections($products);
 
         // $category_Response = $this->getCategories();
         // $categoryTreeView = null;
@@ -1104,9 +1153,10 @@ class HomeController extends Controller
         // }
 
         $subcategory = ucwords(str_replace('-', ' ', $subcategory));
-        return view('each-category-products',compact(
+        return view('category-products',compact(
             // 'categoryTreeView',
-            'products','category','subcategory', 'categoryId'));
+            // 'products',
+            'category','subcategory', 'categoryId'));
     }
 
     public function getSingleProductDetai($productId)
@@ -1806,7 +1856,7 @@ class HomeController extends Controller
             "countryId": '.$request->input('country').',
             "stateId": '.$request->input('state').',
             "city": "'.$request->input('city').'",
-            "zip": '.$request->input('postalCode').',
+            "zip": "'.$request->input('postalCode').'",
             "phone": "'.$request->input('phone').'",
             "active": true,
             "customerId": '.Session::get('user.user_id').'
@@ -1958,9 +2008,9 @@ class HomeController extends Controller
                 "taxPercentage": '.$request->input('taxPercentage').',
                 "taxPerVolume": '.$request->input('taxPerVolume').',
                 "outOfStock": false,
-                "minQuantityToSale": '.$request->input('minQuantityToSale').',
-                "maxQuantityToSale": '.$request->input('maxQuantityToSale').',
-                "quantityIncrement": '.$request->input('quantityIncrement').',
+                "minQuantityToSale": 1,
+                "maxQuantityToSale": 0,
+                "quantityIncrement": 0,
                 "cartLineItemUpdated": '.$request->input('cartLineItemUpdated').',
                 "imageUrl": "'.$request->input('imageUrl').'",
                 "updatedBy": '.$request->input('updatedBy').',
@@ -2068,7 +2118,7 @@ class HomeController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://erp.monstersmokewholesale.com/services/pdf/sales-order/invoice/16625?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huLmouaHVudC4xMkBnbWFpbC5jb20iLCJ0aWVyIjo1LCJ1c2VyVHlwZSI6IkN1c3RvbWVyIiwidG9rZW5UeXBlIjoiYWNjZXNzIiwic3RvcmVJZCI6MiwiZXhwIjoxNzE0NjE0MzExLCJ1c2VySWQiOjMyOSwiaWF0IjoxNzE0NDk0MzExLCJyZXNldFBhc3N3b3JkUmVxdWlyZWQiOmZhbHNlfQ.Ogs1cQXeN_bwFLohjUQ6N_8kcM9a8v3aYRvcKff7Tpg&defaultStoreId=2&storeIdList=1%2C2&isEcommerce=true',
+        CURLOPT_URL => 'https://erp.monstersmokewholesale.com/services/pdf/sales-order/invoice/17957?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsInRpZXIiOjUsInVzZXJUeXBlIjoiQ3VzdG9tZXIiLCJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJzdG9yZUlkIjoyLCJleHAiOjE3MTU5OTYxNjIsInVzZXJJZCI6ODk2LCJpYXQiOjE3MTU4NzYxNjIsInJlc2V0UGFzc3dvcmRSZXF1aXJlZCI6ZmFsc2V9.98gYP4ke2rE9veSF410DH7Tp7WJVL5g1_1jkes2hJ28&defaultStoreId=2&storeIdList=1%2C2&isEcommerce=true',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -2101,7 +2151,7 @@ class HomeController extends Controller
 
         curl_close($curl);
 
-        echo $response;
+        echo var_dump($response);
     }
 
     public function userProfile()
@@ -2117,9 +2167,9 @@ class HomeController extends Controller
     }
 
 
-    public function userForgotPassword()
+    public function userChangePassword()
     {
-        return view('user-forgot-password');
+        return view('user-change-password');
     }
 
     public function searchProduct(Request $request)
@@ -2179,6 +2229,49 @@ class HomeController extends Controller
             'status' => "error",
             'message' => "something went wrong!",
         ]);
+    }
+
+    public function updateUserSession(Request $request)
+    {
+        // Retrieve the existing session values
+        $userSession = Session::get('user', []);
+
+        // Update the session values with the new ones
+        $userSession['firstName'] = $request->input('firstname');
+        $userSession['lastName'] = $request->input('lastname');
+        $userSession['company'] = $request->input('companyName');
+        $userSession['email'] = $request->input('email');
+        $userSession['phone'] = $request->input('phone');
+        $userSession['taxId'] = $request->input('taxIx');
+
+        // Put the updated session values back into the session
+        Session::put('user', $userSession);
+    }
+
+    public function returnPolicy()
+    {
+        return view('return-policy');
+    }
+    public function contactUs()
+    {
+        return view('contact-us');
+    }
+
+    public function aboutUs()
+    {
+        return view('about-us');
+    }
+    public function faqs()
+    {
+        return view('faqs');
+    }
+    public function forgotPassword()
+    {
+        return view('forgot-password');
+    }
+    public function userStatement()
+    {
+        return view('user-statement');
     }
 
 }

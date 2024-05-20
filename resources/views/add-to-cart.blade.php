@@ -35,27 +35,31 @@
                                             @if ($cartLineItem['quantity'] > 0)
                                             <div class="card mb-3" id="cartItem-row-of-{{ $cartLineItem['productId'] }}">
                                                 <input type="hidden" value="{{ $cartLineItem['id'] }}" id="cart-id-of-{{ $cartLineItem['productId'] }}" >
-                                                <div class="card-body" style="overflow-y: hidden;">
+                                                <div class="card-body"
+                                                 {{-- style="overflow-y: hidden;" --}}
+                                                    >
                                                     <div class="d-flex justify-content-between gap-10">
                                                         <div class="d-flex flex-row align-items-center">
                                                             <div data-image-of-{{ $cartLineItem['productId'] }}="{{ $cartLineItem['imageUrl'] }}" >
                                                                 <img src=" {{ !empty($cartLineItem['imageUrl']) && $cartLineItem['imageUrl'] !== "null" ? $cartLineItem['imageUrl'] : asset('asset/img/place-holder.jpeg') }}"
                                                                     class="img-fluid rounded-3" alt="Shopping item"
-                                                                    style="width: 65px;">
+                                                                    style="width: 90px;"
+                                                                    >
                                                             </div>
                                                             <div class="ms-3" style="width:21rem;">
                                                                 <h6>{{  $cartLineItem['productName'] }}</h6>
                                                                 {{-- <p class="small mb-0">SKU <span>{{ $cartLineItem['sku'] ?? "--" }}</span></p> --}}
-                                                                <p class="small mb-0 text-grey-dark " style="font-weight: 600;" data-sku-of-{{ $cartLineItem['productId']}}="{{ $cartLineItem['sku'] }}" >Stock: <span>{{ $cartLineItem['availableQuantity'] }}</span></p>
+                                                                <p class="small mb-0 text-grey-dark " style="display:none; font-weight: 600;" data-sku-of-{{ $cartLineItem['productId']}}="{{ $cartLineItem['sku'] }}" >Stock: <span>{{ $cartLineItem['availableQuantity'] }}</span></p>
+                                                                <p class=" mb-0 fw-bold monster-primary" data-upc-of-{{ $cartLineItem['productId'] }}="{{ $cartLineItem['upc'] }}"  >$&nbsp;<span>{{ $cartLineItem['standardPrice'] }}</span></p>
                                                             </div>
-                                                            <div class="ms-3">
-                                                                <p class=" mb-0 fw-bold monster-primary" data-upc-of-{{ $cartLineItem['productId'] }}="{{ $cartLineItem['upc'] }}"  >$ <span>{{ $cartLineItem['standardPrice'] }}</span></p>
-                                                            </div>
+                                                            {{-- <div class="ms-3">
+                                                                <p class=" mb-0 fw-bold monster-primary" data-upc-of-{{ $cartLineItem['productId'] }}="{{ $cartLineItem['upc'] }}"  >$&nbsp;<span>{{ $cartLineItem['standardPrice'] }}</span></p>
+                                                            </div> --}}
                                                         </div>
                                                         <div class="d-flex flex-row align-items-center">
                                                             <div style="width: 50px;">
                                                                 {{-- <h5 class="fw-normal mb-0">{{ $cartLineItem['quantity'] }}</h5> --}}
-                                                                <div class="var-quantity d-flex flex-grow-0 gap-2 flex-column">
+                                                                <div class="var-quantity d-flex flex-grow-0 gap-2 flex-column quantity-of-addToCart">
                                                                     <div class="quantity-input d-flex justify-center align-items-center gap-2">
 
                                                                         <button data-productID="{{ $cartLineItem['productId'] }}" class="quantity-minus d-flex align-items-center justify-center rounded-full bg-grey-extralight" style="width: 22px; height:22px; border: none;">
@@ -64,7 +68,7 @@
                                                                             </svg>
                                                                         </button>
 
-                                                                        <input type="number" value="{{ $cartLineItem['quantity'] }}"  data-stock-of-{{ $cartLineItem['productId'] }}="{{ $cartLineItem['availableQuantity'] }}"   class="quantity-input tag-btn-text" name="" id="" disabled style="width: 60px; height:52px; border-radius: 21px; border-width: 1px; border-style: solid; border-color: #bdc2c7; font-style: normal; font-weight: 500;  font-size: x-large; text-align: center; padding-left: 15px;">
+                                                                        <input type="number" value="{{ $cartLineItem['quantity'] }}"  data-stock-of-{{ $cartLineItem['productId'] }}="{{ $cartLineItem['availableQuantity'] }}"   class="quantity-input tag-btn-text p-left-15-lg" name="" id="" disabled style="width: 60px; height:52px; border-radius: 21px; border-width: 1px; border-style: solid; border-color: #bdc2c7; font-style: normal; font-weight: 500;  font-size: x-large; text-align: center; ">
 
                                                                         <button data-productID="{{ $cartLineItem['productId'] }}" class="quantity-plus d-flex align-items-center justify-center rounded-full bg-grey-extralight" style="width: 22px; height:22px; border: none;">
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -77,7 +81,7 @@
                                                             <div style="width: 100px;">
                                                                 {{-- <h5 class="mb-0">{{ $cartLineItem['standardPrice'] }}</h5> --}}
                                                             </div>
-                                                            <a href="javascript:void(0)" onclick="deleteCartItem({{ $cartLineItem['id'] }},{{ $cartLineItem['productId'] }})" style="color: #cecece;"><i class="fas fa-trash-alt text-danger"></i></a>
+                                                            <a href="javascript:void(0)" onclick="deleteCartItem({{ $cartLineItem['id'] }},{{ $cartLineItem['productId'] }})" style="color: #cecece;"><i class="fas fa-trash-alt text-danger" style="position: absolute; top: 12px; right:12px;"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -158,7 +162,7 @@
                                                 <p class="mb-2 totalCartPrice ">{{ $cartItems['result']['totalCartPrice'] ?? 0}}</p>
                                             </div>
 
-                                            <a href="{{ url('/check-out') }}" class="btn btn-check-out w-100 btn-block btn-lg">
+                                            <a href="{{ $cartItems['result']['totalCartPrice'] > 0 ? url('/check-out') : "javascript:showMessage('Please add some product in cart')" }}" id="check-out-btn" class="btn btn-check-out w-100 btn-block btn-lg">
                                                 <div class="d-flex justify-content-between">
                                                     <span class="total-cart-price-checkout" >{{ $cartItems['result']['totalCartPrice'] ?? 0 }}</span>
                                                     <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>

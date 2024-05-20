@@ -4,7 +4,7 @@
         {{-- <i class="lni lni-menu"></i>  --}}
         <span>Shop&nbsp;by&nbsp;Categories</span>
     </h6>
-    <div class="row" style="height: 73vh; overflow-x: hidden;">
+    <div class="row shop-by-category-sidebar" style="height: 73vh; overflow-x: hidden;">
         <div class="col-12">
             <div class="tree-list-wrapper d-flex justify-content-center flex-column">
 
@@ -14,7 +14,7 @@
             </div>
         </div>
     </div>
-    <div class="row my-3 px-3 d-flex justify-content-center flex-column align-items-center sidebar-footer " style=" overflow-x: hidden;     position: absolute; bottom: 11%;" >
+    <div class="row my-3 px-3 d-flex justify-content-center flex-column align-items-center sidebar-footer " style=" overflow-x: hidden;     position: absolute; bottom: 0px;" >
         @if (Session::has('user.accessToken'))
             <a href="{{ Url('/log-out') }}" class="btn-sidebar-footer mb-1" style="color: #FFFFFF;">
                 Log Out&nbsp;&nbsp;<i class="fa-solid fa-right-from-bracket"></i>

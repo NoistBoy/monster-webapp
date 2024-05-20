@@ -36,17 +36,19 @@
                                 </div>
 
                                 <!-- Password input -->
-                                <div data-mdb-input-init class="form-outline mb-1">
+                                <div data-mdb-input-init class="form-outline mb-1" style="position: relative;">
                                     <label for=""  class="fw-bold" style="float: left;" >Password <span class="text-danger fw-bold">*</span></label>
                                     &nbsp;&nbsp;<small id="password_error" style="float: left;"  class="error-message text-danger fw-bold "></small>
-                                    <input type="password" name="password" class="form-control reset form-control-lg" required>
-
+                                    <input type="password" name="password" class="form-control reset form-control-lg" id="user-password" required>
+                                    <i  data-passId="user-password" class="fa-regular fa-eye showPassword" style="    position: absolute;
+                                                top: 41px;
+                                                right: 20px;" ></i>
                                 </div>
-                                <p class="signin" style="text-align: left;" >Don't have an account? <a href="{{ Url('/sign-up') }}">Sign up</a> </p>
+                                <p class="signin mb-3 mt-1" style="text-align: left;" ><a href="{{ Url('/forgot-password') }}" class="nav-link" > Forgot Password? </a> </p>
 
                                 <!-- Submit button -->
                                 <button class="btn mb-2 auth-form-btn w-100" id="singin-account">Sign in</button>
-
+                                <p class="signin my-1" style="text-align: left;" >Don't have an account? <a href="{{ Url('/sign-up') }}">Sign up</a> </p>
 
                                 <!-- Register buttons -->
                                 {{-- <div class="text-center">
@@ -116,4 +118,25 @@
             </div>
         </div>
     </div> --}}
+@endsection
+
+@section('custom-scripts')
+    <script>
+            $(document).ready(function() {
+
+            $('.showPassword').click(function() {
+                passId = $(this).data('passid');
+                console.log("The PassId" + passId);
+                let pass = $('#'+passId);
+                let icon = $(this);
+                togglePasswordVisibility(pass, icon);
+            });
+
+        });
+
+            function togglePasswordVisibility(pass, icon) {
+                pass.attr('type', pass.attr('type') === 'password' ? 'text' : 'password');
+                icon.toggleClass('fa-eye fa-eye-slash');
+            }
+    </script>
 @endsection

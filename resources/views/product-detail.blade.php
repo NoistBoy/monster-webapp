@@ -45,7 +45,7 @@
             </div>
         </form>
         <!-- Related Products Section -->
-        <div class="row px-5 mb-2">
+        <div class="row px-3 mb-2">
             <div class="col-12">
                 {{-- <div class="container-fluid mb-5"> --}}
                     <!-- owl-carousel start -->

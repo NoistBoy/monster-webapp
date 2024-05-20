@@ -1,38 +1,7 @@
 @extends('layout.layout')
-
-@section('content')
-    <div class="container-fluid" >
-        <!-- MainSlider and TopProducts section -->
-        @include('layout.MainSlider-TopProducts')
-
-        <!-- Whats new section -->
-        @include('layout.WhatsNew')
-
-        <!-- Shop now section -->
-        @include('layout.ShopNow')
-
-
-        <div class="row py-3 mb-5 head-line">
-            <marquee behavior="" direction="" class="fw-bold fs-1" scrollamount="18">
-                100% Authentic Products <span class="text-danger"> Free Shipping On All Prepaid Orders</span> Best
-                Distributor
-                For Smoke and Vape
-            </marquee>
-        </div>
-
-        <!-- Products Spotlight section -->
-        @include('layout.ProductsSpotlight')
-
-
-        <!-- Feauture Brands -->
-        @include('layout.FeautureBrands')
-    </div>
-@endsection
-
-@section('custom-scripts')
     <!-- get main sliders -->
     <script>
-        $(document).ready(function () {
+        document.addEventListener("DOMContentLoaded", function() {
 
             const mainSlider = 85;
             getMainSlides(mainSlider)
@@ -148,180 +117,250 @@
 
     </script>
     <!-- get main sliders End -->
-
     <!-- get shopNow section -->
     <script>
-     document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
 
-        getFeaturedProductsByEachTag(2)
-                    .then(products => {
-                        var cardItem = "";
-                        var productSection = "";
-                        if(!products.hasError){
+           getFeaturedProductsByEachTag(2)
+                       .then(products => {
+                           var cardItem = "";
+                           var productSection = "";
+                           if(!products.hasError){
 
-                            products.result.content.forEach((products) => {
-                                cardItem += getSingleProductCardItem(products);
-                            });
+                               products.result.content.forEach((products) => {
+                                   cardItem += getSingleProductCardItem(products);
+                               });
 
-                            if (isNotEmpty(cardItem)) {
-                                    productSection += `<div class=" container-fluid">
-                                                        <div class="p-3 mt-5 product-section-wrapper" style="border-radius: 21px;">
-                                                            <h2 class="section-heading fw-bold fs-1 mt-2 mb-3 px-3">Whats New</h2>
-                                                            <!-- owl-carousel start -->
-                                                            <div class="owl-carousel owl-theme ">`;
+                               if (isNotEmpty(cardItem)) {
+                                       productSection += `<div class=" container-fluid">
+                                                           <div class="p-3 mt-5 product-section-wrapper" style="border-radius: 21px;">
+                                                               <h2 class="section-heading fw-bold fs-1 mt-2 mb-3 px-3">Whats New</h2>
+                                                               <!-- owl-carousel start -->
+                                                               <div class="owl-carousel owl-theme ">`;
 
-                                    productSection += cardItem;
+                                       productSection += cardItem;
 
-                                    productSection += ` </div>
-                                                        </div>
-                                                        <!-- owl-carousel END -->
-                                                    </div>`;
-                            }
-                            $('#whats-new-products-section').append(productSection);
-                        }
+                                       productSection += ` </div>
+                                                           </div>
+                                                           <!-- owl-carousel END -->
+                                                       </div>`;
+                               }
+                               $('#whats-new-products-section').append(productSection);
+                           }
 
-                    })
-                    .catch(error => {
-                        alert("Error - - fetching featured products:", error);
-                    });
+                       })
+                       .catch(error => {
+                           alert("Error - - fetching featured products:", error);
+                       });
 
-            // ===================================================
-            getFeaturedProductsTags()
-                .then(tags => {
+               // ===================================================
+               getFeaturedProductsTags()
+                   .then(tags => {
 
-                tags.result.forEach((tag) => {
-                    const tagId = tag.id;
-                    const tagName = tag.name;
+                   tags.result.forEach((tag) => {
+                       const tagId = tag.id;
+                       const tagName = tag.name;
 
-                    getFeaturedProductsByEachTag(tagId)
-                    .then(products => {
-                        var cardItem = "";
-                        var productSection = "";
-                        if(!products.hasError){
+                       getFeaturedProductsByEachTag(tagId)
+                       .then(products => {
+                           var cardItem = "";
+                           var productSection = "";
+                           if(!products.hasError){
 
-                            products.result.content.forEach((products) => {
-                                cardItem += getSingleProductCardItem(products);
-                            });
+                               products.result.content.forEach((products) => {
+                                   cardItem += getSingleProductCardItem(products);
+                               });
 
-                            if (isNotEmpty(cardItem)) {
-                                    productSection += `<div class="container-fluid mb-5">
-                                                        <div class="p-3  product-section-wrapper" style="border-radius: 21px;">
-                                                            <h2 class="section-heading fw-bold fs-1 mt-2 mb-3 px-3">${tagName}</h2>
-                                                            <!-- owl-carousel start -->
-                                                            <div class="owl-carousel owl-theme ">`;
+                               if (isNotEmpty(cardItem)) {
+                                       productSection += `<div class="container-fluid mb-5">
+                                                           <div class="p-3  product-section-wrapper" style="border-radius: 21px;">
+                                                               <h2 class="section-heading fw-bold fs-1 mt-2 mb-3 px-3">${tagName}</h2>
+                                                               <!-- owl-carousel start -->
+                                                               <div class="owl-carousel owl-theme ">`;
 
-                                    productSection += cardItem;
+                                       productSection += cardItem;
 
-                                    productSection += ` </div>
-                                                        </div>
-                                                        <!-- owl-carousel END -->
-                                                    </div>`;
-                                                }
-                            $('#tags-products-section').append(productSection);
-                        }
+                                       productSection += ` </div>
+                                                           </div>
+                                                           <!-- owl-carousel END -->
+                                                       </div>`;
+                                                   }
+                               $('#tags-products-section').append(productSection);
 
-                    })
-                    .catch(error => {
-                        alert("Error fetching featured products:", error);
-                    });
+                               $('.owl-carousel').owlCarousel({
+                                    loop:true,
+                                    margin:10,
+                                    nav:true,
+                                    responsive:{
+                                        0:{
+                                            items:2
+                                        },
+                                        600:{
+                                            items:3
+                                        },
+                                        1000:{
+                                            items:4
+                                        }
+                                    }
+                                });
+                           }
 
-                });
+                       })
+                       .catch(error => {
+                           alert("Error fetching featured products:", error);
+                       });
 
-            })
-            .catch(error => {
+                   });
 
-                alert("Error fetching product tags:", error);
-            });
+               })
+               .catch(error => {
 
-        }); // jQdocReady close
+                   alert("Error fetching product tags:", error);
+               });
 
-        async function getFeaturedProductsTags() {
-            const url = 'https://erp.monstersmokewholesale.com/api/home/productTagList';
+           }); // jQdocReady close
 
-            try {
-                const response = await fetch(url, {
-                    method: 'GET'
-                });
+           async function getFeaturedProductsTags() {
+               const url = 'https://erp.monstersmokewholesale.com/api/home/productTagList';
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+               try {
+                   const response = await fetch(url, {
+                       method: 'GET'
+                   });
 
-                return await response.json();
-            } catch (error) {
-                console.error('Error fetching product tags:', error);
-                throw error;
-            }
-        }
+                   if (!response.ok) {
+                       throw new Error('Network response was not ok');
+                   }
 
-        //
-        async function getFeaturedProductsByEachTag(tagId) {
-            const url = `https://erp.monstersmokewholesale.com/api/home/product/tagId/${tagId}?page=0&size=10&businessTypeId=1&storeId=2`;
+                   return await response.json();
+               } catch (error) {
+                   console.error('Error fetching product tags:', error);
+                   throw error;
+               }
+           }
 
-            try {
-                const response = await fetch(url, {
-                    method: 'GET'
-                });
+           //
+           async function getFeaturedProductsByEachTag(tagId) {
+               const url = `https://erp.monstersmokewholesale.com/api/home/product/tagId/${tagId}?page=0&size=10&businessTypeId=1&storeId=2`;
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+               try {
+                   const response = await fetch(url, {
+                       method: 'GET'
+                   });
 
-                return await response.json();
+                   if (!response.ok) {
+                       throw new Error('Network response was not ok');
+                   }
 
-            } catch (error) {
-                alert('Error fetching featured products by tag:', error);
-                throw error;
-            }
-        }
-      // Function to check if the user is logged in
-        function isUserLogin() {
+                   return await response.json();
 
-            var accessToken = '{{ Session::get("user.accessToken") }}';
+               } catch (error) {
+                   alert('Error fetching featured products by tag:', error);
+                   throw error;
+               }
+           }
+         // Function to check if the user is logged in
+           function isUserLogin() {
 
-            return accessToken && accessToken !== '';
-        }
+               var accessToken = '{{ Session::get("user.accessToken") }}';
 
-        // Function to generate HTML for a single product card item
-        function getSingleProductCardItem(product) {
-            // Get product details
-            const productImage = product.imageUrl;
-            const productPrice = isUserLogin() ? `$ ${product.standardPrice.toFixed(2)}` : '$xx.xx';
-            const productNameEncoded = encodeURIComponent(product.productName.replace(/\//g, '-').replace(/--/g, '-').replace(/ /g, '-').replace(/\|/g, ''));
-            const href = isUserLogin() ? `/product-details/${productNameEncoded}?product_id=${product.productId}` : '/sign-in';
+               return accessToken && accessToken !== '';
+           }
 
-            // Construct HTML for the product card item
-            const productCardItemHTML = `
-                <div class="item">
-                    <div class="product-card" data-href="/product-details/${productNameEncoded}?product_id=${product.productId}">
-                        <div class="d-flex justify-content-end align-items-center mb-3">
-                            <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
-                        </div>
-                        <div class="d-flex justify-content-center same-height-images after-overlay">
-                            <img src="${productImage}" alt="image" srcset="" class="img-fluid w-75 pro-img">
-                            <div class="button-container">
-                                <a href="/product-details/${productNameEncoded}?product_id=${product.productId}" class="see-all-options">See all Options</a>
-                            </div>
-                        </div>
-                        <div>
-                            <a href="/product-details/${productNameEncoded}?product_id=${product.productId}" class="fs-6 text product-card-title fw-bold">${product.productName}</a>
-                            <div class="d-flex justify-content-between mb-2" style="align-items: center;">
-                                <a href="${href}" class="fs-5 text product-card-title product-card-price fw-bold ${(isUserLogin() ? '' : 'protected')}" style="margin-bottom: 0 !important;">${productPrice}</a>
-                                <span class="d-block fw-bold product-card-stock-detail ${product.availableQuantity <= 0 ? 'text-danger' : 'text-secondary'}">${product.availableQuantity <= 0 ? '(Out of Stock)' : 'In Stock: ' + product.availableQuantity}</span>
-                            </div>
-                            <a class="btn product-card-btn fw-bold" href="${href}">${isUserLogin() ? (product.availableQuantity <= 0 ? 'Out of Stock' : 'Buy Now') : 'Login to view price'}</a>
-                        </div>
-                    </div>
-                </div>`;
+           // Function to generate HTML for a single product card item
+           function getSingleProductCardItem(product) {
+               // Get product details
+               const productImage = product.imageUrl;
+               const productPrice = isUserLogin() ? `$ ${product.standardPrice.toFixed(2)}` : '$xx.xx';
+               const productNameEncoded = encodeURIComponent(product.productName.replace(/\//g, '-').replace(/--/g, '-').replace(/ /g, '-').replace(/\|/g, ''));
+               const href = isUserLogin() ? `/product-details/${productNameEncoded}?product_id=${product.productId}` : '/sign-in';
 
-            return productCardItemHTML;
-        }
+               // Construct HTML for the product card item
+               const productCardItemHTML = `
+                   <div class="item">
+                       <div class="product-card" data-href="/product-details/${productNameEncoded}?product_id=${product.productId}">
+                           <div class="d-flex justify-content-end align-items-center mb-3">
+                               <span class="d-block new-arrival"><i class="lni lni-star-fill"></i> New Arrival</span>
+                           </div>
+                           <div class="d-flex justify-content-center same-height-images after-overlay">
+                               <img src="${productImage}" alt="image" srcset="" class="img-fluid w-75 pro-img">
+                               <div class="button-container">
+                                   <a href="/product-details/${productNameEncoded}?product_id=${product.productId}" class="see-all-options">See&nbsp;all&nbsp;Options</a>
+                               </div>
+                           </div>
+                           <div>
+                               <a href="/product-details/${productNameEncoded}?product_id=${product.productId}" class="fs-6 text product-card-title fw-bold">${product.productName}</a>
+                               <div class="d-flex justify-content-between mb-2" style="align-items: center;">
+                                   <a href="${href}" class="fs-5 text product-card-title product-card-price fw-bold ${(isUserLogin() ? '' : 'protected')}" style="margin-bottom: 0 !important;">${productPrice}</a>
+                                   <span class="d-block fw-bold product-card-stock-detail ${product.availableQuantity <= 0 ? 'text-danger' : 'text-secondary'}">${product.availableQuantity <= 0 ? '(Out of Stock)' : 'In Stock: ' + product.availableQuantity}</span>
+                               </div>
+                               <a class="btn product-card-btn fw-bold" href="${href}">${isUserLogin() ? (product.availableQuantity <= 0 ? 'Out of Stock' : 'Buy Now') : 'Login to View Price'}</a>
+                           </div>
+                       </div>
+                   </div>`;
 
-        function isNotEmpty(variable) {
-            return variable !== null && variable !== undefined && variable !== '';
-        }
+               return productCardItemHTML;
+           }
+
+           function isNotEmpty(variable) {
+               return variable !== null && variable !== undefined && variable !== '';
+           }
     </script>
-    <!-- get shopNow section End -->
+       <!-- get shopNow section End -->
+@section('content')
+    <div class="container-fluid" >
+        <!-- MainSlider and TopProducts section -->
+        @include('layout.MainSlider-TopProducts')
+
+        <!-- Whats new section -->
+        @include('layout.WhatsNew')
+
+        <!-- Shop now section -->
+        @include('layout.ShopNow')
+
+
+        <div class="row py-3 mb-5 head-line">
+            <marquee behavior="" direction="" class="fw-bold fs-1" scrollamount="18">
+                100% Authentic Products <span class="text-danger"> Free Shipping On All Prepaid Orders</span> Best
+                Distributor
+                For Smoke and Vape
+            </marquee>
+        </div>
+
+        <!-- Products Spotlight section -->
+        @include('layout.ProductsSpotlight')
+
+
+        <!-- Feauture Brands -->
+        @include('layout.FeautureBrands')
+    </div>
+@endsection
+
+@section('custom-scripts')
+<script>
+    $(document).ready(function () {
+
+        // setTimeout(function() {
+            // $('.owl-carousel').owlCarousel({
+            //     loop:true,
+            //     margin:10,
+            //     nav:true,
+            //     responsive:{
+            //         0:{
+            //             items:2
+            //         },
+            //         600:{
+            //             items:3
+            //         },
+            //         1000:{
+            //             items:4
+            //         }
+            //     }
+            // })
+
+        // }, 500);
+    });
+</script>
 @endsection
 
 </body>

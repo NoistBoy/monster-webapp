@@ -23,7 +23,7 @@ Route::get('/get-all-brands', [HomeController::class, 'getallbrands']);
 Route::get('/get-featured-products-tag', [HomeController::class, 'getFeaturedProductsTags']);
 Route::get('/get-featured-products-by-each-tag', [HomeController::class, 'getFeaturedProductsByEachTag']);
 Route::get('/get-products', [HomeController::class, 'getProducts']);
-Route::get('/each-category-products/{category}/{subcategory}/{categoryid}', [HomeController::class, 'getEachCategoryProducts']);
+Route::get('/category-products/{category}/{subcategory}/{categoryid}', [HomeController::class, 'getEachCategoryProducts']);
 Route::get('/get-single-product-details', [HomeController::class, 'getSingleProductDetai']);
 Route::get('/product-details/{product}', [HomeController::class, 'SingleProductDetails']);
 Route::get('/get-related-products', [HomeController::class, 'getRelatedProducts']);
@@ -32,6 +32,12 @@ Route::get('/get-customer-details', [HomeController::class, 'getCustomerDetail']
 Route::get('/get-payment-methods', [HomeController::class, 'getPaymentMethods']);
 Route::get('/get-shiping-details', [HomeController::class, 'getShipingDetails']);
 Route::get('/search-product', [HomeController::class, 'searchProduct']);
+Route::post('/updateUserSession', [HomeController::class, 'updateUserSession']);
+Route::get('/return-policy', [HomeController::class, 'returnPolicy']);
+Route::get('/contact-us', [HomeController::class, 'contactUs']);
+Route::get('/about-us', [HomeController::class, 'aboutUs']);
+Route::get('/faqs', [HomeController::class, 'faqs']);
+Route::get('/forgot-password', [HomeController::class, 'forgotPassword']);
 
 // dashboard
 Route::group(['middleware' => ['authCheck']], function () {
@@ -39,10 +45,11 @@ Route::group(['middleware' => ['authCheck']], function () {
     Route::get('/user-dashboard-details', [HomeController::class, 'userDashBoardDetails']);
     Route::get('/user-profile', [HomeController::class, 'userProfile']);
     Route::get('/user-addressList', [HomeController::class, 'userAddressList']);
-    Route::get('/user-forgotPassword', [HomeController::class, 'userForgotPassword']);
+    Route::get('/user-changePassword', [HomeController::class, 'userChangePassword']);
     Route::get('/get-orders', [HomeController::class, 'getOrders']);
-    Route::post('/add-customerAddress', [HomeController::class, 'addCustomerAddress']);
     Route::get('/customer-Order-details', [HomeController::class, 'customerOrderDetails']);
+    Route::post('/add-customerAddress', [HomeController::class, 'addCustomerAddress']);
+    Route::get('/user-statement', [HomeController::class, 'userStatement']);
 });
 
 
