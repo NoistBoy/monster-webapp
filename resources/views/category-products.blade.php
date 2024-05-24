@@ -303,7 +303,7 @@
                 }else{
                     $('#' + categoryId).addClass('active-category');
                 }
-            }, 550);
+            }, 800);
 
         });
     </script>

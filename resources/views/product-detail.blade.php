@@ -25,6 +25,42 @@
         object-fit: contain;
     }
 </style>
+<style>
+
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+#zoom-image {
+    /* width: 300px;
+    height: auto;
+    display: block; */
+}
+
+#zoom-area {
+    position: absolute;
+    border: 1px solid #e6707e;
+    border-radius: 10px;
+    width: 450px;
+    height: 450px;
+    display: none;
+    pointer-events: none;
+    overflow: hidden;
+    top: 0;
+    right: -470px;
+    background: #fff;
+    z-index: 999;
+}
+
+#zoom-area img {
+    position: absolute;
+    width: 800px;
+    height: auto;
+}
+
+    </style>
 @endsection
 
 @section('content')
@@ -181,4 +217,43 @@
         });
 
     </script>
+
+
 @endsection
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        const image = document.getElementById('zoom-image');
+        const zoomArea = document.getElementById('zoom-area');
+        const zoomImage = new Image();
+        zoomImage.src = image.src;
+        zoomArea.appendChild(zoomImage);
+
+        image.addEventListener('mousemove', function(e) {
+            zoomArea.style.display = 'block';
+
+            const rect = image.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const zoomWidth = zoomArea.offsetWidth;
+            const zoomHeight = zoomArea.offsetHeight;
+
+            const zoomImageWidth = zoomImage.width;
+            const zoomImageHeight = zoomImage.height;
+
+            const offsetX = (x / image.width) * zoomImageWidth - zoomWidth / 2;
+            const offsetY = (y / image.height) * zoomImageHeight - zoomHeight / 2;
+
+            zoomImage.style.left = `-${offsetX}px`;
+            zoomImage.style.top = `-${offsetY}px`;
+        });
+
+        image.addEventListener('mouseleave', function() {
+            zoomArea.style.display = 'none';
+        });
+
+    });
+
+    </script>

@@ -175,7 +175,7 @@
                         <!-- Single Info Card End-->
                         <!-- Single Info Card -->
                         <div class="info-card me-auto  col-sm-12 mb-3 px-5 py-4 shadow d-flex  align-items-center f-dir-sm-column"
-                            style=" gap: 20px;  border-radius: 20px; margin-right:20px !important; background:#FFFFFF; ">
+                            style="display: none !important; gap: 20px;  border-radius: 20px; margin-right:20px !important; background:#FFFFFF; ">
                             <div class="bg-primary-blue-light color-primary-blue"
                                 style="padding: 7px 7px; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; ">
                                 <span>
@@ -191,7 +191,7 @@
                         <!-- Single Info Card End-->
                         <!-- Single Info Card -->
                         <div class="info-card me-auto  col-sm-12 mb-3 px-5 py-4 shadow d-flex  align-items-center f-dir-sm-column"
-                            style=" gap: 20px;  border-radius: 20px; margin-right:20px !important; background:#FFFFFF; ">
+                            style="display: none !important; gap: 20px;  border-radius: 20px; margin-right:20px !important; background:#FFFFFF; ">
                             <div class="bg-primary-blue-light color-primary-blue"
                                 style="padding: 7px 7px; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; ">
                                 <span>
@@ -207,7 +207,7 @@
                         <!-- Single Info Card End-->
                         <!-- Single Info Card -->
                         <div class="info-card me-auto  col-sm-12 mb-3 px-5 py-4 shadow d-flex  align-items-center f-dir-sm-column"
-                            style=" gap: 20px;  border-radius: 20px; margin-right:20px !important; background:#FFFFFF; ">
+                            style="display: none !important; gap: 20px;  border-radius: 20px; margin-right:20px !important; background:#FFFFFF; ">
                             <div class="bg-primary-blue-light color-primary-blue"
                                 style="padding: 7px 7px; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; ">
                                 <span>

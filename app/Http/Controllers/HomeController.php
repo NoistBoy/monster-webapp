@@ -140,9 +140,10 @@ class HomeController extends Controller
 
             $masterProduct .= '<div class="col-md-5 col-sm-12">
                                     <div class="same-height-images">
-                                        <div class="img-wrapper">
-                                            <img src="'.$masterProductImage.'" class="product-img img-fluid" alt="image" srcset="">
+                                        <div class="img-wrapper image-container">
+                                            <img src="'.$masterProductImage.'" class="product-img img-fluid" alt="image" srcset="" id="zoom-image" >
                                             <span class="product-stock-details">In Stock: '.$productsDetails['result']['masterProductDetails']['availableQuantity'].'</span>
+                                            <div id="zoom-area"></div>
                                         </div>
                                     </div>
                                 <!-- <input type="hidden"  name="product_id" id="product_id" value="'.$productsDetails['result']['masterProductDetails']['productId'].'" /> -->

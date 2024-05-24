@@ -578,7 +578,8 @@ html {
 ========================================================== */
 .img-wrapper {
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
+    cursor: zoom-in;
 }
 
 .product-img {
@@ -1971,7 +1972,7 @@ button {
     border-radius: 14px;
     color: var(--tag-btn-text);
     font-weight: bold;
-
+    background: #ffffffe6;
 }
 
 .add-to-cart-btn {

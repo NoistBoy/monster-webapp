@@ -12,11 +12,12 @@
         left: 0 !important;
     }
     .info-card{
-        cursor: pointer !important;
+        /* cursor: pointer !important; */
         transition: all .2s ease-in-out !important;
     }
     .info-card:hover{
-        background-color: #f9b1ba !important;
+        /* background-color: #f9b1ba !important; */
+        box-shadow: 0 .5rem 1rem rgb(0 0 0 / 39%) !important;
     }
 
     .user-info-card{
